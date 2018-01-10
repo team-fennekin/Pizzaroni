@@ -1,13 +1,13 @@
-# Project Name
+# Pizzaria
 
-> Pithy project description
+> The online tool to connect people and to make them buy a lot of pizzas so we can profit from them
 
 ## Team
 
-  - teamMember
-  - teamMember
-  - teamMember
-  - teamMember
+  - Mikhail Stepanov
+  - Gil Kwak
+  - Ilya Yanchuk
+  - Suhail Ansari
 
 ## Table of Contents
 
@@ -21,7 +21,7 @@
 
 ## Usage
 
-> Some usage instructions
+> Withing the directory, write 'npm install'
 
 ## Requirements
 
