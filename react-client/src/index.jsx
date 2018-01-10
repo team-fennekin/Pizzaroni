@@ -35,9 +35,11 @@ class App extends React.Component {
         <div id="options">
           <h2>Options</h2>
           <div id="size">
+           <form action="">
             {this.state.sizes.map((size) => 
-              <li>{size.name}</li>
+              <input type="radio" value="size.name"/>
             )}
+           </form>
           </div>
           <ol id="crust">
             {this.state.crusts.map((crust) => 
