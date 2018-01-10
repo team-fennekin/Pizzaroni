@@ -1,3 +1,5 @@
+DROP DATABASE IF EXISTS pizzeria;
+
 CREATE DATABASE pizzeria;
 
 USE pizzeria;
@@ -13,7 +15,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE addresses (
-  id int NOT NULL,
+  id int NOT NULL AUTO_INCREMENT,
   user_id int NOT NULL,
   street_number VARCHAR(20) NOT NULL,
   street_name VARCHAR(20) NOT NULL,
@@ -25,14 +27,14 @@ CREATE TABLE addresses (
 );
 
 CREATE TABLE billing (
-  id int NOT NULL,
+  id int NOT NULL AUTO_INCREMENT,
   user_id int NOT NULL,
   card_id VARCHAR(20) NOT NULL,
   PRIMARY KEY (ID)
 );
 
 CREATE TABLE cards (
-  id int NOT NULL,
+  id int NOT NULL AUTO_INCREMENT,
   card_name VARCHAR(20) DEFAULT NULL,
   user_id int NOT NULL,
   card_number VARCHAR(20) NOT NULL,
@@ -51,35 +53,36 @@ CREATE TABLE pizza (
 );
 
 CREATE TABLE favorites (
-  id int NOT NULL,
+  id int NOT NULL AUTO_INCREMENT,
   user_id int NOT NULL,
-  pizza_id int NOT NULL
+  pizza_id int NOT NULL,
   PRIMARY KEY (ID)
 );
 
 CREATE TABLE pizza_toppings (
-  id int NOT NULL,
+  id int NOT NULL AUTO_INCREMENT,
   pizza_id int NOT NULL,
   topping_id int NOT NULL,
   PRIMARY KEY (ID)
 );
 
 CREATE TABLE sizes (
-  id int NOT NULL,
+  id int NOT NULL AUTO_INCREMENT,
   size_name VARCHAR(20) NOT NULL,
   PRIMARY KEY (ID)
 );
 
 CREATE TABLE toppings (
-  id int NOT NULL,
+  id int NOT NULL AUTO_INCREMENT,
   topping_name VARCHAR(20) NOT NULL,
   topping_price int NOT NULL,
   PRIMARY KEY (ID)
 );
 
 CREATE TABLE crusts (
-  id int NOT NULL,
+  id int NOT NULL AUTO_INCREMENT,
   crust_type VARCHAR(20) NOT NULL,
+  crust_price int NOT NULL,
   PRIMARY KEY (ID)
 );
 
@@ -99,12 +102,3 @@ INSERT INTO toppings(topping_name, topping_price) VALUES ('pepperoni', 2);
 INSERT INTO toppings(topping_name, topping_price) VALUES ('mushrooms', 1.5);
 INSERT INTO toppings(topping_name, topping_price) VALUES ('jalapenos', 1);
 INSERT INTO toppings(topping_name, topping_price) VALUES ('bell peppers', 1.25);
-
-
-
-
-
-
-
-
-
