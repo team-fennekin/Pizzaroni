@@ -68,4 +68,4 @@ var getAllTopings = function(callback) {
   });
 };
 
-module.exports.selectAll = selectAll;
+module.exports.getAllTopings = getAllTopings;

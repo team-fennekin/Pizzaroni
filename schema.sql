@@ -95,6 +95,10 @@ CREATE TABLE orders (
  *    mysql -u root < server/schema.sql
  *  to create the database and the tables.*/
 
+INSERT INTO toppings(topping_name, topping_price) VALUES ('pepperoni', 2);
+INSERT INTO toppings(topping_name, topping_price) VALUES ('mushrooms', 1.5);
+INSERT INTO toppings(topping_name, topping_price) VALUES ('jalapenos', 1);
+INSERT INTO toppings(topping_name, topping_price) VALUES ('bell peppers', 1.25);
 
 
 
