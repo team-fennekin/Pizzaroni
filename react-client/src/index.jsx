@@ -3,11 +3,13 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import List from './components/List.jsx';
 
+var dummyToppings = [{name: 'Pepperoni', price: 2}, {name: 'Mushrooms', price: 1}, {name: 'Bell Peppers', price: 1.25}]
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      toppings: [{name: 'Pepperoni', price: 2}, {name: 'Mushrooms', price: 1}, {name: 'Bell Peppers', price: 1.25}],
+      toppings: [],
       selectedToppings: {},
 
       sizes: [{name: 'Small', price: 15}, {name: 'Medium', price: 20}, {name: 'Large', price: 25}],
@@ -23,6 +25,36 @@ class App extends React.Component {
     this.handleToppingClick = this.handleToppingClick.bind(this);
   }
   
+  componentWillMount() {
+
+    this.setState((prevState) => {
+      return {toppings: prevState.toppings.concat(dummyToppings)};
+    });
+
+    // let objectOfToppings = {};
+    // console.log(this.state.toppings[0]);
+
+    // for (var i = 0; i < this.state.toppings.length; i++) {
+    //   console.log(this.state.toppings[i]);
+    //   // objectOfToppings[this.state.toppings[i].name]: false
+    //   // this.setState({
+    //   //   selectedToppings: objectOfToppings
+    //   // });
+    // }
+  }
+
+  componentDidMount() {
+    // console.log(this.state.toppings[0]);
+    let objectOfToppings = {};
+    for (var i = 0; i < this.state.toppings.length; i++) {
+      // console.log(this.state.toppings[i]);
+      objectOfToppings[this.state.toppings[i].name] = false
+      this.setState({
+        selectedToppings: objectOfToppings
+      });
+    }
+  }
+
   // componentDidMount() {
   //   $.ajax({
   //     url: '/items', 
@@ -45,23 +77,23 @@ class App extends React.Component {
   }
 
   handleToppingClick(e) {
-    console.log(e.target.value);
-    console.log(this.state.selectedToppings[e.target.value]);
-    if (this.state.selectedToppings[e.target.value] === undefined) {
-      let updateToppings = this.state.selectedToppings;
-      updateToppings[e.target.value] = 1;
+    // console.log(e.target.value);
+    // console.log(this.state.selectedToppings[e.target.value]);
+    // if (this.state.selectedToppings[e.target.value] === undefined) {
+    //   let updateToppings = this.state.selectedToppings;
+    //   updateToppings[e.target.value] = 1;
 
-      this.setState({
-        selectedToppings: updateToppings
-      })
-    } else if (this.state.selectedToppings[e.target.value] === 1) {
-      let updateToppings = this.state.selectedToppings;
-      delete updateToppings[e.target.value];
+    //   this.setState({
+    //     selectedToppings: updateToppings
+    //   })
+    // } else if (this.state.selectedToppings[e.target.value] === 1) {
+    //   let updateToppings = this.state.selectedToppings;
+    //   delete updateToppings[e.target.value];
 
-      this.setState({
-        selectedToppings: updateToppings
-      })
-    }
+    //   this.setState({
+    //     selectedToppings: updateToppings
+    //   })
+    // }
   }
 
   render () {
@@ -96,7 +128,7 @@ class App extends React.Component {
           <div id="toppings">
             {this.state.toppings.map((topping) => 
               <label>
-                <input type="checkbox" value={topping.name} checked={this.state.selectedToppings[topping.name]} onChange={this.handleToppingClick}/>
+                <input type="checkbox" value={topping.name} checked={false} onChange={this.handleToppingClick}/>
                 {topping.name}
               </label>
             )}
