@@ -69,3 +69,8 @@ var getAllTopings = function(callback) {
 };
 
 module.exports.getAllTopings = getAllTopings;
+module.exports.getAllUsers = getAllUsers;
+module.exports.getAllOrders = getAllOrders;
+module.exports.getAllPizzas = getAllPizzas;
+module.exports.getAllCrusts = getAllCrusts;
+module.exports.getAllSizes = getAllSizes;

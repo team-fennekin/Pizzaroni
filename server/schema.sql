@@ -117,7 +117,8 @@ INSERT INTO toppings(name, price) VALUES ('spinach', 1.15);
 INSERT INTO toppings(name, price) VALUES ('red caviar', 5.65);
 INSERT INTO toppings(name, price) VALUES ('black caviar', 10.00);
 INSERT INTO toppings(name, price) VALUES ('royal golden caviar', 94.31);
-INSERT INTO toppings(name, price) VALUES ('royal dog (CHINA ONLY)', 371.49);
+INSERT INTO toppings(name, price) VALUES ('Saffron', 371.49);
+INSERT INTO toppings(name, price) VALUES ('traffels', 371.49);
 
 
 -- SIZES
