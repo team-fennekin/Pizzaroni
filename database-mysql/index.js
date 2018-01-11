@@ -47,7 +47,6 @@ var getAllCrusts = function(callback) {
   });
 };
 
-
 var getAllSizes = function(callback) {
   connection.query('SELECT * FROM sizes', function(err, results, fields) {
     if(err) {
