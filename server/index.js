@@ -8,36 +8,36 @@ var app = express();
 
 app.use(express.static(__dirname + '/../react-client/dist'));
 
-app.get('/items', function (req, res) {
-  var infinite = {};
-
-  items.getAllTopings(function(err, data) {
+app.get('/sizes', function (req, res) {
+  items.getAllSizes(function(err, data) {
     if(err) {
       res.sendStatus(500);
     } else {
-      infinite['topings'] = data;
-
-      items.getAllSizes(function(err, data) {
-        if(err) {
-          res.sendStatus(500);
-        } else {
-          infinite['sizes'] = data;
-
-          items.getAllCrusts(function(err, data) {
-            if(err) {
-              res.sendStatus(500);
-            } else {
-              infinite['crusts'] = data;
-
-              res.json(infinite);
-            }
-          });
-        }
-      });
+      res.json(data);
     }
   });
 });
 
+app.get('/toppings', function (req, res) {
+  console.log('omega');
+  items.getAllToppings(function(err, data) {
+    if(err) {
+      res.sendStatus(500);
+    } else {
+      res.json(data);
+    }
+  });
+});
+
+app.get('/crusts', function (req, res) {
+  items.getAllCrusts(function(err, data) {
+    if(err) {
+      res.sendStatus(500);
+    } else {
+      res.json(data);
+    }
+  });
+});
 
 app.post('/save', function (req, res) {
   items.selectAll(function(err, data) {
