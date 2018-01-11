@@ -1,18 +1,26 @@
 import React from 'react';
+import $ from 'jquery';
 
 class Omega extends React.Component {
   constructor(props) {
     super(props);
 
-    this.getAllTopings = this.getAllTopings.bind(this);
+    this.state = {};
+    this.state.toppings = [];
+
+    this.getAllToppings = this.getAllToppings.bind(this);
   }
 
-  getAllTopings() {
+  getAllToppings() {
+    const that = this;
     $.ajax({
-      url: '/topings',
-      method: 'POST',
+      url: '/toppings',
+      method: 'GET',
       success: function(data) {
         console.log(data);
+        that.setState({
+          toppings: data
+        })
       }
     });
   }
@@ -20,7 +28,9 @@ class Omega extends React.Component {
 
   render() {
     return (
-      <h1>Hello</h1>
+      <div>
+      <h1 onClick={this.getAllToppings}>Hello</h1>
+      </div>
     );
   }
 }

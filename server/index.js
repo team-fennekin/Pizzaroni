@@ -18,8 +18,9 @@ app.get('/sizes', function (req, res) {
   });
 });
 
-app.get('/topings', function (req, res) {
-  items.getAllTopings(function(err, data) {
+app.get('/toppings', function (req, res) {
+  console.log('omega');
+  items.getAllToppings(function(err, data) {
     if(err) {
       res.sendStatus(500);
     } else {

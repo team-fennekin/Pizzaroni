@@ -3,7 +3,7 @@ var mysql = require('mysql');
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
-  password : 'roflOUt',
+  password : 'pass',
   database : 'pizzeria'
 });
 
@@ -57,17 +57,19 @@ var getAllSizes = function(callback) {
   });
 };
 
-var getAllTopings = function(callback) {
+var getAllToppings = function(callback) {
   connection.query('SELECT * FROM toppings', function(err, results, fields) {
     if(err) {
+      console.log('err');
       callback(err, null);
     } else {
+      console.log('data');
       callback(null, results);
     }
   });
 };
 
-module.exports.getAllTopings = getAllTopings;
+module.exports.getAllToppings = getAllToppings;
 module.exports.getAllUsers = getAllUsers;
 module.exports.getAllOrders = getAllOrders;
 module.exports.getAllPizzas = getAllPizzas;
