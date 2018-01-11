@@ -16,26 +16,26 @@ app.get('/items', function (req, res) {
       res.sendStatus(500);
     } else {
       infinite['topings'] = data;
+
+      items.getAllSizes(function(err, data) {
+        if(err) {
+          res.sendStatus(500);
+        } else {
+          infinite['sizes'] = data;
+
+          items.getAllCrusts(function(err, data) {
+            if(err) {
+              res.sendStatus(500);
+            } else {
+              infinite['crusts'] = data;
+
+              res.json(infinite);
+            }
+          });
+        }
+      });
     }
   });
-
-  items.getAllSizes(function(err, data) {
-    if(err) {
-      res.sendStatus(500);
-    } else {
-      infinite['sizes'] = data;
-    }
-  });
-
-  items.getAllCrusts(function(err, data) {
-    if(err) {
-      res.sendStatus(500);
-    } else {
-      infinite['crusts'] = data;
-    }
-  });
-
-  res.json(infinite);
 });
 
 
