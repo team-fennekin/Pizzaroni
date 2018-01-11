@@ -117,6 +117,7 @@ INSERT INTO toppings(name, price) VALUES ('spinach', 1.15);
 INSERT INTO toppings(name, price) VALUES ('red caviar', 5.65);
 INSERT INTO toppings(name, price) VALUES ('black caviar', 10.00);
 INSERT INTO toppings(name, price) VALUES ('royal golden caviar', 94.31);
+INSERT INTO toppings(name, price) VALUES ('royal dog (CHINA ONLY)', 371.49);
 
 
 -- SIZES
@@ -125,3 +126,11 @@ INSERT INTO sizes(name, price) VALUES ('M', 16.99);
 INSERT INTO sizes(name, price) VALUES ('L', 22.99);
 INSERT INTO sizes(name, price) VALUES ('XL', 31.99);
 INSERT INTO sizes(name, price) VALUES ('Galactical', 750.99);
+
+-- CRUSTS
+INSERT INTO sizes(name, price) VALUES ('Thin Crust', 9.99);
+INSERT INTO sizes(name, price) VALUES ('Thick Crust', 9.99);
+INSERT INTO sizes(name, price) VALUES ('Pan Crust', 9.99);
+INSERT INTO sizes(name, price) VALUES ('Deep Crust', 9.99);
+INSERT INTO sizes(name, price) VALUES ('Cheese Filled Crust', 9.99);
+INSERT INTO sizes(name, price) VALUES ('Stuffed Filled Crust', 9.99);
