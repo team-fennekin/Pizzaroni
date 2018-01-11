@@ -2,13 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import List from './components/List.jsx';
+import Omega from './components/Omega.jsx';
 
 var dummyToppings = [{name: 'Pepperoni', price: 2}, {name: 'Mushrooms', price: 1}, {name: 'Bell Peppers', price: 1.25}]
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       toppings: [],
       selectedToppings: {},
 
@@ -24,7 +25,7 @@ class App extends React.Component {
     this.handleCrustChange = this.handleCrustChange.bind(this);
     this.handleToppingClick = this.handleToppingClick.bind(this);
   }
-  
+
   componentWillMount() {
 
     this.setState((prevState) => {
@@ -57,7 +58,7 @@ class App extends React.Component {
 
   // componentDidMount() {
   //   $.ajax({
-  //     url: '/items', 
+  //     url: '/items',
   //     success: (data) => {
   //       this.setState({
   //         items: data
@@ -100,12 +101,12 @@ class App extends React.Component {
     return (
       <div>
         <div id="options">
-
+          <Omega />
           <h2>Options</h2>
 
           <div id="size">
            <form>
-            {this.state.sizes.map((size) => 
+            {this.state.sizes.map((size) =>
               <label>
                 <input type="radio" value={size.name} checked={this.state.selectedSize === size.name} onChange={this.handleSizeChange}/>
                 {size.name}
@@ -116,7 +117,7 @@ class App extends React.Component {
 
           <div id="crust">
            <form>
-            {this.state.crusts.map((crust) => 
+            {this.state.crusts.map((crust) =>
               <label>
                 <input type="radio" value={crust.name} checked={this.state.selectedCrust === crust.name} onChange={this.handleCrustChange}/>
                 {crust.name}
@@ -126,7 +127,7 @@ class App extends React.Component {
           </div>
 
           <div id="toppings">
-            {this.state.toppings.map((topping) => 
+            {this.state.toppings.map((topping) =>
               <label>
                 <input type="checkbox" value={topping.name} checked={false} onChange={this.handleToppingClick}/>
                 {topping.name}

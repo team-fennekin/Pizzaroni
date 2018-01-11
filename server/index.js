@@ -8,29 +8,6 @@ var app = express();
 
 app.use(express.static(__dirname + '/../react-client/dist'));
 
-function getSizes() {
-  return axios.get('/sizes');
-};
-
-function getTopings() {
-  return axios.get('/topings');
-};
-
-function getCrusts() {
-  return axios.get('/crusts');
-};
-
-app.get('/items', function(req, res) {
-  return axios.all([getTopings(), getCrusts(), getSizes()])
-    .then(function(arr) {
-      return {
-        topings: arr[0].data,
-        crusts: arr[1].data,
-        sizes: arr[2].data
-      }
-    });
-});
-
 app.get('/sizes', function (req, res) {
   items.getAllSizes(function(err, data) {
     if(err) {
