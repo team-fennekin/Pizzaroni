@@ -56,18 +56,7 @@ class App extends React.Component {
   }
 
   // componentDidMount() {
-  //   $.ajax({
-  //     url: '/items',
-  //     success: (data) => {
-  //       this.setState({
-  //         items: data
-  //       })
-  //     },
-  //     error: (err) => {
-  //       console.log('err', err);
-  //     }
-  //   });
-  // }
+
   handleSizeChange(e) {
     this.setState({selectedSize: e.target.value})
   }
@@ -77,29 +66,26 @@ class App extends React.Component {
   }
 
   handleToppingClick(e) {
-    // console.log(e.target.value);
-    // console.log(this.state.selectedToppings[e.target.value]);
-    // if (this.state.selectedToppings[e.target.value] === undefined) {
-    //   let updateToppings = this.state.selectedToppings;
-    //   updateToppings[e.target.value] = 1;
-
-    //   this.setState({
-    //     selectedToppings: updateToppings
-    //   })
-    // } else if (this.state.selectedToppings[e.target.value] === 1) {
-    //   let updateToppings = this.state.selectedToppings;
-    //   delete updateToppings[e.target.value];
-
-    //   this.setState({
-    //     selectedToppings: updateToppings
-    //   })
-    // }
     var clickedTopping = e.target.value;
-    console.log('YOU SELECTED THIS TOPPING: ', clickedTopping);
-    this.setState({selectedToppings.clickedTopping = true});
+    var mutateToppings = this.state.selectedToppings;
+    mutateToppings[clickedTopping] = !mutateToppings[clickedTopping];
+    this.setState({selectedToppings: mutateToppings});
   }
 
   handleSubmit(e) {
+    //   $.ajax({
+    //     url: '/items',
+    //     success: (data) => {
+    //       this.setState({
+    //         items: data
+    //       })
+    //     },
+    //     error: (err) => {
+    //       console.log('err', err);
+    //     }
+    //   });
+    // }
+    console.log('submitted the order');
     alert("Your pizza is being prepped!");
     e.preventDefault();
   }
@@ -136,7 +122,7 @@ class App extends React.Component {
           <div id="toppings">
             {this.state.toppings.map((topping) =>
               <label>
-                <input type="checkbox" value={topping.name} checked={false} onChange={this.handleToppingClick}/>
+                <input type="checkbox" value={topping.name} checked={this.state.selectedToppings[topping.name]} onChange={this.handleToppingClick}/>
                 {topping.name}
               </label>
             )}
@@ -149,16 +135,20 @@ class App extends React.Component {
           <h2>Pizza View</h2>
 
           <div id="pizza-view-size">
-            {this.state.selectedSize}
+            Size: {this.state.selectedSize || 'Select a size above!'}
           </div>
 
           <div id="pizza-view-crust">
-            {this.state.selectedCrust}
+            Crust: {this.state.selectedCrust || 'Select a crust above!'}
           </div>
 
           <div id="pizza-view-toppings">
-            {this.state.toppings.map((topping) =>
-              <div>{topping.name}</div>
+            Toppings:
+            Cheese
+            {Object.keys(this.state.selectedToppings).map((topping) =>
+              {if(this.state.selectedToppings[topping]) {
+                return <div>{topping}</div>
+              }}
             )}
           </div>
 
@@ -169,7 +159,9 @@ class App extends React.Component {
         </div>
 
         <div id="submitButton">
-          <input type="submit" value="Submit Order"></input>
+          <form onSubmit={this.handleSubmit}>
+            <input type="submit" value="Submit Order"></input>
+          </form>
         </div>
 
       </div>
