@@ -8,7 +8,7 @@ var dummyToppings = [{name: 'Pepperoni', price: 2}, {name: 'Mushrooms', price: 1
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       toppings: [],
       selectedToppings: {},
 
@@ -24,7 +24,7 @@ class App extends React.Component {
     this.handleCrustChange = this.handleCrustChange.bind(this);
     this.handleToppingClick = this.handleToppingClick.bind(this);
   }
-  
+
   componentWillMount() {
 
     this.setState((prevState) => {
@@ -48,7 +48,7 @@ class App extends React.Component {
     let objectOfToppings = {};
     for (var i = 0; i < this.state.toppings.length; i++) {
       // console.log(this.state.toppings[i]);
-      objectOfToppings[this.state.toppings[i].name] = false
+      objectOfToppings[this.state.toppings[i].name] = false;
       this.setState({
         selectedToppings: objectOfToppings
       });
@@ -57,7 +57,7 @@ class App extends React.Component {
 
   // componentDidMount() {
   //   $.ajax({
-  //     url: '/items', 
+  //     url: '/items',
   //     success: (data) => {
   //       this.setState({
   //         items: data
@@ -94,6 +94,14 @@ class App extends React.Component {
     //     selectedToppings: updateToppings
     //   })
     // }
+    var clickedTopping = e.target.value;
+    console.log('YOU SELECTED THIS TOPPING: ', clickedTopping);
+    this.setState({selectedToppings.clickedTopping = true});
+  }
+
+  handleSubmit(e) {
+    alert("Your pizza is being prepped!");
+    e.preventDefault();
   }
 
   render () {
@@ -105,7 +113,7 @@ class App extends React.Component {
 
           <div id="size">
            <form>
-            {this.state.sizes.map((size) => 
+            {this.state.sizes.map((size) =>
               <label>
                 <input type="radio" value={size.name} checked={this.state.selectedSize === size.name} onChange={this.handleSizeChange}/>
                 {size.name}
@@ -116,7 +124,7 @@ class App extends React.Component {
 
           <div id="crust">
            <form>
-            {this.state.crusts.map((crust) => 
+            {this.state.crusts.map((crust) =>
               <label>
                 <input type="radio" value={crust.name} checked={this.state.selectedCrust === crust.name} onChange={this.handleCrustChange}/>
                 {crust.name}
@@ -126,7 +134,7 @@ class App extends React.Component {
           </div>
 
           <div id="toppings">
-            {this.state.toppings.map((topping) => 
+            {this.state.toppings.map((topping) =>
               <label>
                 <input type="checkbox" value={topping.name} checked={false} onChange={this.handleToppingClick}/>
                 {topping.name}
@@ -158,6 +166,10 @@ class App extends React.Component {
 
         <div id="subtotal">
           {this.state.subtotal.toLocaleString('en-US', {style:'currency', currency: 'USD'})}
+        </div>
+
+        <div id="submitButton">
+          <input type="submit" value="Submit Order"></input>
         </div>
 
       </div>
