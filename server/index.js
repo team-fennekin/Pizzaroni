@@ -8,36 +8,58 @@ var app = express();
 
 app.use(express.static(__dirname + '/../react-client/dist'));
 
-app.get('/items', function (req, res) {
-  var infinite = {};
+function getSizes() {
+  return axios.get('/sizes');
+};
 
-  items.getAllTopings(function(err, data) {
+function getTopings() {
+  return axios.get('/topings');
+};
+
+function getCrusts() {
+  return axios.get('/crusts');
+};
+
+app.get('/items', function(req, res) {
+  return axios.all([getTopings(), getCrusts(), getSizes()])
+    .then(function(arr) {
+      return {
+        topings: arr[0].data,
+        crusts: arr[1].data,
+        sizes: arr[2].data
+      }
+    });
+});
+
+app.get('/sizes', function (req, res) {
+  items.getAllSizes(function(err, data) {
     if(err) {
       res.sendStatus(500);
     } else {
-      infinite['topings'] = data;
-
-      items.getAllSizes(function(err, data) {
-        if(err) {
-          res.sendStatus(500);
-        } else {
-          infinite['sizes'] = data;
-
-          items.getAllCrusts(function(err, data) {
-            if(err) {
-              res.sendStatus(500);
-            } else {
-              infinite['crusts'] = data;
-
-              res.json(infinite);
-            }
-          });
-        }
-      });
+      res.json(data);
     }
   });
 });
 
+app.get('/topings', function (req, res) {
+  items.getAllTopings(function(err, data) {
+    if(err) {
+      res.sendStatus(500);
+    } else {
+      res.json(data);
+    }
+  });
+});
+
+app.get('/crusts', function (req, res) {
+  items.getAllCrusts(function(err, data) {
+    if(err) {
+      res.sendStatus(500);
+    } else {
+      res.json(data);
+    }
+  });
+});
 
 app.post('/save', function (req, res) {
   items.selectAll(function(err, data) {
