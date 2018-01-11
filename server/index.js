@@ -1,5 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var axios = require('axios');
 
 var items = require('../database-mysql');
 
@@ -7,7 +8,7 @@ var app = express();
 
 app.use(express.static(__dirname + '/../react-client/dist'));
 
-app.get('/', function (req, res) {
+app.get('/items', function (req, res) {
   var infinite = {};
 
   items.getAllTopings(function(err, data) {
