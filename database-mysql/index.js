@@ -5,7 +5,7 @@ var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
   password : config.password,
-  database : 'test'
+  database : 'pizzeria'
 });
 
 var getAllUsers = function(callback) {
