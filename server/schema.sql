@@ -7,7 +7,7 @@ USE pizzeria;
 CREATE TABLE users (
   id int NOT NULL AUTO_INCREMENT,
   first_name VARCHAR(20) NOT NULL,
-  last_name VARCHAR(20) NOT NULL,
+  last_name VARCHAR(50) NOT NULL,
   email VARCHAR(20) NOT NULL,
   phone_number VARCHAR(20) DEFAULT NULL,
   address_id int,
@@ -136,7 +136,7 @@ INSERT INTO sizes(name, price) VALUES ('Cheese Filled Crust', 9.99);
 INSERT INTO sizes(name, price) VALUES ('Stuffed Filled Crust', 9.99);
 
 -- USERS
-INSERT INTO sizes(first_name, last_name, email, phone_number) VALUES ('Misulechka', 'Grand ArchMage of Flames', 'rofl@gmail.com', '123 (456) 7890');
-INSERT INTO sizes(first_name, last_name, email, phone_number) VALUES ('Gil', 'Kwak', 'rofl@gmail.com', '123 (456) 7890');
-INSERT INTO sizes(first_name, last_name, email, phone_number) VALUES ('Ilya', 'Yanchuk', 'rofl@gmail.com', '123 (456) 7890');
-INSERT INTO sizes(first_name, last_name, email, phone_number) VALUES ('Suhail', 'Ansari', 'rofl@gmail.com', '123 (456) 7890');
+INSERT INTO users(first_name, last_name, email, phone_number) VALUES ('Misulechka', 'Grand ArchMage of Flames', 'rofl@gmail.com', '123 (456) 7890');
+INSERT INTO users(first_name, last_name, email, phone_number) VALUES ('Gil', 'Kwak', 'rofl@gmail.com', '123 (456) 7890');
+INSERT INTO users(first_name, last_name, email, phone_number) VALUES ('Ilya', 'Yanchuk', 'rofl@gmail.com', '123 (456) 7890');
+INSERT INTO users(first_name, last_name, email, phone_number) VALUES ('Suhail', 'Ansari', 'rofl@gmail.com', '123 (456) 7890');
