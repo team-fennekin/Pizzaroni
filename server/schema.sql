@@ -75,7 +75,7 @@ CREATE TABLE sizes (
 CREATE TABLE toppings (
   id int NOT NULL AUTO_INCREMENT,
   topping_name VARCHAR(20) NOT NULL,
-  topping_price int NOT NULL,
+  topping_price FLOAT NOT NULL,
   PRIMARY KEY (ID)
 );
 
