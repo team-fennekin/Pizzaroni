@@ -10,7 +10,7 @@ CREATE TABLE users (
   last_name VARCHAR(20) NOT NULL,
   email VARCHAR(20) NOT NULL,
   phone_number VARCHAR(20) DEFAULT NULL,
-  address_id int NOT NULL,
+  address_id int,
   PRIMARY KEY (ID)
 );
 
@@ -99,7 +99,6 @@ CREATE TABLE orders (
  *    mysql -u root < server/schema.sql
  *  to create the database and the tables.*/
 
-
 -- TOPINGS
 INSERT INTO toppings(name, price) VALUES ('pepperoni', 2);
 INSERT INTO toppings(name, price) VALUES ('mushrooms', 1.5);
@@ -120,8 +119,8 @@ INSERT INTO toppings(name, price) VALUES ('royal golden caviar', 94.31);
 INSERT INTO toppings(name, price) VALUES ('Saffron', 371.49);
 INSERT INTO toppings(name, price) VALUES ('traffels', 371.49);
 
-
 -- SIZES
+INSERT INTO sizes(name, price) VALUES ('rofl_size', 0.99);
 INSERT INTO sizes(name, price) VALUES ('S', 9.99);
 INSERT INTO sizes(name, price) VALUES ('M', 16.99);
 INSERT INTO sizes(name, price) VALUES ('L', 22.99);
@@ -135,3 +134,9 @@ INSERT INTO sizes(name, price) VALUES ('Pan Crust', 9.99);
 INSERT INTO sizes(name, price) VALUES ('Deep Crust', 9.99);
 INSERT INTO sizes(name, price) VALUES ('Cheese Filled Crust', 9.99);
 INSERT INTO sizes(name, price) VALUES ('Stuffed Filled Crust', 9.99);
+
+-- USERS
+INSERT INTO sizes(first_name, last_name, email, phone_number) VALUES ('Misulechka', 'Grand ArchMage of Flames', 'rofl@gmail.com', '123 (456) 7890');
+INSERT INTO sizes(first_name, last_name, email, phone_number) VALUES ('Gil', 'Kwak', 'rofl@gmail.com', '123 (456) 7890');
+INSERT INTO sizes(first_name, last_name, email, phone_number) VALUES ('Ilya', 'Yanchuk', 'rofl@gmail.com', '123 (456) 7890');
+INSERT INTO sizes(first_name, last_name, email, phone_number) VALUES ('Suhail', 'Ansari', 'rofl@gmail.com', '123 (456) 7890');
