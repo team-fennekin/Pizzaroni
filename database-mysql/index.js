@@ -1,10 +1,10 @@
 var mysql = require('mysql');
-// var config = require(__dirname + '../config');
+// var config = require(__dirname +  '../config');
 console.log('config pass', config.password);
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
-  password : config.password,
+  password : 'roflOUt',
   database : 'pizzeria'
 });
 
