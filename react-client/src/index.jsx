@@ -11,15 +11,6 @@ class App extends React.Component {
       roomID: null,
       numberOfUsers: null,
 
-      toppings: [],
-      selectedToppings: {},
-
-      sizes: [],
-      selectedSize: '',
-
-      crusts: [],
-      selectedCrust: '',
-
       subtotal: 0
     }
   }
@@ -76,6 +67,7 @@ class App extends React.Component {
     return (
       <div>
         <Pizza />
+        
       </div>
     );
   }

@@ -25,7 +25,6 @@ class Sizes extends React.Component {
           crusts: data
         }, function() {
           that.setState({selectedCrust: that.state.crusts[0].name});
-          console.log(that.state.selectedCrust);
         });
       }
     });
@@ -38,7 +37,6 @@ class Sizes extends React.Component {
   render() {
     return (
       <div id="size">
-       <h1>{this.state.selectedCrust}</h1>
        <form>
         {this.state.crusts.map((size) =>
           <label>

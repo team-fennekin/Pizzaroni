@@ -25,7 +25,6 @@ class Sizes extends React.Component {
           sizes: data
         }, function() {
           that.setState({selectedSize: that.state.sizes[2].name});
-          console.log(that.state.selectedSize);
         });
       }
     });
@@ -38,7 +37,6 @@ class Sizes extends React.Component {
   render() {
     return (
       <div id="size">
-       <h1>{this.state.selectedSize}</h1>
        <form>
         {this.state.sizes.map((size) =>
           <label>
