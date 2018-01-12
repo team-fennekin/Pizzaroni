@@ -31,13 +31,13 @@ class Crusts extends React.Component {
   }
 
   componentDidMount() {
-    this.props.onChange(this.state.selectedCrust);
+    this.props.onCrustChange(this.state.selectedCrust);
   }
 
   handleCrustChange(event) {
     var selectedCrust = this.state.crusts[event.target.value];
     this.setState({selectedCrust: selectedCrust})
-    this.props.onChange(selectedCrust);
+    this.props.onCrustChange(selectedCrust);
   }
 
   render() {
