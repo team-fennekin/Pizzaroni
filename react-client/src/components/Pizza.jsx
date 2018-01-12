@@ -22,17 +22,35 @@ class Pizza extends React.Component {
   }
 
   onSizeChange(size) {
-    console.log(434234324);
-    console.log(size);
-    this.setState({size: size});
+    this.setState({size: size}, function() {
+      this.countTotal();
+    });
   }
 
   onCrustChange(crust) {
-    this.setState({crust: crust});
+    this.setState({crust: crust}, function() {
+      this.countTotal();
+    });
   }
 
   onToppingChange(toppings) {
-    this.setState({toppings: toppings});
+    this.setState({toppings: Object.values(toppings)}, function() {
+      this.state.toppings.map(topping => {
+        console.log(topping.name);
+        this.countTotal();
+      })
+    });
+  }
+
+  countTotal() {
+    var total = 0;
+    total += this.state.size.price;
+    total += this.state.crust.price;
+    for (var topping of this.state.toppings) {
+      total += topping.price;
+    }
+    
+    this.setState({subtotal: total});
   }
 
   render() {
@@ -45,7 +63,6 @@ class Pizza extends React.Component {
           <Toppings onChange={this.onToppingChange}/>
 
             <div id="pizza-view">
-
               <h2>Pizza View</h2>
 
               <div id="pizza-view-size">

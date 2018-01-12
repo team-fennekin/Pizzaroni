@@ -31,19 +31,22 @@ class Toppings extends React.Component {
     });
   }
 
-  handleToppingChange(e) {
-    var clickedTopping = e.target.value;
-    var mutateToppings = this.state.selectedToppings;
-    mutateToppings[clickedTopping] = !mutateToppings[clickedTopping];
-    this.setState({selectedToppings: mutateToppings});
+  handleToppingChange(event) {
+    var idx = event.target.value;
+    if (this.state.selectedToppings.hasOwnProperty(idx)) {
+      delete this.state.selectedToppings[idx];
+    } else {
+      this.state.selectedToppings[idx] = this.state.toppings[idx];
+    }
+    this.props.onChange(this.state.selectedToppings);
   }
 
   render() {
     return (
       <div id="toppings">
-        {this.state.toppings.map((topping) =>
+        {this.state.toppings.map((topping, idx) =>
           <label>
-            <input type="checkbox" value={topping.name} checked={this.state.selectedToppings[topping.name]} onChange={this.handleToppingClick}/>
+            <input type="checkbox" value={idx} checked={this.state.selectedToppings[idx]} onChange={this.handleToppingChange}/>
             {topping.name}
           </label>
         )}
