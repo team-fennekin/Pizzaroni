@@ -128,12 +128,12 @@ INSERT INTO sizes(name, price) VALUES ('XL', 31.99);
 INSERT INTO sizes(name, price) VALUES ('Galactical', 750.99);
 
 -- CRUSTS
-INSERT INTO sizes(name, price) VALUES ('Thin Crust', 9.99);
-INSERT INTO sizes(name, price) VALUES ('Thick Crust', 9.99);
-INSERT INTO sizes(name, price) VALUES ('Pan Crust', 9.99);
-INSERT INTO sizes(name, price) VALUES ('Deep Crust', 9.99);
-INSERT INTO sizes(name, price) VALUES ('Cheese Filled Crust', 9.99);
-INSERT INTO sizes(name, price) VALUES ('Stuffed Filled Crust', 9.99);
+INSERT INTO crusts(name, price) VALUES ('Thin Crust', 9.99);
+INSERT INTO crusts(name, price) VALUES ('Thick Crust', 9.99);
+INSERT INTO crusts(name, price) VALUES ('Pan Crust', 9.99);
+INSERT INTO crusts(name, price) VALUES ('Deep Crust', 9.99);
+INSERT INTO crusts(name, price) VALUES ('Cheese Filled Crust', 9.99);
+INSERT INTO crusts(name, price) VALUES ('Stuffed Filled Crust', 9.99);
 
 -- USERS
 INSERT INTO users(first_name, last_name, email, phone_number) VALUES ('Misulechka', 'Grand ArchMage of Flames', 'rofl@gmail.com', '123 (456) 7890');
