@@ -24,7 +24,7 @@ class Sizes extends React.Component {
         that.setState({
           sizes: data
         }, function() {
-          that.setState({selectedSize: that.state.sizes[1].name});
+          that.setState({selectedSize: that.state.sizes[2].name});
           console.log(that.state.selectedSize);
         });
       }
@@ -33,7 +33,6 @@ class Sizes extends React.Component {
 
   handleSizeChange(event) {
     this.setState({selectedSize: event.target.value})
-    console.log(this.state.selectedSize);
   }
 
   render() {
