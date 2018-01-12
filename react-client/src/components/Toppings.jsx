@@ -10,35 +10,38 @@ class Toppings extends React.Component {
       selectedToppings: {}
     };
 
-    this.getAllToppings = this.getAllToppings.bind(this);
     this.handleToppingChange = this.handleToppingChange.bind(this);
-    this.getAllToppings();
   }
 
-  getAllToppings() {
-    const that = this;
+  componentWillMount() {
     $.ajax({
       url: '/toppings',
       method: 'GET',
-      success: function(data) {
-        that.setState({
+      success: (data) => {
+        this.setState({
           toppings: data
         });
       },
-      error: function(err) {
-        console.log('error', err);
+      error: (error) => {
+        console.log(error);
       }
     });
   }
 
   handleToppingChange(event) {
     var idx = event.target.value;
-    if (this.state.selectedToppings.hasOwnProperty(idx)) {
-      delete this.state.selectedToppings[idx];
+    var prevToppingsState = this.state.selectedToppings;
+    if (prevToppingsState.hasOwnProperty(idx)) {
+      delete prevToppingsState[idx];
     } else {
-      this.state.selectedToppings[idx] = this.state.toppings[idx];
+      prevToppingsState[idx] = this.state.toppings[idx];
     }
-    this.props.onToppingChange(this.state.selectedToppings);
+
+    this.setState({
+      selectedToppings: prevToppingsState
+    }, function(){
+      this.props.onToppingChange(this.state.selectedToppings);
+    });
   }
 
   render() {
