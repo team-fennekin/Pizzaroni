@@ -23,7 +23,7 @@ class Pizza extends React.Component {
     this.countTotal = this.countTotal.bind(this);
 
   }
-
+  
   onSizeChange(size) {
     this.setState({size: size}, function() {
       this.countTotal();
@@ -38,10 +38,7 @@ class Pizza extends React.Component {
 
   onToppingChange(toppings) {
     this.setState({toppings: Object.values(toppings)}, function() {
-      this.state.toppings.map(topping => {
-        console.log(topping.name);
-        this.countTotal();
-      })
+      this.countTotal();
     });
   }
 
@@ -93,9 +90,11 @@ class Pizza extends React.Component {
 
               <div id="pizza-view-toppings">
                 Toppings:
-                {this.state.toppings.map(topping => {
-                  {topping.name}
-                })}
+                <ul>
+                  {this.state.toppings.map(topping =>  
+                    <li>{topping.name}</li>
+                  )}
+                </ul>
               </div>
 
             </div>

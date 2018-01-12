@@ -21,17 +21,14 @@ class Sizes extends React.Component {
         this.setState({
           sizes: data,
           selectedSize: data[2]
+        }, function(){
+          this.props.onSizeChange(this.state.selectedSize);
         });
       },
       error: (error) => {
         console.log(error);
       }
     });
-  }
-
-
-  componentDidMount() {
-    this.props.onSizeChange(this.state.selectedSize);
   }
 
   handleSizeChange(event) {
@@ -46,7 +43,7 @@ class Sizes extends React.Component {
        <form>
         {this.state.sizes.map((size, idx) =>
           <label>
-            <input type="radio" value={idx} checked={this.state.selectedSize === size.name} onChange={this.handleSizeChange}/>
+            <input type="radio" value={idx} checked={this.state.selectedSize.name === size.name} onChange={this.handleSizeChange}/>
             {size.name}
           </label>
         )}
