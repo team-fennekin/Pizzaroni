@@ -1,4 +1,5 @@
 import React from 'react';
+import $ from 'jquery';
 
 import Sizes from './Sizes.jsx';
 import Toppings from './Toppings.jsx';
@@ -19,6 +20,7 @@ class Pizza extends React.Component {
     this.onSizeChange = this.onSizeChange.bind(this);
     this.onCrustChange = this.onCrustChange.bind(this);
     this.onToppingChange = this.onToppingChange.bind(this);
+    this.countTotal = this.countTotal.bind(this);
   }
 
   onSizeChange(size) {
@@ -49,8 +51,23 @@ class Pizza extends React.Component {
     for (var topping of this.state.toppings) {
       total += topping.price;
     }
-    
+
     this.setState({subtotal: total});
+  }
+
+  submitOrder() {
+    var data = {};
+    $.ajax({
+      url: '/save',
+      method: 'POST',
+      data: JSON.stringify('data'),
+      sucess: function(data) {
+        console.log(data);
+      },
+      error: function(err) {
+        console.log(err);
+      }
+    });
   }
 
   render() {
@@ -87,9 +104,7 @@ class Pizza extends React.Component {
             </div>
 
             <div id="submitButton">
-              <form onSubmit={this.handleSubmit}>
-                <input type="submit" value="Submit Order"></input>
-              </form>
+              <button onClick={this.submitOrder}>Submit</button>
             </div>
         </div>
       </div>
