@@ -22,6 +22,7 @@ app.get('/toppings', function (req, res) {
   console.log('omega');
   items.getAllToppings(function(err, data) {
     if(err) {
+      console.log(err);
       res.sendStatus(500);
     } else {
       res.json(data);

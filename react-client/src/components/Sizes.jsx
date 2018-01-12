@@ -16,16 +16,17 @@ class Sizes extends React.Component {
   }
 
   getAllSizes() {
-    const that = this;
+    // const that = this;
     $.ajax({
       url: '/sizes',
       method: 'GET',
-      success: function(data) {
-        that.setState({
+      success: (data) => {
+        this.setState({
           sizes: data
-        }, function() {
-          that.setState({selectedSize: that.state.sizes[2].name});
         });
+      },
+      error: (error) => {
+        console.log(error);
       }
     });
   }
