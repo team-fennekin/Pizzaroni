@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import List from './components/List.jsx';
 import Omega from './components/Omega.jsx';
+import Sizes from './components/Sizes.jsx';
 
 var dummyToppings = [{name: 'Pepperoni', price: 2}, {name: 'Mushrooms', price: 1}, {name: 'Bell Peppers', price: 1.25}]
 
@@ -25,7 +26,6 @@ class App extends React.Component {
 
       subtotal: 0
     }
-    this.handleSizeChange = this.handleSizeChange.bind(this);
     this.handleCrustChange = this.handleCrustChange.bind(this);
     this.handleToppingClick = this.handleToppingClick.bind(this);
   }
@@ -62,10 +62,6 @@ class App extends React.Component {
 
   // componentDidMount() {
 
-  handleSizeChange(e) {
-    this.setState({selectedSize: e.target.value})
-  }
-
   handleCrustChange(e) {
     this.setState({selectedCrust: e.target.value})
   }
@@ -97,21 +93,11 @@ class App extends React.Component {
   render () {
     return (
       <div>
+        <Sizes />
         <Omega />
         <div id="options">
 
           <h2>Options</h2>
-
-          <div id="size">
-           <form>
-            {this.state.sizes.map((size) =>
-              <label>
-                <input type="radio" value={size.name} checked={this.state.selectedSize === size.name} onChange={this.handleSizeChange}/>
-                {size.name}
-              </label>
-            )}
-           </form>
-          </div>
 
           <div id="crust">
            <form>
