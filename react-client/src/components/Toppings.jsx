@@ -7,7 +7,7 @@ class Toppings extends React.Component {
 
     this.state = {
       toppings: [],
-      selectedTopping: ''
+      selectedToppings: {}
     };
 
     this.getAllToppings = this.getAllToppings.bind(this);
@@ -23,10 +23,10 @@ class Toppings extends React.Component {
       success: function(data) {
         that.setState({
           toppings: data
-        }, function() {
-          that.setState({selectedTopping: that.state.toppings[0].name});
-          console.log(that.state.selectedTopping);
         });
+      },
+      error: function(err) {
+        console.log('error');
       }
     });
   }

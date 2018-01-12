@@ -76,48 +76,8 @@ class App extends React.Component {
     return (
       <div>
         <Pizza />
-        // <div id="options">
-        //
-        //   <h2>Options</h2>
-        //
-        // </div>
-        //
-        // <div id="pizza-view">
-        //
-        //   <h2>Pizza View</h2>
-        //
-        //   <div id="pizza-view-size">
-        //     Size: {this.state.selectedSize || 'Select a size above!'}
-        //   </div>
-        //
-        //   <div id="pizza-view-crust">
-        //     Crust: {this.state.selectedCrust || 'Select a crust above!'}
-        //   </div>
-        //
-        //   <div id="pizza-view-toppings">
-        //     Toppings:
-        //     Cheese
-        //     {Object.keys(this.state.selectedToppings).map((topping) =>
-        //       {if(this.state.selectedToppings[topping]) {
-        //         return <div>{topping}</div>
-        //       }}
-        //     )}
-        //   </div>
-        //
-        // </div>
-        //
-        // <div id="subtotal">
-        //   {this.state.subtotal.toLocaleString('en-US', {style:'currency', currency: 'USD'})}
-        // </div>
-        //
-        // <div id="submitButton">
-        //   <form onSubmit={this.handleSubmit}>
-        //     <input type="submit" value="Submit Order"></input>
-        //   </form>
-        // </div>
-
       </div>
-    )
+    );
   }
 }
 
