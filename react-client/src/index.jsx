@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import List from './components/List.jsx';
-import Omega from './components/Omega.jsx';
 
 var dummyToppings = [{name: 'Pepperoni', price: 2}, {name: 'Mushrooms', price: 1}, {name: 'Bell Peppers', price: 1.25}]
 
@@ -10,6 +9,10 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      user: null,
+      roomID: null,
+      numberOfUsers: null,
+
       toppings: [],
       selectedToppings: {},
 
@@ -49,7 +52,7 @@ class App extends React.Component {
     let objectOfToppings = {};
     for (var i = 0; i < this.state.toppings.length; i++) {
       // console.log(this.state.toppings[i]);
-      objectOfToppings[this.state.toppings[i].name] = false
+      objectOfToppings[this.state.toppings[i].name] = false;
       this.setState({
         selectedToppings: objectOfToppings
       });
@@ -57,18 +60,7 @@ class App extends React.Component {
   }
 
   // componentDidMount() {
-  //   $.ajax({
-  //     url: '/items',
-  //     success: (data) => {
-  //       this.setState({
-  //         items: data
-  //       })
-  //     },
-  //     error: (err) => {
-  //       console.log('err', err);
-  //     }
-  //   });
-  // }
+
   handleSizeChange(e) {
     this.setState({selectedSize: e.target.value})
   }
@@ -78,30 +70,34 @@ class App extends React.Component {
   }
 
   handleToppingClick(e) {
-    // console.log(e.target.value);
-    // console.log(this.state.selectedToppings[e.target.value]);
-    // if (this.state.selectedToppings[e.target.value] === undefined) {
-    //   let updateToppings = this.state.selectedToppings;
-    //   updateToppings[e.target.value] = 1;
+    var clickedTopping = e.target.value;
+    var mutateToppings = this.state.selectedToppings;
+    mutateToppings[clickedTopping] = !mutateToppings[clickedTopping];
+    this.setState({selectedToppings: mutateToppings});
+  }
 
-    //   this.setState({
-    //     selectedToppings: updateToppings
-    //   })
-    // } else if (this.state.selectedToppings[e.target.value] === 1) {
-    //   let updateToppings = this.state.selectedToppings;
-    //   delete updateToppings[e.target.value];
-
-    //   this.setState({
-    //     selectedToppings: updateToppings
-    //   })
+  handleSubmit(e) {
+    //   $.ajax({
+    //     url: '/items',
+    //     success: (data) => {
+    //       this.setState({
+    //         items: data
+    //       })
+    //     },
+    //     error: (err) => {
+    //       console.log('err', err);
+    //     }
+    //   });
     // }
+    alert("Your pizza is being prepped!");
+    e.preventDefault();
   }
 
   render () {
     return (
       <div>
         <div id="options">
-          <Omega />
+
           <h2>Options</h2>
 
           <div id="size">
@@ -129,7 +125,7 @@ class App extends React.Component {
           <div id="toppings">
             {this.state.toppings.map((topping) =>
               <label>
-                <input type="checkbox" value={topping.name} checked={false} onChange={this.handleToppingClick}/>
+                <input type="checkbox" value={topping.name} checked={this.state.selectedToppings[topping.name]} onChange={this.handleToppingClick}/>
                 {topping.name}
               </label>
             )}
@@ -142,16 +138,20 @@ class App extends React.Component {
           <h2>Pizza View</h2>
 
           <div id="pizza-view-size">
-            {this.state.selectedSize}
+            Size: {this.state.selectedSize || 'Select a size above!'}
           </div>
 
           <div id="pizza-view-crust">
-            {this.state.selectedCrust}
+            Crust: {this.state.selectedCrust || 'Select a crust above!'}
           </div>
 
           <div id="pizza-view-toppings">
-            {this.state.toppings.map((topping) =>
-              <div>{topping.name}</div>
+            Toppings:
+            Cheese
+            {Object.keys(this.state.selectedToppings).map((topping) =>
+              {if(this.state.selectedToppings[topping]) {
+                return <div>{topping}</div>
+              }}
             )}
           </div>
 
@@ -159,6 +159,12 @@ class App extends React.Component {
 
         <div id="subtotal">
           {this.state.subtotal.toLocaleString('en-US', {style:'currency', currency: 'USD'})}
+        </div>
+
+        <div id="submitButton">
+          <form onSubmit={this.handleSubmit}>
+            <input type="submit" value="Submit Order"></input>
+          </form>
         </div>
 
       </div>
