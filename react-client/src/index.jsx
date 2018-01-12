@@ -9,9 +9,7 @@ class App extends React.Component {
     this.state = {
       user: null,
       roomID: null,
-      numberOfUsers: null,
-
-      subtotal: 0
+      numberOfUsers: null
     }
   }
 
@@ -45,29 +43,10 @@ class App extends React.Component {
   //   }
   // }
 
-  // componentDidMount() {
-  // handleSubmit(e) {
-  //   //   $.ajax({
-  //   //     url: '/items',
-  //   //     success: (data) => {
-  //   //       this.setState({
-  //   //         items: data
-  //   //       })
-  //   //     },
-  //   //     error: (err) => {
-  //   //       console.log('err', err);
-  //   //     }
-  //   //   });
-  //   // }
-  //   alert("Your pizza is being prepped!");
-  //   e.preventDefault();
-  // }
-
   render () {
     return (
       <div>
         <Pizza />
-        
       </div>
     );
   }

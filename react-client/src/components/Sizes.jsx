@@ -7,7 +7,7 @@ class Sizes extends React.Component {
 
     this.state = {
       sizes: [],
-      selectedSize: ''
+      selectedSize: {}
     };
 
     this.getAllSizes = this.getAllSizes.bind(this);
@@ -30,17 +30,23 @@ class Sizes extends React.Component {
     });
   }
 
+  componentDidMount() {
+    this.props.onChange(this.state.selectedSize);
+  }
+
   handleSizeChange(event) {
-    this.setState({selectedSize: event.target.value})
+    var selectedSize = this.state.sizes[event.target.value];
+    this.setState({selectedSize: selectedSize})
+    this.props.onChange(selectedSize);
   }
 
   render() {
     return (
       <div id="size">
        <form>
-        {this.state.sizes.map((size) =>
+        {this.state.sizes.map((size, idx) =>
           <label>
-            <input type="radio" value={size.name} checked={this.state.selectedSize === size.name} onChange={this.handleSizeChange}/>
+            <input type="radio" value={idx} checked={this.state.selectedSize === size.name} onChange={this.handleSizeChange}/>
             {size.name}
           </label>
         )}

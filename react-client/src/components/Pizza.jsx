@@ -11,7 +11,9 @@ class Pizza extends React.Component {
     this.state = {
       size: {},
       crust: {},
-      toppings: []
+      toppings: [],
+
+      subtotal: 0
     };
 
     this.onSizeChange = this.onSizeChange.bind(this);
@@ -20,6 +22,8 @@ class Pizza extends React.Component {
   }
 
   onSizeChange(size) {
+    console.log(434234324);
+    console.log(size);
     this.setState({size: size});
   }
 
@@ -59,6 +63,16 @@ class Pizza extends React.Component {
                 })}
               </div>
 
+            </div>
+
+            <div id="subtotal">
+              {this.state.subtotal.toLocaleString('en-US', {style:'currency', currency: 'USD'})}
+            </div>
+
+            <div id="submitButton">
+              <form onSubmit={this.handleSubmit}>
+                <input type="submit" value="Submit Order"></input>
+              </form>
             </div>
         </div>
       </div>

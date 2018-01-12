@@ -7,7 +7,7 @@ class Sizes extends React.Component {
 
     this.state = {
       crusts: [],
-      selectedCrust: ''
+      selectedCrust: {}
     };
 
     this.getAllCrusts = this.getAllCrusts.bind(this);
@@ -30,17 +30,23 @@ class Sizes extends React.Component {
     });
   }
 
+  componentDidMount() {
+    this.props.onChange(this.state.selectedCrust);
+  }
+
   handleCrustChange(event) {
-    this.setState({selectedCrust: event.target.value})
+    var selectedCrust = this.state.crusts[event.target.value];
+    this.setState({selectedCrust: selectedCrust})
+    this.props.onChange(selectedCrust);
   }
 
   render() {
     return (
       <div id="size">
        <form>
-        {this.state.crusts.map((size) =>
+        {this.state.crusts.map((size, idx) =>
           <label>
-            <input type="radio" value={size.name} checked={this.state.selectedCrust === size.name} onChange={this.handleCrustChange}/>
+            <input type="radio" value={idx} checked={this.state.selectedCrust === size.name} onChange={this.handleCrustChange}/>
             {size.name}
           </label>
         )}
