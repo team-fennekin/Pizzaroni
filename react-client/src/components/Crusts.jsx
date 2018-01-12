@@ -10,28 +10,25 @@ class Crusts extends React.Component {
       selectedCrust: {}
     };
 
-    this.getAllCrusts = this.getAllCrusts.bind(this);
     this.handleCrustChange = this.handleCrustChange.bind(this);
-    this.getAllCrusts();
   }
 
-  getAllCrusts() {
-    const that = this;
+  componentWillMount() {
     $.ajax({
       url: '/crusts',
       method: 'GET',
-      success: function(data) {
-        that.setState({
-          crusts: data
-        }, function() {
-          that.setState({selectedCrust: that.state.crusts[0].name});
+      success: (data) => {
+        this.setState({
+          crusts: data,
+          selectedCrust: data[0]
+        }, function(){
+          this.props.onCrustChange(this.state.selectedCrust);
         });
+      },
+      error: (error) => {
+        console.log(error);
       }
     });
-  }
-
-  componentDidMount() {
-    this.props.onCrustChange(this.state.selectedCrust);
   }
 
   handleCrustChange(event) {
@@ -42,12 +39,12 @@ class Crusts extends React.Component {
 
   render() {
     return (
-      <div id="size">
+      <div id="crust">
        <form>
-        {this.state.crusts.map((size, idx) =>
+        {this.state.crusts.map((crust, idx) =>
           <label>
-            <input type="radio" value={idx} checked={this.state.selectedCrust === size.name} onChange={this.handleCrustChange}/>
-            {size.name}
+            <input type="radio" value={idx} checked={this.state.selectedCrust.name === crust.name} onChange={this.handleCrustChange}/>
+            {crust.name}
           </label>
         )}
        </form>
