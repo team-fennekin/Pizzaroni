@@ -30,6 +30,7 @@ app.get('/toppings', function (req, res) {
 });
 
 app.get('/crusts', function (req, res) {
+  console.log('crust');
   items.getAllCrusts(function(err, data) {
     if(err) {
       res.sendStatus(500);
