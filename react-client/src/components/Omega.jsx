@@ -35,7 +35,7 @@ class Omega extends React.Component {
       success: function(data) {
         console.log(data);
         that.setState({
-          toppings: data
+          crusts: data
         })
       }
     });
@@ -49,7 +49,7 @@ class Omega extends React.Component {
       success: function(data) {
         console.log(data);
         that.setState({
-          toppings: data
+          sizes: data
         })
       }
     });
