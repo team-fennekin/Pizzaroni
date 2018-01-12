@@ -41,13 +41,8 @@ app.get('/crusts', function (req, res) {
 });
 
 app.post('/save', function (req, res) {
-  items.selectAll(function(err, data) {
-    if(err) {
-      res.sendStatus(500);
-    } else {
-      res.json('ROFL JSON RESPONSE');
-    }
-  });
+  console.log('gg');
+  res.json('ROFL JSON RESPONSE');
 });
 
 app.listen(3000, function() {

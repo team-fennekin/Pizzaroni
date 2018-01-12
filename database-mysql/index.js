@@ -1,9 +1,9 @@
 var mysql = require('mysql');
-// var config = require(__dirname +  '../config');
+var config = require('../config.js');
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
-  password : 'pass',
+  password : config.password,
   database : 'pizzeria'
 });
 
