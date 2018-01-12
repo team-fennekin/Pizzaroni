@@ -38,7 +38,7 @@ class Toppings extends React.Component {
     } else {
       this.state.selectedToppings[idx] = this.state.toppings[idx];
     }
-    this.props.onChange(this.state.selectedToppings);
+    this.props.onToppingChange(this.state.selectedToppings);
   }
 
   render() {

@@ -10,19 +10,17 @@ class Sizes extends React.Component {
       selectedSize: {}
     };
 
-    this.getAllSizes = this.getAllSizes.bind(this);
     this.handleSizeChange = this.handleSizeChange.bind(this);
-    this.getAllSizes();
   }
 
-  getAllSizes() {
-    // const that = this;
+  componentWillMount() {
     $.ajax({
       url: '/sizes',
       method: 'GET',
       success: (data) => {
         this.setState({
-          sizes: data
+          sizes: data,
+          selectedSize: data[2]
         });
       },
       error: (error) => {
@@ -31,14 +29,15 @@ class Sizes extends React.Component {
     });
   }
 
+
   componentDidMount() {
-    this.props.onChange(this.state.selectedSize);
+    this.props.onSizeChange(this.state.selectedSize);
   }
 
   handleSizeChange(event) {
     var selectedSize = this.state.sizes[event.target.value];
     this.setState({selectedSize: selectedSize})
-    this.props.onChange(selectedSize);
+    this.props.onSizeChange(selectedSize);
   }
 
   render() {

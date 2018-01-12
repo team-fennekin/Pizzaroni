@@ -21,6 +21,7 @@ class Pizza extends React.Component {
     this.onCrustChange = this.onCrustChange.bind(this);
     this.onToppingChange = this.onToppingChange.bind(this);
     this.countTotal = this.countTotal.bind(this);
+
   }
 
   onSizeChange(size) {
@@ -75,9 +76,9 @@ class Pizza extends React.Component {
       <div id="pizza">
         <div id="options">
           <h1>Options</h1>
-          <Sizes onChange={this.onSizeChange}/>
-          <Crusts onChange={this.onCrustChange}/>
-          <Toppings onChange={this.onToppingChange}/>
+          <Sizes onSizeChange={this.onSizeChange}/>
+          <Crusts onCrustChange={this.onCrustChange}/>
+          <Toppings onToppingChange={this.onToppingChange}/>
 
             <div id="pizza-view">
               <h2>Pizza View</h2>
