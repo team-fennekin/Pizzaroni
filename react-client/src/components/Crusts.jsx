@@ -1,7 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 
-class Sizes extends React.Component {
+class Crusts extends React.Component {
   constructor(props) {
     super(props);
 
@@ -56,4 +56,4 @@ class Sizes extends React.Component {
   }
 }
 
-export default Sizes;
+export default Crusts;

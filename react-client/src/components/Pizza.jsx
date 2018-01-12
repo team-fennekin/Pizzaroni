@@ -2,8 +2,8 @@ import React from 'react';
 import $ from 'jquery';
 
 import Sizes from './Sizes.jsx';
-import Toppings from './Toppings.jsx';
 import Crusts from './Crusts.jsx';
+import Toppings from './Toppings.jsx';
 
 class Pizza extends React.Component {
   constructor(props) {
