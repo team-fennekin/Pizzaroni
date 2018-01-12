@@ -13,7 +13,7 @@ class Log extends React.Component {
       <div>
         <h1>Try to not get hit by rainbows</h1>
         <img src='../react-client/dist/big_white_unicorn.jpg' />
-        <img src='./react-client/dist/fat_unicorn.png' />
+        <img src='../react-client/dist/fat_unicorn.png' />
         <img src='../../react-client/dist/sad_unicorn.png' />
         <img src='../../react-client/dist/white_unicorn.jpg' />
         <h2>Username</h2>
