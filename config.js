@@ -1,5 +1,5 @@
-const configs = {
-  'password': 'roflPassword'
+const config = {
+  'password': 'pass'
 };
 
-module.exports = configs;
+module.exports = config;
