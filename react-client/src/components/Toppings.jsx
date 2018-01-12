@@ -26,7 +26,7 @@ class Toppings extends React.Component {
         });
       },
       error: function(err) {
-        console.log('error');
+        console.log('error', err);
       }
     });
   }
