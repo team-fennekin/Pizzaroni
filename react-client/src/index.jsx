@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import List from './components/List.jsx';
+import Omega from './components/Omega.jsx';
 
 var dummyToppings = [{name: 'Pepperoni', price: 2}, {name: 'Mushrooms', price: 1}, {name: 'Bell Peppers', price: 1.25}]
 
@@ -96,6 +97,7 @@ class App extends React.Component {
   render () {
     return (
       <div>
+        <Omega />
         <div id="options">
 
           <h2>Options</h2>
