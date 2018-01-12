@@ -1,5 +1,5 @@
 const config = {
-  'password': ''
+  'password': 'pass'
 };
 
 module.exports = config;
