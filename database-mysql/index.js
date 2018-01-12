@@ -38,10 +38,12 @@ var getAllPizzas = function(callback) {
 };
 
 var getAllCrusts = function(callback) {
-  connection.query('SELECT * FROM cruts', function(err, results, fields) {
+  connection.query('SELECT * FROM crusts', function(err, results, fields) {
     if(err) {
+      console.log('err');
       callback(err, null);
     } else {
+      console.log('data');
       callback(null, results);
     }
   });
