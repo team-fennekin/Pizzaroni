@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Pizza from './components/Pizza.jsx';
-import Log from './components/Log.jsx';
+// import Log from './components/Log.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -18,7 +18,6 @@ class App extends React.Component {
     return (
       <div>
         <Pizza />
-        <Log />
       </div>
     );
   }
