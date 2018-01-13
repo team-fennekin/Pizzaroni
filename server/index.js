@@ -17,6 +17,9 @@ app.use(bodyParser.json());
 io.on('connection', function(socket) {
   console.log('made socket connection ', socket.id);
 
+  socket.on('sendToppingsUpdate', function(toppings) {
+    io.sockets.emit('receiveToppingsUpdate', toppings);
+  });
   // socket.on('sendMessage', function(data) {
   //   io.sockets.emit('receiveMessage', data);
   // });
