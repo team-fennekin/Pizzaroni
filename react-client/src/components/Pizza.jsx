@@ -54,15 +54,14 @@ class Pizza extends React.Component {
 
   submitOrder() {
     var datum = {size: this.state.size, crust: this.state.crust, toppings: this.state.toppings, price: this.state.subtotal};
-    // var datum = 'trolllz';
     console.log(datum);
     $.ajax({
       url: '/save',
       method: 'POST',
-      body: datum,
-      data: datum,
+      data: JSON.stringify(datum),
+      contentType: 'application/json',
       sucess: function(data) {
-        console.log(data);
+        console.log('data', data);
       },
       error: function(err) {
         console.log(err);
