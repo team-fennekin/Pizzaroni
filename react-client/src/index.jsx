@@ -18,7 +18,15 @@ class App extends React.Component {
     this.handleToppingsUpdate = this.handleToppingsUpdate.bind(this);
 
     this.socket = io.connect();
+    this.socket.on('receiveToppingsUpdate', function(toppings) {
+      updateCurrentToppings(toppings);
+    });
 
+    const updateCurrentToppings = toppings => {
+      this.setState({
+        selectedToppings: toppings
+      });
+    }
   }
 
   componentDidMount() {
@@ -47,6 +55,8 @@ class App extends React.Component {
   handleToppingsUpdate(toppings) {
     this.setState({
       selectedToppings: toppings
+    }, function() {
+      this.socket.emit('sendToppingsUpdate', this.state.selectedToppings);
     });
   }
 
