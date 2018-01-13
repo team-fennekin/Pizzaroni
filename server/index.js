@@ -12,6 +12,7 @@ server.listen(3000, function() {
 });
 
 app.use(express.static(__dirname + '/../react-client/dist'));
+app.use(bodyParser.json());
 
 io.on('connection', function(socket) {
   console.log('made socket connection ', socket.id);
@@ -35,7 +36,6 @@ io.on('connection', function(socket) {
 });
 
 
-app.use(bodyParser.json());
 app.get('/sizes', function (req, res) {
   items.getAllSizes(function(err, data) {
     if(err) {
@@ -49,7 +49,6 @@ app.get('/sizes', function (req, res) {
 app.get('/toppings', function (req, res) {
   items.getAllToppings(function(err, data) {
     if(err) {
-      console.log(err);
       res.sendStatus(500);
     } else {
       res.json(data);
@@ -58,7 +57,6 @@ app.get('/toppings', function (req, res) {
 });
 
 app.get('/crusts', function (req, res) {
-  console.log('omega');
   items.getAllCrusts(function(err, data) {
     if(err) {
       res.sendStatus(500);
@@ -69,8 +67,7 @@ app.get('/crusts', function (req, res) {
 });
 
 app.post('/save', function (req, res) {
-  console.log('body', Object.keys(req));
-  console.log('body', req.body, req.data, res.data, res.body);
+  console.log('body', req.body);
   items.saveOrder(function(err, data) {
     if(err) {
       res.sendStatus(500);
@@ -79,5 +76,3 @@ app.post('/save', function (req, res) {
     }
   });
 });
-
-
