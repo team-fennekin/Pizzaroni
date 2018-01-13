@@ -43,7 +43,7 @@ class Sizes extends React.Component {
        <form>
          <ol>
            {this.state.sizes.map((size, idx) =>
-             <li>
+             <li key={size.id}>
                <label key={size.id}>
                  <input type="radio" value={idx} key={size.id} checked={this.state.selectedSize.name === size.name} onChange={this.handleSizeChange}/>
                  {size.name}
