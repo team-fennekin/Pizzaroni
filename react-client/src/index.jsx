@@ -11,10 +11,14 @@ class App extends React.Component {
     this.state = {
       user: null,
       roomID: null,
+      selectedToppings: [],
       numberOfUsers: 0
     };
 
+    this.handleToppingsUpdate = this.handleToppingsUpdate.bind(this);
+
     this.socket = io.connect();
+
   }
 
   componentDidMount() {
@@ -38,12 +42,18 @@ class App extends React.Component {
     this.setState({
       roomID: roomID()
     });
-  } 
+  }
+
+  handleToppingsUpdate(toppings) {
+    this.setState({
+      selectedToppings: toppings
+    });
+  }
 
   render () {
     return (
       <div>
-        <Pizza />
+        <Pizza handleToppingsUpdate={this.handleToppingsUpdate}/>
         <Log />
       </div>
     );

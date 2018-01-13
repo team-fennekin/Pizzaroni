@@ -20,7 +20,6 @@ class Pizza extends React.Component {
     this.onCrustChange = this.onCrustChange.bind(this);
     this.onToppingChange = this.onToppingChange.bind(this);
     this.countTotal = this.countTotal.bind(this);
-    this.submitOrder = this.submitOrder.bind(this);
   }
 
   onSizeChange(size) {
@@ -36,8 +35,11 @@ class Pizza extends React.Component {
   }
 
   onToppingChange(toppings) {
-    this.setState({toppings: Object.values(toppings)}, function() {
+    this.setState({
+      toppings: Object.values(toppings)
+    }, function() {
       this.countTotal();
+      this.props.handleToppingsUpdate(this.state.toppings);
     });
   }
 
