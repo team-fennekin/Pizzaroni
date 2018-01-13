@@ -20,7 +20,6 @@ app.get('/sizes', function (req, res) {
 });
 
 app.get('/toppings', function (req, res) {
-  console.log('omega');
   items.getAllToppings(function(err, data) {
     if(err) {
       console.log(err);
@@ -43,8 +42,8 @@ app.get('/crusts', function (req, res) {
 });
 
 app.post('/save', function (req, res) {
-  var body = req.body;
-  console.log('body', body);
+  console.log('body', Object.keys(req));
+  console.log('body', res.body);
   items.saveOrder(function(err, data) {
     if(err) {
       res.sendStatus(500);
