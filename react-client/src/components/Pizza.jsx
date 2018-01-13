@@ -52,7 +52,7 @@ class Pizza extends React.Component {
   }
 
   submitOrder() {
-    var data = {};
+    var data = {size: this.state.size, crust: this.state.crust, toppings: this.state.toppings, price: this.state.subtotal};
     $.ajax({
       url: '/save',
       method: 'POST',

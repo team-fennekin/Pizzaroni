@@ -1,11 +1,12 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var axios = require('axios');
-
 var items = require('../database-mysql');
+
 
 var app = express();
 
+app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../react-client/dist'));
 
 app.get('/sizes', function (req, res) {
@@ -42,8 +43,15 @@ app.get('/crusts', function (req, res) {
 });
 
 app.post('/save', function (req, res) {
-  console.log('gg');
-  res.json('ROFL JSON RESPONSE');
+  var body = req.body;
+  console.log('body', body);
+  items.saveOrder(function(err, data) {
+    if(err) {
+      res.sendStatus(500);
+    } else {
+      res.json(data);
+    }
+  });
 });
 
 app.listen(3000, function() {
