@@ -71,9 +71,22 @@ var getAllToppings = function(callback) {
   });
 };
 
+var saveOrder = function(callback) {
+  connection.query('SELECT * FROM toppings', function(err, results, fields) {
+    if(err) {
+      console.log('err');
+      callback(err, null);
+    } else {
+      console.log('data');
+      callback(null, results);
+    }
+  });
+};
+
 module.exports.getAllToppings = getAllToppings;
 module.exports.getAllUsers = getAllUsers;
 module.exports.getAllOrders = getAllOrders;
 module.exports.getAllPizzas = getAllPizzas;
 module.exports.getAllCrusts = getAllCrusts;
 module.exports.getAllSizes = getAllSizes;
+module.exports.saveOrder = saveOrder;

@@ -13,7 +13,6 @@ class Pizza extends React.Component {
       size: {},
       crust: {},
       toppings: [],
-
       subtotal: 0
     };
 
@@ -21,9 +20,8 @@ class Pizza extends React.Component {
     this.onCrustChange = this.onCrustChange.bind(this);
     this.onToppingChange = this.onToppingChange.bind(this);
     this.countTotal = this.countTotal.bind(this);
-
   }
-  
+
   onSizeChange(size) {
     this.setState({size: size}, function() {
       this.countTotal();
@@ -54,7 +52,7 @@ class Pizza extends React.Component {
   }
 
   submitOrder() {
-    var data = {};
+    var data = {size: this.state.size, crust: this.state.crust, toppings: this.state.toppings, price: this.state.subtotal};
     $.ajax({
       url: '/save',
       method: 'POST',
@@ -91,7 +89,7 @@ class Pizza extends React.Component {
               <div id="pizza-view-toppings">
                 Toppings:
                 <ul>
-                  {this.state.toppings.map(topping =>  
+                  {this.state.toppings.map(topping =>
                     <li>{topping.name}</li>
                   )}
                 </ul>
