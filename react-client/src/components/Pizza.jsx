@@ -20,7 +20,6 @@ class Pizza extends React.Component {
     this.onCrustChange = this.onCrustChange.bind(this);
     this.onToppingChange = this.onToppingChange.bind(this);
     this.countTotal = this.countTotal.bind(this);
-    this.submitOrder = this.submitOrder.bind(this);
   }
 
   onSizeChange(size) {
@@ -36,8 +35,11 @@ class Pizza extends React.Component {
   }
 
   onToppingChange(toppings) {
-    this.setState({toppings: Object.values(toppings)}, function() {
+    this.setState({
+      toppings: Object.values(toppings)
+    }, function() {
       this.countTotal();
+      this.props.handleToppingsUpdate(this.state.toppings);
     });
   }
 
@@ -53,14 +55,11 @@ class Pizza extends React.Component {
   }
 
   submitOrder() {
-    var datum = {size: this.state.size, crust: this.state.crust, toppings: this.state.toppings, price: this.state.subtotal};
-    // var datum = 'trolllz';
-    console.log(datum);
+    var data = {size: this.state.size, crust: this.state.crust, toppings: this.state.toppings, price: this.state.subtotal};
     $.ajax({
       url: '/save',
       method: 'POST',
-      body: datum,
-      data: datum,
+      data: JSON.stringify('data'),
       sucess: function(data) {
         console.log(data);
       },
