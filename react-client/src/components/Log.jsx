@@ -12,7 +12,7 @@ class Log extends React.Component  {
   }
 
   sendRequest() {
-    
+
   }
 
   render() {
