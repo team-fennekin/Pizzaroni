@@ -41,12 +41,16 @@ class Sizes extends React.Component {
     return (
       <div id="size">
        <form>
-        {this.state.sizes.map((size, idx) =>
-          <label key={size.id}>
-            <input type="radio" value={idx} key={size.id} checked={this.state.selectedSize.name === size.name} onChange={this.handleSizeChange}/>
-            {size.name}
-          </label>
-        )}
+         <ol>
+           {this.state.sizes.map((size, idx) =>
+             <li>
+               <label key={size.id}>
+                 <input type="radio" value={idx} key={size.id} checked={this.state.selectedSize.name === size.name} onChange={this.handleSizeChange}/>
+                 {size.name}
+               </label>
+             </li>
+           )}
+         </ol>
        </form>
       </div>
     );
