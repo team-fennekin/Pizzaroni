@@ -47,12 +47,16 @@ class Toppings extends React.Component {
   render() {
     return (
       <div id="toppings">
-        {this.state.toppings.map((topping, idx) =>
-          <label key={topping.id}>
-            <input type="checkbox" value={idx} key={topping.id} checked={this.state.selectedToppings[idx] !== undefined} onChange={this.handleToppingChange}/>
-            {topping.name}
-          </label>
-        )}
+        <ul>
+          {this.state.toppings.map((topping, idx) =>
+            <li>
+              <label key={topping.id}>
+                <input type="checkbox" value={idx} key={topping.id} checked={this.state.selectedToppings[idx] !== undefined} onChange={this.handleToppingChange}/>
+                {topping.name}
+              </label>
+            </li>
+          )}
+        </ul>
       </div>
     );
   }

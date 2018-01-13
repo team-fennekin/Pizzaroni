@@ -5,3 +5,19 @@ h1 {
 h2 {
   color: red;
 }
+
+#toppings {
+  border: 1px solid;
+}
+
+#size {
+  border: 1px solid;
+}
+
+#crust {
+  border: 1px solid;
+}
+
+li {
+  list-style-type: none;
+}
