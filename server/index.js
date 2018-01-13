@@ -43,7 +43,7 @@ app.get('/crusts', function (req, res) {
 
 app.post('/save', function (req, res) {
   console.log('body', Object.keys(req));
-  console.log('body', res.body);
+  console.log('body', req.body, req.data, res.data, res.body);
   items.saveOrder(function(err, data) {
     if(err) {
       res.sendStatus(500);
