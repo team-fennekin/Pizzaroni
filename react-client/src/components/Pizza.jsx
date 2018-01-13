@@ -90,7 +90,7 @@ class Pizza extends React.Component {
                 Toppings:
                 <ul>
                   {this.state.toppings.map(topping =>
-                    <li>{topping.name}</li>
+                    <li key={topping.id}>{topping.name}</li>
                   )}
                 </ul>
               </div>
