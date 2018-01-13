@@ -11,11 +11,34 @@ class App extends React.Component {
     this.state = {
       user: null,
       roomID: null,
-      numberOfUsers: null
+      numberOfUsers: 0
     };
 
     this.socket = io.connect();
   }
+
+  componentDidMount() {
+    let user = prompt("Welcome! Please choose a username: ");
+    this.setState({
+      user: user,
+      numberOfUsers: 1
+    });
+
+    // below adds room ID
+    let roomID = function() {
+      let m = 9; 
+      let s = '';
+      let r = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      for (var i=0; i < m; i++) {
+        s += r.charAt(Math.floor(Math.random()*r.length));
+      }
+      return s;
+    };
+
+    this.setState({
+      roomID: roomID()
+    });
+  } 
 
   render () {
     return (
