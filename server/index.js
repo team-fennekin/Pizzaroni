@@ -20,17 +20,18 @@ io.on('connection', function(socket) {
   socket.on('sendToppingsUpdate', function(toppings) {
     io.sockets.emit('receiveToppingsUpdate', toppings);
   });
-  // socket.on('sendMessage', function(data) {
-  //   io.sockets.emit('receiveMessage', data);
-  // });
 
-  // socket.on('typing', function(data) {
-  //   socket.broadcast.emit('typing', data);
-  // });
+  socket.on('sendMessage', function(message) {
+    io.sockets.emit('receiveMessage', message);
+  });
 
-  // socket.on('clearTyping', function(){
-  //   socket.broadcast.emit('clearTyping');
-  // });
+  socket.on('typing', function(user) {
+    socket.broadcast.emit('typing', user);
+  });
+
+  socket.on('clearTyping', function(){
+    socket.broadcast.emit('clearTyping');
+  });
 
   // socket.on('updateToppings', function(data) {
   //   console.log('trying to send: ', data);

@@ -12,11 +12,10 @@ class App extends React.Component {
     this.state = {
       username: null,
       roomID: null,
-      selectedToppings: [],
+      userToppings: [],
+      friendToppings: [],
       numberOfUsers: 0
     };
-
-    this.handleToppingsUpdate = this.handleToppingsUpdate.bind(this);
 
     this.socket = io.connect();
   }

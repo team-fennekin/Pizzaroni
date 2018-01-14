@@ -24,6 +24,37 @@ class ChatView extends React.Component {
     this.handleMessageTyping = this.handleMessageTyping.bind(this);
     this.handleSendMessageClick = this.handleSendMessageClick.bind(this);
 
+    this.props.socket.on('receiveMessage', function(data) {
+      appendMessage(data);
+    });
+
+    const appendMessage = message => {
+      this.setState({
+        messages: [...this.state.messages, message]
+      });
+    };
+
+    this.props.socket.on('typing', function(user) {
+      setUserTyping(user);
+    });
+
+    const setUserTyping = user => {
+      this.setState({
+        userTyping: user
+      });
+    };
+
+    this.props.socket.on('clearTyping', function() {
+      resetUserTyping();
+    });
+
+    const resetUserTyping = () => {
+      this.setState({
+        userTyping: null
+      });
+    };
+    
+
   }
 
   componentWillReceiveProps(nextProps) {
@@ -38,11 +69,23 @@ class ChatView extends React.Component {
     this.setState({
       messageToSend: e.target.value
     });
+
+    this.props.socket.emit('typing', this.state.username);
   }
 
   handleSendMessageClick(e) {
-    console.log(this.props.socket);
+    // console.log(this.props.socket);
     e.preventDefault();
+    this.props.socket.emit('sendMessage', {
+      username: this.state.username,
+      message: this.state.messageToSend
+    });
+
+    this.props.socket.emit('clearTyping');
+
+    this.setState({
+      messageToSend: ''
+    });    
   }
 
   render() {
