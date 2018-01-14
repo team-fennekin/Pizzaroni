@@ -39,7 +39,6 @@ class Pizza extends React.Component {
       toppings: Object.values(toppings)
     }, function() {
       this.countTotal();
-      this.props.handleToppingsUpdate(this.state.toppings);
     });
   }
 
