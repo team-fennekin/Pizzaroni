@@ -94,9 +94,9 @@ class ChatView extends React.Component {
        <h1>{this.state.username}'s chat: </h1>
         <div className="messageArea">
           <div className="messages">
-           {this.state.messages.map(message => {
+           {this.state.messages.map((message, i) => {
             return (
-              <p className="message">{message.username}: {message.message}</p>
+              <p className="message" key={i}>{message.username}: {message.message}</p>
             )
             })}
            <NotificationArea userTyping={this.state.userTyping} />
