@@ -21,8 +21,8 @@ class ChatView extends React.Component {
       messages: []
     };
 
-    // this.handleMessageTyping = this.handleMessageTyping.bind(this);
-    // this.handleSendMessageClick = this.handleSendMessageClick.bind(this);
+    this.handleMessageTyping = this.handleMessageTyping.bind(this);
+    this.handleSendMessageClick = this.handleSendMessageClick.bind(this);
 
   }
 
@@ -32,6 +32,17 @@ class ChatView extends React.Component {
         username: nextProps.username
       });
     }
+  }
+
+  handleMessageTyping(e) {
+    this.setState({
+      messageToSend: e.target.value
+    });
+  }
+
+  handleSendMessageClick(e) {
+    console.log(this.props.socket);
+    e.preventDefault();
   }
 
   render() {

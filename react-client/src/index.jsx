@@ -19,15 +19,6 @@ class App extends React.Component {
     this.handleToppingsUpdate = this.handleToppingsUpdate.bind(this);
 
     this.socket = io.connect();
-    this.socket.on('receiveToppingsUpdate', function(toppings) {
-      updateCurrentToppings(toppings);
-    });
-
-    const updateCurrentToppings = toppings => {
-      this.setState({
-        selectedToppings: toppings
-      });
-    }
   }
 
   componentDidMount() {
@@ -53,19 +44,11 @@ class App extends React.Component {
     });
   }
 
-  handleToppingsUpdate(toppings) {
-    this.setState({
-      selectedToppings: toppings
-    }, function() {
-      this.socket.emit('sendToppingsUpdate', this.state.selectedToppings);
-    });
-  }
-
   render () {
     return (
       <div>
-        <Pizza handleToppingsUpdate={this.handleToppingsUpdate}/>
-        <ChatView username={this.state.username}/>
+        <Pizza socket={this.socket}/>
+        <ChatView username={this.state.username} socket={this.socket}/>
         <Log />
       </div>
     );
