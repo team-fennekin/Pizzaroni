@@ -1,15 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import Pizza from './components/Pizza.jsx';
-import Log from './components/Log.jsx';
 import io from 'socket.io-client';
+import Pizza from './components/Pizza.jsx';
+import ChatView from './components/ChatView.jsx';
+import Log from './components/Log.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: null,
+      username: null,
       roomID: null,
       selectedToppings: [],
       numberOfUsers: 0
@@ -30,9 +31,9 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    let user = prompt("Welcome! Please choose a username: ");
+    let username = prompt("Welcome! Please choose a username: ");
     this.setState({
-      user: user,
+      username: username,
       numberOfUsers: 1
     });
 
@@ -64,6 +65,7 @@ class App extends React.Component {
     return (
       <div>
         <Pizza handleToppingsUpdate={this.handleToppingsUpdate}/>
+        <ChatView username={this.state.username}/>
         <Log />
       </div>
     );
