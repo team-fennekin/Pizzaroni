@@ -46,6 +46,8 @@ class App extends React.Component {
     this.setState({
       roomID: roomID()
     });
+
+    this.socket.emit('addUser', username);
   }
 
   render () {

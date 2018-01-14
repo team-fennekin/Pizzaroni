@@ -14,23 +14,46 @@ server.listen(3000, function() {
 app.use(express.static(__dirname + '/../react-client/dist'));
 app.use(bodyParser.json());
 
+
+var usernames = {};
+var rooms =['lobby'];
+
 io.on('connection', function(socket) {
   console.log('made socket connection ', socket.id);
 
-  socket.on('sendToppingsUpdate', function(toppings) {
-    io.sockets.emit('receiveToppingsUpdate', toppings);
+  socket.on('addUser', function(username) {
+    socket.username = username;
+    socket.room = 'lobby';
+    usernames[username] = username;
+
+    socket.join('lobby');
+
+    socket.emit('receiveMessage', {
+      username: 'SERVER',
+      message: 'you have connected to lobby chat'
+    });
+
+    socket.broadcast.to('lobby').emit('receiveMessage', {
+      username: 'SERVER',
+      message: `${username} has connected to this room`
+    });
+
   });
 
+  // socket.on('sendToppingsUpdate', function(toppings) {
+  //   io.sockets.emit('receiveToppingsUpdate', toppings);
+  // });
+
   socket.on('sendMessage', function(message) {
-    io.sockets.emit('receiveMessage', message);
+    io.sockets.in(socket.room).emit('receiveMessage', message);
   });
 
   socket.on('typing', function(user) {
-    socket.broadcast.emit('typing', user);
+    socket.broadcast.to(socket.room).emit('typing', user);
   });
 
   socket.on('clearTyping', function(){
-    socket.broadcast.emit('clearTyping');
+    socket.broadcast.to(socket.room).emit('clearTyping');
   });
 
   // socket.on('updateToppings', function(data) {
