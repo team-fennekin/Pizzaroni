@@ -38,6 +38,9 @@ io.on('connection', function(socket) {
       message: `${username} has connected to this room`
     });
 
+    // socket.broadcast.to('lobby').emit('updateRoomUsers', usernames);
+    io.emit('updateRoomUsers', usernames);
+
   });
 
   // socket.on('sendToppingsUpdate', function(toppings) {

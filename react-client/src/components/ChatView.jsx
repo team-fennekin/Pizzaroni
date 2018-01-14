@@ -18,7 +18,8 @@ class ChatView extends React.Component {
       username: this.props.username,
       messageToSend: '',
       userTyping: null,
-      messages: []
+      messages: [],
+      roomUsers: {}
     };
 
     this.handleMessageTyping = this.handleMessageTyping.bind(this);
@@ -31,6 +32,16 @@ class ChatView extends React.Component {
     const appendMessage = message => {
       this.setState({
         messages: [...this.state.messages, message]
+      });
+    };
+
+    this.props.socket.on('updateRoomUsers', function(data) {
+      updateRoomUsers(data);
+    });
+
+    const updateRoomUsers = users => {
+      this.setState({
+        roomUsers: users
       });
     };
 
@@ -91,7 +102,14 @@ class ChatView extends React.Component {
   render() {
     return (
       <div id="chat">
-       <h1>{this.state.username}'s chat: </h1>
+        <h1>{this.state.username}'s chat: </h1>
+
+        <ul className="roomUsers">
+          {Object.keys(this.state.roomUsers).map((username, index) => {
+            return <li key={index}>{username}</li>
+          })}
+        </ul>
+
         <div className="messageArea">
           <div className="messages">
            {this.state.messages.map((message, i) => {
