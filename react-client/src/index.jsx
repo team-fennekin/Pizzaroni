@@ -6,38 +6,29 @@ import {
   Switch
 } from 'react-router-dom';
 import $ from 'jquery';
-import Pizza from './components/Pizza.jsx';
-import Log from './components/Log.jsx';
 import io from 'socket.io-client';
+import Pizza from './components/Pizza.jsx';
+import ChatView from './components/ChatView.jsx';
+import Log from './components/Log.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: null,
+      username: null,
       roomID: null,
-      selectedToppings: [],
+      userToppings: [],
+      friendToppings: [],
       numberOfUsers: 0
     };
 
-    this.handleToppingsUpdate = this.handleToppingsUpdate.bind(this);
-
     this.socket = io.connect();
-    this.socket.on('receiveToppingsUpdate', function(toppings) {
-      updateCurrentToppings(toppings);
-    });
-
-    const updateCurrentToppings = toppings => {
-      this.setState({
-        selectedToppings: toppings
-      });
-    }
   }
 
   componentDidMount() {
-    let user = prompt("Welcome! Please choose a username: ");
+    let username = prompt("Welcome! Please choose a username: ");
     this.setState({
-      user: user,
+      username: username,
       numberOfUsers: 1
     });
 
@@ -57,18 +48,11 @@ class App extends React.Component {
     });
   }
 
-  handleToppingsUpdate(toppings) {
-    this.setState({
-      selectedToppings: toppings
-    }, function() {
-      this.socket.emit('sendToppingsUpdate', this.state.selectedToppings);
-    });
-  }
-
   render () {
     return (
       <div>
-        <Pizza handleToppingsUpdate={this.handleToppingsUpdate}/>
+        <Pizza socket={this.socket}/>
+        <ChatView username={this.state.username} socket={this.socket}/>
         <Log />
       </div>
     );
