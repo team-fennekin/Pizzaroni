@@ -25,6 +25,13 @@ io.on('connection', function(socket) {
     socket.username = username;
     socket.room = 'lobby';
     usernames[username] = username;
+    // if (!socket.usersInRoom) {
+    //   socket.usersInRoom = {};
+    // } else {
+    //   socket.usersInRoom[username] = username;
+    // }
+    // console.log(socket.usersInRoom);
+    // socket.room.users[username]
 
     socket.join('lobby');
 
@@ -38,7 +45,7 @@ io.on('connection', function(socket) {
       message: `${username} has connected to this room`
     });
 
-    // socket.broadcast.to('lobby').emit('updateRoomUsers', usernames);
+    // socket.emit.to(socket.room).emit('updateRoomUsers', usernames);
     io.emit('updateRoomUsers', usernames);
 
   });
@@ -61,6 +68,9 @@ io.on('connection', function(socket) {
 
   socket.on('switchRoom', function(newRoom) {
     socket.leave(socket.room);
+    if (rooms.indexOf(newRoom) < 0) {
+      rooms.push(newRoom);
+    }
     socket.join(newRoom);
     socket.emit('receiveMessage', {
       username: 'SERVER',
@@ -71,8 +81,19 @@ io.on('connection', function(socket) {
       username: 'SERVER',
       message: `${socket.username} has left this room`
     });
+    //below logic deletes the user who switched rooms out of lobby
+    //from the main usernames{} container - so it is no longer
+    //valid, and them emits the udpateRoomUsers event to ensure
+    //all other lobby-connected clients have the latest information
+    // delete usernames[socket.username];
+    // io.emit('updateRoomUsers', usernames);
+
     //NOW reassign room:
     socket.room = newRoom;
+    // below logic creates a usernames object FOR THAT ROOM ONLY
+    // socket.room.usernames = {};
+    // socket.room.usernames[socket.username] = socket.username;
+
     socket.broadcast.to(newRoom).emit('receiveMessage', {
       username: 'SERVER',
       message: `${socket.username} has joined this room`
