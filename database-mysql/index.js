@@ -40,10 +40,8 @@ var getAllPizzas = function(callback) {
 var getAllCrusts = function(callback) {
   connection.query('SELECT * FROM crusts', function(err, results, fields) {
     if(err) {
-      console.log('err');
       callback(err, null);
     } else {
-      // console.log('data');
       callback(null, results);
     }
   });
@@ -62,22 +60,34 @@ var getAllSizes = function(callback) {
 var getAllToppings = function(callback) {
   connection.query('SELECT * FROM toppings', function(err, results, fields) {
     if(err) {
-      console.log('err');
       callback(err, null);
     } else {
-      // console.log('data');
       callback(null, results);
     }
   });
 };
 
-var saveOrder = function(callback) {
-  connection.query('SELECT * FROM toppings', function(err, results, fields) {
+var savePizza = function(body, callback) {
+  connection.query(`INSERT INTO pizzas(size_id, crust_id, price) VALUES (${body.size.id}, ${body.crust.id}, ${body.price})`, function(err, results, fields) {
     if(err) {
-      console.log('err');
       callback(err, null);
     } else {
-      console.log('data');
+      callback(null, results);
+    }
+  });
+};
+
+var saveToppings = function(pizzaId, body, callback) {
+  var arr = [];
+  for (var row of body.toppings) {
+    var str = `(${pizzaId}, ${row.id})`;
+    arr.push(str);
+  }
+  arr = arr.join(', ');
+  connection.query(`INSERT INTO pizza_toppings(pizza_id, topping_id) VALUES ${arr}`, function(err, results, fields) {
+    if(err) {
+      callback(err, null);
+    } else {
       callback(null, results);
     }
   });
@@ -89,4 +99,5 @@ module.exports.getAllOrders = getAllOrders;
 module.exports.getAllPizzas = getAllPizzas;
 module.exports.getAllCrusts = getAllCrusts;
 module.exports.getAllSizes = getAllSizes;
-module.exports.saveOrder = saveOrder;
+module.exports.savePizza = savePizza;
+module.exports.saveToppings = saveToppings;
