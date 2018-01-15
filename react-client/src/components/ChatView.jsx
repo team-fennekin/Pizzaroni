@@ -27,7 +27,7 @@ class ChatView extends React.Component {
     this.handleMessageTyping = this.handleMessageTyping.bind(this);
     this.handleSendMessageClick = this.handleSendMessageClick.bind(this);
     this.handleUserNameClick = this.handleUserNameClick.bind(this);
-    this.handleSwitchRoomClick = this.handleSwitchRoomClick.bind(this);
+    // this.handleSwitchRoomClick = this.handleSwitchRoomClick.bind(this);
 
     this.props.socket.on('receiveMessage', function(data) {
       appendMessage(data);
@@ -139,14 +139,16 @@ class ChatView extends React.Component {
     }
   }
 
-  handleSwitchRoomClick(e) {
-    // console.log(e.target);
-    var newRoomName = prompt('Please enter the name of your new room: ');
-    this.setState({
-      roomID: newRoomName
-    });
-    this.props.socket.emit('switchRoom', newRoomName);
-  }
+  // BELOW CODE WAS USED TO TEST SWITCHING TO NEW ROOMS MANUALLY
+
+  // handleSwitchRoomClick(e) {
+  //   // console.log(e.target);
+  //   var newRoomName = prompt('Please enter the name of your new room: ');
+  //   this.setState({
+  //     roomID: newRoomName
+  //   });
+  //   this.props.socket.emit('switchRoom', newRoomName);
+  // }
 
   render() {
     return (
@@ -173,7 +175,6 @@ class ChatView extends React.Component {
         </div>
         <input type="text" placeholder="Message" className="message-form" value={this.state.messageToSend} onChange={this.handleMessageTyping}/>
         <button onClick={this.handleSendMessageClick}>Send Message</button>
-        <button onClick={this.handleSwitchRoomClick}>Switch to New Room</button>
       </div>
     );
   }
