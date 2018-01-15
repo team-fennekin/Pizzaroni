@@ -6,6 +6,10 @@ h2 {
   color: red;
 }
 
+img {
+  border: 1px solid;
+}
+
 #toppings {
   border: 1px solid;
 }
@@ -15,6 +19,14 @@ h2 {
 }
 
 #crust {
+  border: 1px solid;
+}
+
+#order-summary {
+  border: 1px solid;
+}
+
+#pizza-picture {
   border: 1px solid;
 }
 
