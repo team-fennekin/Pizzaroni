@@ -55,14 +55,39 @@ io.on('connection', function(socket) {
     socket.broadcast.to(socket.room).emit('typing', user);
   });
 
-  socket.on('clearTyping', function(){
+  socket.on('clearTyping', function() {
     socket.broadcast.to(socket.room).emit('clearTyping');
   });
 
-  // socket.on('updateToppings', function(data) {
-  //   console.log('trying to send: ', data);
-  //   io.sockets.emit('receiveToppingsUpdate', data);
-  // });
+  socket.on('switchRoom', function(newRoom) {
+    socket.leave(socket.room);
+    socket.join(newRoom);
+    socket.emit('receiveMessage', {
+      username: 'SERVER',
+      message: `you have connected to room ${newRoom}`
+    });
+    // this actually emits a "goodbye" to the old room BEFORE reassigning new room
+    socket.broadcast.to(socket.room).emit('receiveMessage', {
+      username: 'SERVER',
+      message: `${socket.username} has left this room`
+    });
+    //NOW reassign room:
+    socket.room = newRoom;
+    socket.broadcast.to(newRoom).emit('receiveMessage', {
+      username: 'SERVER',
+      message: `${socket.username} has joined this room`
+    });
+  });
+
+  socket.on('disconnect', function() {
+    delete usernames[socket.username];
+    io.emit('updateRoomUsers', usernames);
+    socket.broadcast.emit('receiveMessage', {
+      username: 'SERVER',
+      message: `${socket.username} has disconnected`
+    });
+    socket.leave(socket.room);
+  });
 });
 
 
