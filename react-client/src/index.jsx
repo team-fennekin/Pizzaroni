@@ -16,7 +16,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       username: null,
-      roomID: null,
+      roomID: 'lobby',
       userToppings: [],
       friendToppings: [],
       numberOfUsers: 0
@@ -33,20 +33,7 @@ class App extends React.Component {
     });
 
     // below adds room ID
-    let roomID = function() {
-      let m = 9;
-      let s = '';
-      let r = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      for (var i=0; i < m; i++) {
-        s += r.charAt(Math.floor(Math.random()*r.length));
-      }
-      return s;
-    };
-
-    this.setState({
-      roomID: roomID()
-    });
-
+    // console.log(this.socket.id);
     this.socket.emit('addUser', username);
   }
 
