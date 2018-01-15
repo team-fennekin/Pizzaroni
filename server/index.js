@@ -19,7 +19,7 @@ var usernames = {};
 var rooms = {};
 
 io.on('connection', function(socket) {
-  // console.log('made socket connection ', socket.id);
+  console.log('made socket connection ', socket.id);
 
   socket.on('addUser', function(username) {
     socket.username = username;
@@ -29,11 +29,13 @@ io.on('connection', function(socket) {
       rooms[socket.room] = {
         roomName: socket.room,
         roomUsers: {
-          [username]: socket.username
+          [username]: socket.username,
+          [socket.id]: socket.id
         }
       };
     } else {
       rooms[socket.room].roomUsers[username] = socket.username;
+      rooms[socket.room].roomUsers[socket.id] = socket.id;
     }
 
     socket.join('lobby');
@@ -69,6 +71,10 @@ io.on('connection', function(socket) {
     socket.broadcast.to(socket.room).emit('clearTyping');
   });
 
+  socket.on('inviteUser', function(userSendingInvite, userAcceptingInvite) {
+    socket.broadcast.to(socket.room).emit('handleInvite');
+  });
+
   socket.on('switchRoom', function(newRoom) {
     socket.leave(socket.room);
     //check if new rooms already exists
@@ -78,18 +84,21 @@ io.on('connection', function(socket) {
       rooms[newRoom] = {
         roomName: newRoom,
         roomUsers: {
-          [socket.username]: socket.username
+          [socket.username]: socket.username,
+          [socket.id]: socket.id
         }
       };
       //IF IT EXISTS, simply add the curret user to its roomUsers 
       // list
     } else {
       rooms[newRoom].roomUsers[socket.username] = socket.username;
+      rooms[newRoom].roomUsers[socket.id] = socket.id;
     }
 
     // delete the current user from the active users of a room which
     // this user just left and have them update their userlist
     delete rooms[socket.room].roomUsers[socket.username];
+    delete rooms[socket.room].roomUsers[socket.id];
     io.sockets.in(socket.room).emit('updateRoomUsers', rooms[socket.room].roomUsers);
 
     socket.join(newRoom);
@@ -116,8 +125,11 @@ io.on('connection', function(socket) {
 
   socket.on('disconnect', function() {
     delete usernames[socket.username];
-    delete rooms[socket.room].roomUsers[socket.username];
-    io.sockets.in(socket.room).emit('updateRoomUsers', rooms[socket.room].roomUsers)
+    if (rooms[socket.room]) {
+      delete rooms[socket.room].roomUsers[socket.username];
+      delete rooms[socket.room].roomUsers[socket.id];
+      io.sockets.in(socket.room).emit('updateRoomUsers', rooms[socket.room].roomUsers)
+    }
     socket.broadcast.to(socket.room).emit('receiveMessage', {
       username: 'SERVER',
       message: `${socket.username} has disconnected`

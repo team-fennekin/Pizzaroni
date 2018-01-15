@@ -104,11 +104,30 @@ class ChatView extends React.Component {
   }
 
   handleUserNameClick(e) {
-    console.log(e.target);
+    // console.log(e.target.getAttribute("value"));
+    let usernameToInvite = e.target.getAttribute("value");
+    // let generateNewRoomID = function() {
+    //   let m = 9;
+    //   let s = '';
+    //   let r = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    //   for (var i=0; i < m; i++) {
+    //     s += r.charAt(Math.floor(Math.random()*r.length));
+    //   }
+    //   return s;
+    // };
+
+    // this.setState({
+    //   roomID: generateNewRoomID()
+    // });
+
+    if (usernameToInvite !== this.state.username) {
+      // console.log('this works!!!');
+      // this.props.socket.emit('inviteUser', this.state.username, usernameToInvite);
+    }
   }
 
   handleSwitchRoomClick(e) {
-    console.log(e.target);
+    // console.log(e.target);
     var newRoomName = prompt('Please enter the name of your new room: ');
     this.setState({
       roomID: newRoomName
@@ -120,13 +139,14 @@ class ChatView extends React.Component {
     return (
       <div id="chat">
 
-        <h1>{this.state.username}'s chat: </h1>
-
+        <h1>{this.state.username}'s chat</h1>
+        <h3>Active users for this room:</h3>
         <ul className="roomUsers">
           {Object.keys(this.state.roomUsers).map((username, index) => {
-            return <li key={index}
-                    onClick={this.handleUserNameClick}
-                   >{username}</li>
+            // below IF logic ensures only socket usernames and NOT socket IDs are rendered to the userlist
+            if (index % 2 === 0) {
+              return <li key={index} value={username} onClick={this.handleUserNameClick}>{username}</li>
+            }
           })}
         </ul>
 
