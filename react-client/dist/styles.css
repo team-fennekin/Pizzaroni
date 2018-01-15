@@ -10,6 +10,14 @@ img {
   border: 1px solid;
 }
 
+#completed {
+  background-color: red;
+}
+
+#not-completed {
+  background-color: transparent;
+}
+
 #toppings {
   border: 1px solid;
 }
