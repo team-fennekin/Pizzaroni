@@ -6,10 +6,11 @@ USE pizzeria;
 
 CREATE TABLE users (
   id int NOT NULL AUTO_INCREMENT,
-  first_name VARCHAR(20) NOT NULL,
-  last_name VARCHAR(50) NOT NULL,
-  email VARCHAR(20) NOT NULL,
-  phone_number VARCHAR(20) DEFAULT NULL,
+  username VARCHAR (20),
+  first_name VARCHAR(20),
+  last_name VARCHAR(50),
+  email VARCHAR(20),
+  phone_number VARCHAR(20),
   address_id int,
   PRIMARY KEY (ID)
 );
@@ -43,9 +44,15 @@ CREATE TABLE cards (
   PRIMARY KEY (ID)
 );
 
+CREATE TABLE users_pizzas (
+  id int NOT NULL AUTO_INCREMENT,
+  user_id int NOT NULL,
+  pizza_id int NOT NULL,
+  PRIMARY KEY (ID)
+);
+
 CREATE TABLE pizzas (
   id int NOT NULL AUTO_INCREMENT,
-  user_id int,
   size_id int NOT NULL,
   crust_id int NOT NULL,
   price int NOT NULL,
