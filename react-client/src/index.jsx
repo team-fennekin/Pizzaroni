@@ -54,7 +54,7 @@ class App extends React.Component {
     return (
       <div>
         <Pizza socket={this.socket}/>
-        <ChatView username={this.state.username} socket={this.socket}/>
+        <ChatView roomID={this.state.roomID} username={this.state.username} socket={this.socket}/>
         <Log />
       </div>
     );

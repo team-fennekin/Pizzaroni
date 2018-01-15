@@ -16,14 +16,18 @@ class ChatView extends React.Component {
     super(props);
     this.state = {
       username: this.props.username,
+      roomID: this.props.roomID,
       messageToSend: '',
       userTyping: null,
       messages: [],
-      roomUsers: {}
+      roomUsers: {},
+      showPopup: false
     };
 
     this.handleMessageTyping = this.handleMessageTyping.bind(this);
     this.handleSendMessageClick = this.handleSendMessageClick.bind(this);
+    this.handleUserNameClick = this.handleUserNameClick.bind(this);
+    this.handleSwitchRoomClick = this.handleSwitchRoomClick.bind(this);
 
     this.props.socket.on('receiveMessage', function(data) {
       appendMessage(data);
@@ -99,14 +103,30 @@ class ChatView extends React.Component {
     });    
   }
 
+  handleUserNameClick(e) {
+    console.log(e.target);
+  }
+
+  handleSwitchRoomClick(e) {
+    console.log(e.target);
+    var newRoomName = prompt('Please enter the name of your new room: ');
+    this.setState({
+      roomID: newRoomName
+    });
+    this.props.socket.emit('switchRoom', newRoomName);
+  }
+
   render() {
     return (
       <div id="chat">
+
         <h1>{this.state.username}'s chat: </h1>
 
         <ul className="roomUsers">
           {Object.keys(this.state.roomUsers).map((username, index) => {
-            return <li key={index}>{username}</li>
+            return <li key={index}
+                    onClick={this.handleUserNameClick}
+                   >{username}</li>
           })}
         </ul>
 
@@ -122,6 +142,7 @@ class ChatView extends React.Component {
         </div>
         <input type="text" placeholder="Message" className="message-form" value={this.state.messageToSend} onChange={this.handleMessageTyping}/>
         <button onClick={this.handleSendMessageClick}>Send Message</button>
+        <button onClick={this.handleSwitchRoomClick}>Switch to New Room</button>
       </div>
     );
   }
