@@ -68,8 +68,19 @@ class ChatView extends React.Component {
         userTyping: null
       });
     };
-    
 
+    this.props.socket.on('receiveRoomInvite', function(newRoom) {
+      console.log('got the message', newRoom);
+      switchRoom(newRoom);
+    });
+
+    const switchRoom = newRoom => {
+      this.setState({
+        roomID: newRoom
+      }, function() {
+        this.props.socket.emit('switchRoom', this.state.roomID);
+      });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -104,25 +115,27 @@ class ChatView extends React.Component {
   }
 
   handleUserNameClick(e) {
-    // console.log(e.target.getAttribute("value"));
-    let usernameToInvite = e.target.getAttribute("value");
-    // let generateNewRoomID = function() {
-    //   let m = 9;
-    //   let s = '';
-    //   let r = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    //   for (var i=0; i < m; i++) {
-    //     s += r.charAt(Math.floor(Math.random()*r.length));
-    //   }
-    //   return s;
-    // };
+    if (e.target.getAttribute("value") !== this.state.username && this.state.roomID === 'lobby') {
+      let usernameToInvite = e.target.getAttribute("value");
+      let socketIDtoInvite = this.state.roomUsers[usernameToInvite][1];
+      console.log(`Looking to invite ${usernameToInvite} with socked id of: ${socketIDtoInvite}`);
 
-    // this.setState({
-    //   roomID: generateNewRoomID()
-    // });
+      let generateNewRoomID = function() {
+        let m = 9;
+        let s = '';
+        let r = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        for (var i=0; i < m; i++) {
+          s += r.charAt(Math.floor(Math.random()*r.length));
+        }
+        return s;
+      };
 
-    if (usernameToInvite !== this.state.username) {
-      // console.log('this works!!!');
-      // this.props.socket.emit('inviteUser', this.state.username, usernameToInvite);
+      this.setState({
+        roomID: generateNewRoomID()
+      }, function() {
+        this.props.socket.emit('inviteUser', this.state.username, socketIDtoInvite, this.state.roomID);
+        this.props.socket.emit('switchRoom', this.state.roomID);
+      });
     }
   }
 
@@ -141,12 +154,10 @@ class ChatView extends React.Component {
 
         <h1>{this.state.username}'s chat</h1>
         <h3>Active users for this room:</h3>
+
         <ul className="roomUsers">
           {Object.keys(this.state.roomUsers).map((username, index) => {
-            // below IF logic ensures only socket usernames and NOT socket IDs are rendered to the userlist
-            if (index % 2 === 0) {
-              return <li key={index} value={username} onClick={this.handleUserNameClick}>{username}</li>
-            }
+            return <li key={index} value={username} onClick={this.handleUserNameClick}>{username}</li>
           })}
         </ul>
 
