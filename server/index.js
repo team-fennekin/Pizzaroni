@@ -181,3 +181,25 @@ app.post('/save', function (req, res) {
     }
   });
 });
+
+app.post('/users', function (req, res) {
+  items.saveUser(req.body, function(err, data) {
+    if(err) {
+      res.json(500);
+    } else {
+      res.json(data);
+    }
+  });
+});
+
+//'Username is already taken. You are screwed.'
+
+app.post('/save_user', function (req, res) {
+  items.saveUser(req.body, function(err, data) {
+    if(err) {
+      res.sendStatus(500);
+    } else {
+      res.json(data);
+    }
+  });
+});
