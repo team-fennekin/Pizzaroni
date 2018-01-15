@@ -16,22 +16,25 @@ app.use(bodyParser.json());
 
 
 var usernames = {};
-var rooms =['lobby'];
+var rooms = {};
 
 io.on('connection', function(socket) {
-  console.log('made socket connection ', socket.id);
+  // console.log('made socket connection ', socket.id);
 
   socket.on('addUser', function(username) {
     socket.username = username;
     socket.room = 'lobby';
     usernames[username] = username;
-    // if (!socket.usersInRoom) {
-    //   socket.usersInRoom = {};
-    // } else {
-    //   socket.usersInRoom[username] = username;
-    // }
-    // console.log(socket.usersInRoom);
-    // socket.room.users[username]
+    if (rooms[socket.room] === undefined) {
+      rooms[socket.room] = {
+        roomName: socket.room,
+        roomUsers: {
+          [username]: socket.username
+        }
+      };
+    } else {
+      rooms[socket.room].roomUsers[username] = socket.username;
+    }
 
     socket.join('lobby');
 
@@ -46,8 +49,8 @@ io.on('connection', function(socket) {
     });
 
     // socket.emit.to(socket.room).emit('updateRoomUsers', usernames);
-    io.emit('updateRoomUsers', usernames);
-
+    // io.emit('updateRoomUsers', usernames);
+    io.sockets.in(socket.room).emit('updateRoomUsers', rooms[socket.room].roomUsers);
   });
 
   // socket.on('sendToppingsUpdate', function(toppings) {
@@ -68,9 +71,27 @@ io.on('connection', function(socket) {
 
   socket.on('switchRoom', function(newRoom) {
     socket.leave(socket.room);
-    if (rooms.indexOf(newRoom) < 0) {
-      rooms.push(newRoom);
+    //check if new rooms already exists
+    //if not, create it and add the creating user to its
+    //roomUsers list
+    if (rooms[newRoom] === undefined) {
+      rooms[newRoom] = {
+        roomName: newRoom,
+        roomUsers: {
+          [socket.username]: socket.username
+        }
+      };
+      //IF IT EXISTS, simply add the curret user to its roomUsers 
+      // list
+    } else {
+      rooms[newRoom].roomUsers[socket.username] = socket.username;
     }
+
+    // delete the current user from the active users of a room which
+    // this user just left and have them update their userlist
+    delete rooms[socket.room].roomUsers[socket.username];
+    io.sockets.in(socket.room).emit('updateRoomUsers', rooms[socket.room].roomUsers);
+
     socket.join(newRoom);
     socket.emit('receiveMessage', {
       username: 'SERVER',
@@ -81,29 +102,23 @@ io.on('connection', function(socket) {
       username: 'SERVER',
       message: `${socket.username} has left this room`
     });
-    //below logic deletes the user who switched rooms out of lobby
-    //from the main usernames{} container - so it is no longer
-    //valid, and them emits the udpateRoomUsers event to ensure
-    //all other lobby-connected clients have the latest information
-    // delete usernames[socket.username];
-    // io.emit('updateRoomUsers', usernames);
 
     //NOW reassign room:
     socket.room = newRoom;
-    // below logic creates a usernames object FOR THAT ROOM ONLY
-    // socket.room.usernames = {};
-    // socket.room.usernames[socket.username] = socket.username;
 
     socket.broadcast.to(newRoom).emit('receiveMessage', {
       username: 'SERVER',
       message: `${socket.username} has joined this room`
     });
+
+    io.sockets.in(socket.room).emit('updateRoomUsers', rooms[socket.room].roomUsers);
   });
 
   socket.on('disconnect', function() {
     delete usernames[socket.username];
-    io.emit('updateRoomUsers', usernames);
-    socket.broadcast.emit('receiveMessage', {
+    delete rooms[socket.room].roomUsers[socket.username];
+    io.sockets.in(socket.room).emit('updateRoomUsers', rooms[socket.room].roomUsers)
+    socket.broadcast.to(socket.room).emit('receiveMessage', {
       username: 'SERVER',
       message: `${socket.username} has disconnected`
     });
@@ -143,7 +158,7 @@ app.get('/crusts', function (req, res) {
 });
 
 app.post('/save', function (req, res) {
-  console.log('body', req.body);
+  // console.log('body', req.body);
   items.saveOrder(function(err, data) {
     if(err) {
       res.sendStatus(500);

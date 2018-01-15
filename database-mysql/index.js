@@ -43,7 +43,7 @@ var getAllCrusts = function(callback) {
       console.log('err');
       callback(err, null);
     } else {
-      console.log('data');
+      // console.log('data');
       callback(null, results);
     }
   });
@@ -65,7 +65,7 @@ var getAllToppings = function(callback) {
       console.log('err');
       callback(err, null);
     } else {
-      console.log('data');
+      // console.log('data');
       callback(null, results);
     }
   });
