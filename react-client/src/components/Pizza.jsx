@@ -4,18 +4,19 @@ import $ from 'jquery';
 import Sizes from './Sizes.jsx';
 import Crusts from './Crusts.jsx';
 import Toppings from './Toppings.jsx';
+import OrderSummary from './OrderSummary.jsx';
+import PizzaPicture from './PizzaPicture.jsx';
+import ProgressBar from './ProgressBar.jsx';
 
 class Pizza extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       size: {},
       crust: {},
       toppings: [],
       subtotal: 0
     };
-
     this.onSizeChange = this.onSizeChange.bind(this);
     this.onCrustChange = this.onCrustChange.bind(this);
     this.onToppingChange = this.onToppingChange.bind(this);
@@ -50,7 +51,6 @@ class Pizza extends React.Component {
     for (var topping of this.state.toppings) {
       total += topping.price;
     }
-
     this.setState({subtotal: total});
   }
 
@@ -74,41 +74,19 @@ class Pizza extends React.Component {
   render() {
     return (
       <div id="pizza">
+        <ProgressBar />
+
         <div id="options">
-          <h1>Options</h1>
-          <Sizes onSizeChange={this.onSizeChange}/>
-          <Crusts onCrustChange={this.onCrustChange}/>
-          <Toppings onToppingChange={this.onToppingChange}/>
+          <h1>Pizza Options</h1>
+          <Sizes onSizeChange={this.onSizeChange} />
+          <Crusts onCrustChange={this.onCrustChange} />
+          <Toppings onToppingChange={this.onToppingChange} />
+        </div>
 
-            <div id="pizza-view">
-              <h2>Pizza View</h2>
-
-              <div id="pizza-view-size">
-                Size: {this.state.size.name}
-              </div>
-
-              <div id="pizza-view-crust">
-                Crust: {this.state.crust.name}
-              </div>
-
-              <div id="pizza-view-toppings">
-                Toppings:
-                <ul>
-                  {this.state.toppings.map(topping =>
-                    <li key={topping.id}>{topping.name}</li>
-                  )}
-                </ul>
-              </div>
-
-            </div>
-
-            <div id="subtotal">
-              {this.state.subtotal.toLocaleString('en-US', {style:'currency', currency: 'USD'})}
-            </div>
-
-            <div id="submitButton">
-              <button onClick={this.submitOrder}>Submit</button>
-            </div>
+        <PizzaPicture size={this.state.size.name} crust={this.state.crust.name} toppings={this.state.toppings} />
+        <OrderSummary size={this.state.size.name} crust={this.state.crust.name} toppings={this.state.toppings} subtotal={this.state.subtotal} submitOrder={this.submitOrder} />
+        <div id="submitButton">
+          <button onClick={this.submitOrder}>Submit</button>
         </div>
       </div>
     );
