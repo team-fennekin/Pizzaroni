@@ -87,7 +87,7 @@ io.on('connection', function(socket) {
           [socket.username]: [socket.username, socket.id]
         }
       };
-      //IF IT EXISTS, simply add the curret user to its roomUsers 
+      //IF IT EXISTS, simply add the curret user to its roomUsers
       // list
     } else {
       rooms[newRoom].roomUsers[socket.username] = [socket.username, socket.id];
@@ -166,12 +166,18 @@ app.get('/crusts', function (req, res) {
 });
 
 app.post('/save', function (req, res) {
-  // console.log('body', req.body);
-  items.saveOrder(function(err, data) {
+  items.savePizza(req.body, function(err, data) {
     if(err) {
       res.sendStatus(500);
     } else {
-      res.json(data);
+      var pizzaId = data.insertId;
+      items.saveToppings(pizzaId, req.body, function(err, data) {
+        if (err) {
+          res.sendStatus(500);
+        } else {
+          res.json(data);
+        }
+      })
     }
   });
 });

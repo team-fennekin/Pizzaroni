@@ -21,6 +21,7 @@ class Pizza extends React.Component {
     this.onCrustChange = this.onCrustChange.bind(this);
     this.onToppingChange = this.onToppingChange.bind(this);
     this.countTotal = this.countTotal.bind(this);
+    this.submitOrder = this.submitOrder.bind(this);
   }
 
   onSizeChange(size) {
