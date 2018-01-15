@@ -43,9 +43,9 @@ CREATE TABLE cards (
   PRIMARY KEY (ID)
 );
 
-CREATE TABLE pizza (
+CREATE TABLE pizzas (
   id int NOT NULL AUTO_INCREMENT,
-  user_id int NOT NULL,
+  user_id int,
   size_id int NOT NULL,
   crust_id int NOT NULL,
   price int NOT NULL,
@@ -62,6 +62,7 @@ CREATE TABLE favorites (
 CREATE TABLE pizza_toppings (
   id int NOT NULL AUTO_INCREMENT,
   pizza_id int NOT NULL,
+  side_id int,
   topping_id int NOT NULL,
   PRIMARY KEY (ID)
 );
