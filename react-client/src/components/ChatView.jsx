@@ -136,6 +136,7 @@ class ChatView extends React.Component {
   handleUserNameClick(e) {
     if (e.target.getAttribute("value") !== this.state.username && this.state.roomID === 'lobby') {
       let usernameToInvite = e.target.getAttribute("value");
+      let userInfoToInvite = this.state.roomUsers[usernameToInvite];
       let socketIDtoInvite = this.state.roomUsers[usernameToInvite][1];
 
       let generateNewRoomID = function() {
@@ -153,7 +154,7 @@ class ChatView extends React.Component {
       }, function() {
         this.props.socket.emit('inviteUser', this.state.username, socketIDtoInvite, this.state.roomID);
         this.props.socket.emit('switchRoom', this.state.roomID);
-        this.props.handleRoomSwitch();
+        this.props.handleRoomSwitch(userInfoToInvite);
       });
     }
   }

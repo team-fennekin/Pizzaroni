@@ -16,6 +16,8 @@ class Pizza extends React.Component {
       size: {},
       crust: {},
       toppings: [],
+      friendUserData: {},
+      friendToppings: [],
       subtotal: 0,
       currentStep: 0,
       numberOfUsers: this.props.numberOfUsers
@@ -40,6 +42,7 @@ class Pizza extends React.Component {
   onSizeChange(size) {
     this.setState({size: size}, function() {
       this.countTotal();
+      this.props.socket.emit('initiateSizeChange', this.state.size);
     });
   }
 
