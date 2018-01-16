@@ -7,6 +7,7 @@ USE pizzeria;
 CREATE TABLE users (
   id int NOT NULL AUTO_INCREMENT,
   username VARCHAR (20),
+  password VARCHAR (2000),
   first_name VARCHAR(20),
   last_name VARCHAR(50),
   email VARCHAR(20),

@@ -200,6 +200,7 @@ app.post('/users/:username', function (req, res) {
   var username = url.parse(req.url).pathname.split('/')[2];
   items.saveUser(username, req.body.password, function(err, data) {
     if(err) {
+      console.log('error is', err);
       res.sendStatus(500);
     } else {
       res.json(data);
