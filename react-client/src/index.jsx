@@ -17,8 +17,6 @@ class App extends React.Component {
     this.state = {
       username: null,
       roomID: 'lobby',
-      userToppings: [],
-      friendToppings: [],
       numberOfUsers: 1
     };
 
@@ -65,18 +63,18 @@ class App extends React.Component {
     this.socket.emit('addUser', username);
   }
 
-
-  handleRoomSwitch() {
+  handleRoomSwitch(newRoomID) {
     console.log('main app now knows there has been a switch out of the lobby');
     this.setState({
-      numberOfUsers: 2
+      numberOfUsers: 2,
+      roomID: newRoomID
     }); 
   }
 
   render () {
     return (
       <div>
-        <Pizza socket={this.socket} numberOfUsers={this.state.numberOfUsers}/>
+        <Pizza socket={this.socket} numberOfUsers={this.state.numberOfUsers} roomID={this.state.roomID}/>
         <ChatView roomID={this.state.roomID} username={this.state.username} socket={this.socket} handleRoomSwitch={this.handleRoomSwitch}/>
         <Log />
       </div>

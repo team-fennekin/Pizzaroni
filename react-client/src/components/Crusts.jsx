@@ -11,6 +11,17 @@ class Crusts extends React.Component {
     };
 
     this.handleCrustChange = this.handleCrustChange.bind(this);
+
+    this.props.socket.on('updateCrust', function(crust) {
+      setNewCrust(crust);
+    });
+
+    const setNewCrust = crust => {
+      // console.log('JUST FUCKING SET IT TO THIS: ', size);
+      // this.setState({size: size});
+      this.setState({selectedCrust: crust});
+    };
+
   }
 
   componentWillMount() {
@@ -33,8 +44,12 @@ class Crusts extends React.Component {
 
   handleCrustChange(event) {
     var selectedCrust = this.state.crusts[event.target.value];
-    this.setState({selectedCrust: selectedCrust})
-    this.props.onCrustChange(selectedCrust);
+    this.setState({selectedCrust: selectedCrust}, function() {
+      this.props.onCrustChange(selectedCrust);
+      if (this.props.roomID !== 'lobby') {
+        this.props.socket.emit('initializeCrustChange', this.state.selectedCrust);  
+      }
+    });
   }
 
   render() {

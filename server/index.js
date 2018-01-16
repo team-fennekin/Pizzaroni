@@ -75,6 +75,24 @@ io.on('connection', function(socket) {
     }
   });
 
+  socket.on('initiateSizeChange', function(size) {
+    if (socket.room !== 'lobby') {
+      io.sockets.in(socket.room).emit('updateSize', size);
+    }
+  });
+
+  socket.on('initializeCrustChange', function(crust) {
+    if (socket.room !== 'lobby') {
+      io.sockets.in(socket.room).emit('updateCrust', crust);
+    }
+  });
+
+  socket.on('initiateToppingsChange', function(toppings) {
+    if (socket.room !== 'lobby') {
+      io.sockets.in(socket.room).emit('updateToppings', toppings);
+    }
+  });
+
   socket.on('switchRoom', function(newRoom) {
     socket.leave(socket.room);
     //check if new rooms already exists

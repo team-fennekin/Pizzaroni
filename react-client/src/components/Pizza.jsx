@@ -16,10 +16,13 @@ class Pizza extends React.Component {
       size: {},
       crust: {},
       toppings: [],
+      friendUserData: {},
+      friendToppings: [],
       subtotal: 0,
       currentStep: 0,
       numberOfUsers: this.props.numberOfUsers
     };
+
     this.onSizeChange = this.onSizeChange.bind(this);
     this.onCrustChange = this.onCrustChange.bind(this);
     this.onToppingChange = this.onToppingChange.bind(this);
@@ -27,6 +30,7 @@ class Pizza extends React.Component {
     this.submitOrder = this.submitOrder.bind(this);
     this.nextOption = this.nextOption.bind(this);
     this.backOption = this.backOption.bind(this);
+
   }
 
   componentWillReceiveProps(nextProps) {
@@ -58,24 +62,13 @@ class Pizza extends React.Component {
   }
 
   countTotal() {
-    if (this.state.numberOfUsers === 1) {
-      var total = 0;
-      total += this.state.size.price;
-      total += this.state.crust.price;
-      for (var topping of this.state.toppings) {
-        total += topping.price;
-      }
-      this.setState({subtotal: total});
-    } else {
-      // NEED TO CHANGE THIS CALC LOGIC!
-      var total = 0;
-      total += this.state.size.price;
-      total += this.state.crust.price;
-      for (var topping of this.state.toppings) {
-        total += topping.price;
-      }
-      this.setState({subtotal: total});
+    var total = 0;
+    total += this.state.size.price;
+    total += this.state.crust.price;
+    for (var topping of this.state.toppings) {
+      total += topping.price;
     }
+    this.setState({subtotal: total});
   }
 
   nextOption() {
@@ -117,11 +110,11 @@ class Pizza extends React.Component {
   render() {
     let currentOptionComponent = null;
     if (this.state.currentStep === 0) {
-      currentOptionComponent = <Sizes onSizeChange={this.onSizeChange} />;
+      currentOptionComponent = <Sizes onSizeChange={this.onSizeChange} socket={this.props.socket} roomID={this.props.roomID} />;
     } else if (this.state.currentStep === 1) {
-      currentOptionComponent = <Crusts onCrustChange={this.onCrustChange} />;
+      currentOptionComponent = <Crusts onCrustChange={this.onCrustChange} socket={this.props.socket} roomID={this.props.roomID} />;
     } else if (this.state.currentStep === 2) {
-      currentOptionComponent = <Toppings onToppingChange={this.onToppingChange} />;
+      currentOptionComponent = <Toppings onToppingChange={this.onToppingChange} socket={this.props.socket} roomID={this.props.roomID}/>;
     }
 
     return (

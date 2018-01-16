@@ -11,6 +11,16 @@ class Toppings extends React.Component {
     };
 
     this.handleToppingChange = this.handleToppingChange.bind(this);
+
+    this.props.socket.on('updateToppings', function(toppings) {
+      setNewToppings(toppings);
+    });
+
+    const setNewToppings = toppings => {
+      // console.log('JUST FUCKING SET IT TO THIS: ', size);
+      // this.setState({size: size});
+      this.setState({selectedToppings: toppings});
+    };
   }
 
   componentWillMount() {
@@ -42,6 +52,9 @@ class Toppings extends React.Component {
       selectedToppings: prevToppingsState
     }, function(){
       this.props.onToppingChange(this.state.selectedToppings);
+      if (this.props.roomID !== 'lobby') {
+        this.props.socket.emit('initiateToppingsChange', this.state.selectedToppings);  
+      }
     });
   }
 
