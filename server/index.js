@@ -6,7 +6,6 @@ var app = express();
 var path = require('path');
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
-const url = require('url');
 
 server.listen(3000, function() {
   console.log('listening on port 3000!');
@@ -184,7 +183,7 @@ app.post('/save', function (req, res) {
 });
 
 app.get('/users/:username', function (req, res) {
-  var id = url.parse(req.url).pathname.split('/')[2];
+  var username = req.params.username;
   items.checkUser(username, function(err, data) {
     if(err) {
       res.json(500);
@@ -197,7 +196,7 @@ app.get('/users/:username', function (req, res) {
 //'Username is already taken. You are screwed.'
 
 app.post('/users/:username', function (req, res) {
-  var username = url.parse(req.url).pathname.split('/')[2];
+  var username = req.params.username;
   items.saveUser(username, req.body.password, function(err, data) {
     if(err) {
       console.log('error is', err);

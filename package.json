@@ -11,7 +11,7 @@
   },
   "scripts": {
     "start": "node server/index.js",
-    "magic": "npm run react-dev & npm run server-dev & npm run sass-dev",
+    "grandHacker": "npm run react-dev & npm run server-dev & npm run sass-dev",
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js",
     "sass-dev": "sass --watch react-client/dist/sass/styles.scss:react-client/dist/styles.css --style compressed"
@@ -26,8 +26,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",
-    "socket.io": "^2.0.4",
-    "url-parse": "^1.2.0"
+    "socket.io": "^2.0.4"
   },
   "devDependencies": {
     "react-scripts": "1.0.17",

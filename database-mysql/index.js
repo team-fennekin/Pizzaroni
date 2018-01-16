@@ -94,7 +94,7 @@ var saveToppings = function(pizzaId, body, callback) {
 };
 
 var checkUser = function(username,  callback) {
-  connection.query(`SELECT EXISTS(SELECT * FROM users WHERE username = ${username}`, function(err, results, fields) {
+  connection.query(`SELECT EXISTS(SELECT * FROM users WHERE username = '${username}'`, function(err, results, fields) {
     if(err) {
       callback(err, null);
     } else {
@@ -104,7 +104,7 @@ var checkUser = function(username,  callback) {
 };
 
 var saveUser = function(username, password, callback) {
-  connection.query(`INSERT INTO users (username, password) VALUES (${username}, ${password})`, function(err, results, fields) {
+  connection.query(`INSERT INTO users(username, password) VALUES ('${username}', '${password}')`, function(err, results, fields) {
     if(err) {
       callback(err, null);
     } else {
