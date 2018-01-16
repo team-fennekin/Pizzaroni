@@ -50,8 +50,8 @@ class Pizza extends React.Component {
 
   countTotal() {
     var total = 0;
-    total += this.state.size.price;
-    total += this.state.crust.price;
+    total += this.state.size.price || 0;
+    total += this.state.crust.price || 0;
     for (var topping of this.state.toppings) {
       total += topping.price;
     }
