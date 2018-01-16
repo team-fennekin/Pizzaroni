@@ -18,6 +18,14 @@ h2 {
   border: 1px solid;
 }
 
+#completed {
+  background-color: red;
+}
+
+#not-completed {
+  background-color: transparent;
+}
+
 li {
   list-style-type: none;
 }
