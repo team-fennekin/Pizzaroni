@@ -11,6 +11,17 @@ function NotificationArea(props) {
     <p className="typing-notification">{props.userTyping} is typing... </p>
   )
 }
+
+function Chatbanner(props) {
+  if (!props.username) {
+    return null;
+  } else if (props.username[props.username.length - 1] === 's') {
+    return <h1>{props.username}' chat</h1>
+  } else {
+    return <h1>{props.username}'s chat</h1>
+  }
+}
+
 class ChatView extends React.Component {
   constructor(props) {
     super(props);
@@ -70,7 +81,7 @@ class ChatView extends React.Component {
     };
 
     this.props.socket.on('receiveRoomInvite', function(newRoom) {
-      console.log('got the message', newRoom);
+      // console.log('got the message', newRoom);
       switchRoom(newRoom);
     });
 
@@ -81,6 +92,13 @@ class ChatView extends React.Component {
         this.props.socket.emit('switchRoom', this.state.roomID);
       });
     }
+
+    this.props.socket.on('clearMessages', () => {
+      // console.log('Getting the clear messages event');
+      this.setState({
+        messages: []
+      });
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -118,7 +136,6 @@ class ChatView extends React.Component {
     if (e.target.getAttribute("value") !== this.state.username && this.state.roomID === 'lobby') {
       let usernameToInvite = e.target.getAttribute("value");
       let socketIDtoInvite = this.state.roomUsers[usernameToInvite][1];
-      console.log(`Looking to invite ${usernameToInvite} with socked id of: ${socketIDtoInvite}`);
 
       let generateNewRoomID = function() {
         let m = 9;
@@ -153,8 +170,7 @@ class ChatView extends React.Component {
   render() {
     return (
       <div id="chat">
-
-        <h1>{this.state.username}'s chat</h1>
+        <Chatbanner username={this.state.username} />
         <h3>Active users for this room:</h3>
 
         <ul className="roomUsers">
@@ -166,9 +182,16 @@ class ChatView extends React.Component {
         <div className="messageArea">
           <div className="messages">
            {this.state.messages.map((message, i) => {
-            return (
-              <p className="message" key={i}>{message.username}: {message.message}</p>
-            )
+              if (message.username === 'SERVER') {
+                // console.log('hello');
+                return (
+                   <p className="message" key={i}>{message.message}</p>
+                )
+              } else {
+                return (
+                  <p className="message" key={i}>{message.username}: {message.message}</p>
+                ) 
+              }
             })}
            <NotificationArea userTyping={this.state.userTyping} />
           </div>
