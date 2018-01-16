@@ -93,6 +93,27 @@ var saveToppings = function(pizzaId, body, callback) {
   });
 };
 
+var checkUser = function(username,  callback) {
+  connection.query(`SELECT EXISTS(SELECT * FROM users WHERE username = ${username}`, function(err, results, fields) {
+    if(err) {
+      callback(err, null);
+    } else {
+      callback(null, results);
+    }
+  });
+};
+
+var savePizza = function(username, password, callback) {
+  connection.query(`INSERT INTO users (username, password) VALUES (${username}, ${password})`, function(err, results, fields) {
+    if(err) {
+      callback(err, null);
+    } else {
+      callback(null, results);
+    }
+  });
+};
+
+
 module.exports.getAllToppings = getAllToppings;
 module.exports.getAllUsers = getAllUsers;
 module.exports.getAllOrders = getAllOrders;
@@ -101,3 +122,5 @@ module.exports.getAllCrusts = getAllCrusts;
 module.exports.getAllSizes = getAllSizes;
 module.exports.savePizza = savePizza;
 module.exports.saveToppings = saveToppings;
+module.exports.saveUser = saveUser;
+module.exports.checkUser = checkUser;
