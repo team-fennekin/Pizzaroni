@@ -7,6 +7,7 @@ import Toppings from './Toppings.jsx';
 import OrderSummary from './OrderSummary.jsx';
 import PizzaPicture from './PizzaPicture.jsx';
 import ProgressBar from './ProgressBar.jsx';
+import OrderAPI from './OrderAPI.jsx';
 
 class Pizza extends React.Component {
   constructor(props) {
@@ -55,6 +56,26 @@ class Pizza extends React.Component {
   }
 
   submitOrder() {
+    this.saveOrder();
+    this.submitOrder();
+
+    // var datum = {size: this.state.size, crust: this.state.crust, toppings: this.state.toppings, price: this.state.subtotal};
+    // console.log(datum);
+    // $.ajax({
+    //   url: '/save',
+    //   method: 'POST',
+    //   data: JSON.stringify(datum),
+    //   contentType: 'application/json',
+    //   sucess: function(data) {
+    //     console.log('data', data);
+    //   },
+    //   error: function(err) {
+    //     console.log(err);
+    //   }
+    // });
+  }
+
+  saveOrder() {
     var datum = {size: this.state.size, crust: this.state.crust, toppings: this.state.toppings, price: this.state.subtotal};
     console.log(datum);
     $.ajax({
@@ -71,9 +92,16 @@ class Pizza extends React.Component {
     });
   }
 
+  submitOrder() {
+    OrderAPI.submitOrder();
+    console.log('Pizza:submitOrder');
+  }
+
   render() {
     return (
       <div id="pizza">
+        <OrderAPI />
+
         <ProgressBar />
 
         <div id="options">
@@ -84,7 +112,9 @@ class Pizza extends React.Component {
         </div>
 
         <PizzaPicture size={this.state.size.name} crust={this.state.crust.name} toppings={this.state.toppings} />
+
         <OrderSummary size={this.state.size.name} crust={this.state.crust.name} toppings={this.state.toppings} subtotal={this.state.subtotal} submitOrder={this.submitOrder} />
+
         <div id="submitButton">
           <button onClick={this.submitOrder}>Submit</button>
         </div>
