@@ -22,7 +22,7 @@ class App extends React.Component {
       numberOfUsers: 1
     };
 
-    this.handleRoomSwitch.bind(this);
+    this.handleRoomSwitch = this.handleRoomSwitch.bind(this);
 
     this.socket = io.connect();
   }
@@ -68,13 +68,15 @@ class App extends React.Component {
 
   handleRoomSwitch() {
     console.log('main app now knows there has been a switch out of the lobby');
-    
+    this.setState({
+      numberOfUsers: 2
+    }); 
   }
 
   render () {
     return (
       <div>
-        <Pizza socket={this.socket}/>
+        <Pizza socket={this.socket} numberOfUsers={this.state.numberOfUsers}/>
         <ChatView roomID={this.state.roomID} username={this.state.username} socket={this.socket} handleRoomSwitch={this.handleRoomSwitch}/>
         <Log />
       </div>
