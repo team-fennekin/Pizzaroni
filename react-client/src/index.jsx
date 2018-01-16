@@ -27,13 +27,30 @@ class App extends React.Component {
 
   componentDidMount() {
     let username = prompt("Welcome! Please choose a username: ");
-    this.setState({
+    let password = prompt(`Welcome, ${username}, please choose a password:`);
+    
+    let userData = {
       username: username,
-      numberOfUsers: 1
+      password: password
+    }
+
+    $.ajax({
+      url: `/users/${username}`,
+      method: 'POST',
+      data: JSON.stringify(password),
+      contentType: 'application/json',
+      sucess: (data) => {
+        console.log(`Successfully added ${username} to the database`, data);
+        this.setState({
+          username: username,
+          numberOfUsers: 1
+        });
+      },
+      error: (err) => {
+        console.log(err);
+      }
     });
 
-    // below adds room ID
-    // console.log(this.socket.id);
     this.socket.emit('addUser', username);
   }
 
