@@ -17,7 +17,8 @@ class Pizza extends React.Component {
       crust: {},
       toppings: [],
       subtotal: 0,
-      currentStep: 0
+      currentStep: 0,
+      numberOfUsers: this.props.numberOfUsers
     };
     this.onSizeChange = this.onSizeChange.bind(this);
     this.onCrustChange = this.onCrustChange.bind(this);
@@ -26,6 +27,14 @@ class Pizza extends React.Component {
     this.submitOrder = this.submitOrder.bind(this);
     this.nextOption = this.nextOption.bind(this);
     this.backOption = this.backOption.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.numberOfUsers !== this.state.numberOfUsers) {
+      this.setState({
+        numberOfUsers: nextProps.numberOfUsers
+      });
+    }
   }
 
   onSizeChange(size) {
@@ -49,13 +58,24 @@ class Pizza extends React.Component {
   }
 
   countTotal() {
-    var total = 0;
-    total += this.state.size.price || 0;
-    total += this.state.crust.price || 0;
-    for (var topping of this.state.toppings) {
-      total += topping.price;
+    if (this.state.numberOfUsers === 1) {
+      var total = 0;
+      total += this.state.size.price;
+      total += this.state.crust.price;
+      for (var topping of this.state.toppings) {
+        total += topping.price;
+      }
+      this.setState({subtotal: total});
+    } else {
+      // NEED TO CHANGE THIS CALC LOGIC!
+      var total = 0;
+      total += this.state.size.price;
+      total += this.state.crust.price;
+      for (var topping of this.state.toppings) {
+        total += topping.price;
+      }
+      this.setState({subtotal: total});
     }
-    this.setState({subtotal: total});
   }
 
   nextOption() {
@@ -69,22 +89,7 @@ class Pizza extends React.Component {
 
   submitOrder() {
     this.saveOrder();
-    this.submitOrder();
-
-    // var datum = {size: this.state.size, crust: this.state.crust, toppings: this.state.toppings, price: this.state.subtotal};
-    // console.log(datum);
-    // $.ajax({
-    //   url: '/save',
-    //   method: 'POST',
-    //   data: JSON.stringify(datum),
-    //   contentType: 'application/json',
-    //   sucess: function(data) {
-    //     console.log('data', data);
-    //   },
-    //   error: function(err) {
-    //     console.log(err);
-    //   }
-    // });
+    // this.submitOrder();
   }
 
   saveOrder() {
