@@ -27,7 +27,16 @@ class App extends React.Component {
 
   componentDidMount() {
     let username = prompt("Welcome! Please choose a username: ");
+
+    while (username === undefined || username === null || username === '') {
+      username = prompt("Sorry, please choose a valid username: ");
+    }
+
     let password = prompt(`Welcome, ${username}, please choose a password:`);
+
+    while (password === undefined || password === null || password === '') {
+      password = prompt("Sorry, please choose a valid password: ");
+    }
     
     let userData = {
       password: password
@@ -37,12 +46,13 @@ class App extends React.Component {
       url: `/users/${username}`,
       method: 'POST',
       data: JSON.stringify(userData),
+      // dataType: 'jsonp',
       contentType: 'application/json',
-      sucess: (data) => {
-        console.log(`Successfully added ${username} to the database`, data);
+
+
+      success: (data) => {
         this.setState({
-          username: username,
-          numberOfUsers: 1
+          username: username
         });
       },
       error: (err) => {

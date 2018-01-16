@@ -99,9 +99,10 @@ io.on('connection', function(socket) {
     io.sockets.in(socket.room).emit('updateRoomUsers', rooms[socket.room].roomUsers);
 
     socket.join(newRoom);
+    socket.emit('clearMessages');
     socket.emit('receiveMessage', {
       username: 'SERVER',
-      message: `you have connected to room ${newRoom}`
+      message: `you have connected to a new room`
     });
     // this actually emits a "goodbye" to the old room BEFORE reassigning new room
     socket.broadcast.to(socket.room).emit('receiveMessage', {
@@ -199,10 +200,13 @@ app.post('/users/:username', function (req, res) {
   var username = req.params.username;
   items.saveUser(username, req.body.password, function(err, data) {
     if(err) {
-      console.log('error is', err);
+      // console.log('error is', err);
       res.sendStatus(500);
     } else {
-      res.json(data);
+      // console.log(data);
+      // console.log('success');
+      // console.log(res);
+      res.status(200).end();
     }
   });
 });

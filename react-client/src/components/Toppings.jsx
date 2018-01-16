@@ -18,6 +18,7 @@ class Toppings extends React.Component {
       url: '/toppings',
       method: 'GET',
       success: (data) => {
+        // console.log('made it');
         this.setState({
           toppings: data
         });
