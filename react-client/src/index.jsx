@@ -63,23 +63,18 @@ class App extends React.Component {
     this.socket.emit('addUser', username);
   }
 
-  sendFriendUserData() {
-
-  }
-
-  handleRoomSwitch(userInfoToInvite) {
+  handleRoomSwitch(newRoomID) {
     console.log('main app now knows there has been a switch out of the lobby');
-    console.log(userInfoToInvite);
-    // console.log('some stuff');
     this.setState({
-      numberOfUsers: 2
+      numberOfUsers: 2,
+      roomID: newRoomID
     }); 
   }
 
   render () {
     return (
       <div>
-        <Pizza socket={this.socket} numberOfUsers={this.state.numberOfUsers} sendFriendUserData={this.sendFriendUserData}/>
+        <Pizza socket={this.socket} numberOfUsers={this.state.numberOfUsers} />
         <ChatView roomID={this.state.roomID} username={this.state.username} socket={this.socket} handleRoomSwitch={this.handleRoomSwitch}/>
         <Log />
       </div>

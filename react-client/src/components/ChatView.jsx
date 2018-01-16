@@ -89,7 +89,7 @@ class ChatView extends React.Component {
       this.setState({
         roomID: newRoom
       }, function() {
-        this.props.handleRoomSwitch();
+        this.props.handleRoomSwitch(this.state.roomID);
         this.props.socket.emit('switchRoom', this.state.roomID);
       });
     }
@@ -154,7 +154,7 @@ class ChatView extends React.Component {
       }, function() {
         this.props.socket.emit('inviteUser', this.state.username, socketIDtoInvite, this.state.roomID);
         this.props.socket.emit('switchRoom', this.state.roomID);
-        this.props.handleRoomSwitch(userInfoToInvite);
+        this.props.handleRoomSwitch(this.state.roomID);
       });
     }
   }

@@ -22,6 +22,7 @@ class Pizza extends React.Component {
       currentStep: 0,
       numberOfUsers: this.props.numberOfUsers
     };
+
     this.onSizeChange = this.onSizeChange.bind(this);
     this.onCrustChange = this.onCrustChange.bind(this);
     this.onToppingChange = this.onToppingChange.bind(this);
@@ -29,6 +30,12 @@ class Pizza extends React.Component {
     this.submitOrder = this.submitOrder.bind(this);
     this.nextOption = this.nextOption.bind(this);
     this.backOption = this.backOption.bind(this);
+
+
+    this.props.socket.on('updateRoomUsers', function(data) {
+      console.log(data);
+    });
+
   }
 
   componentWillReceiveProps(nextProps) {
