@@ -1,0 +1,39 @@
+h1 {
+  color: orange;
+}
+
+h2 {
+  color: blue;
+}
+
+#toppings {
+  border: 1px solid;
+}
+
+#size {
+  border: 1px solid;
+}
+
+#crust {
+  border: 1px solid;
+}
+
+#completed {
+  background-color: red;
+}
+
+#not-completed {
+  background-color: transparent;
+}
+
+li {
+  list-style-type: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+* {
+  cursor: wait;
+}
