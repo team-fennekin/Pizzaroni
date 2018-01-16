@@ -11,6 +11,16 @@ class Sizes extends React.Component {
     };
 
     this.handleSizeChange = this.handleSizeChange.bind(this);
+
+    this.props.socket.on('updateSize', function(size) {
+      setNewSize(size);
+    });
+
+    const setNewSize = size => {
+      // console.log('JUST FUCKING SET IT TO THIS: ', size);
+      // this.setState({size: size});
+      this.setState({selectedSize: size});
+    };
   }
 
   componentWillMount() {
@@ -33,8 +43,13 @@ class Sizes extends React.Component {
 
   handleSizeChange(event) {
     var selectedSize = this.state.sizes[event.target.value];
-    this.setState({selectedSize: selectedSize})
-    this.props.onSizeChange(selectedSize);
+    this.setState({selectedSize: selectedSize}, function() {
+      this.props.onSizeChange(selectedSize);
+      // console.log(this.props.socket);
+      if (this.props.roomID !== 'lobby') {
+        this.props.socket.emit('initiateSizeChange', this.state.selectedSize);  
+      }
+    });
   }
 
   render() {

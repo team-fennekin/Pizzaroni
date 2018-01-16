@@ -74,7 +74,7 @@ class App extends React.Component {
   render () {
     return (
       <div>
-        <Pizza socket={this.socket} numberOfUsers={this.state.numberOfUsers} />
+        <Pizza socket={this.socket} numberOfUsers={this.state.numberOfUsers} roomID={this.state.roomID}/>
         <ChatView roomID={this.state.roomID} username={this.state.username} socket={this.socket} handleRoomSwitch={this.handleRoomSwitch}/>
         <Log />
       </div>
