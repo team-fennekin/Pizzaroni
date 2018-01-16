@@ -103,7 +103,7 @@ var checkUser = function(username,  callback) {
   });
 };
 
-var savePizza = function(username, password, callback) {
+var saveUser = function(username, password, callback) {
   connection.query(`INSERT INTO users (username, password) VALUES (${username}, ${password})`, function(err, results, fields) {
     if(err) {
       callback(err, null);

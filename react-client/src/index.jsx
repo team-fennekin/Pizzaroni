@@ -30,14 +30,13 @@ class App extends React.Component {
     let password = prompt(`Welcome, ${username}, please choose a password:`);
     
     let userData = {
-      username: username,
       password: password
     }
 
     $.ajax({
       url: `/users/${username}`,
       method: 'POST',
-      data: JSON.stringify(password),
+      data: JSON.stringify(userData),
       contentType: 'application/json',
       sucess: (data) => {
         console.log(`Successfully added ${username} to the database`, data);
