@@ -21,6 +21,10 @@ const OrderSummary = (props) => (
       </ul>
     </div>
 
+    <div id="subtotal">
+      Sub-total: {(props.subtotal).toLocaleString('en-US', {style: 'currency', currency: 'USD'})}
+    </div>
+
   </div>
 )
 

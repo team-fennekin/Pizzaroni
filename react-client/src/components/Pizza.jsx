@@ -16,13 +16,16 @@ class Pizza extends React.Component {
       size: {},
       crust: {},
       toppings: [],
-      subtotal: 0
+      subtotal: 0,
+      currentStep: 0
     };
     this.onSizeChange = this.onSizeChange.bind(this);
     this.onCrustChange = this.onCrustChange.bind(this);
     this.onToppingChange = this.onToppingChange.bind(this);
     this.countTotal = this.countTotal.bind(this);
     this.submitOrder = this.submitOrder.bind(this);
+    this.nextOption = this.nextOption.bind(this);
+    this.backOption = this.backOption.bind(this);
   }
 
   onSizeChange(size) {
@@ -53,6 +56,15 @@ class Pizza extends React.Component {
       total += topping.price;
     }
     this.setState({subtotal: total});
+  }
+
+  nextOption() {
+    console.log('next called');
+    this.setState((prevState) => (prevState.currentStep < 3) ? {currentStep: prevState.currentStep + 1} : null);
+  }
+
+  backOption() {
+    this.setState((prevState) => (prevState.currentStep >= 1) ? {currentStep: prevState.currentStep - 1} : null);
   }
 
   submitOrder() {
@@ -98,22 +110,39 @@ class Pizza extends React.Component {
   }
 
   render() {
+    let currentOptionComponent = null;
+    if (this.state.currentStep === 0) {
+      currentOptionComponent = <Sizes onSizeChange={this.onSizeChange} />;
+    } else if (this.state.currentStep === 1) {
+      currentOptionComponent = <Crusts onCrustChange={this.onCrustChange} />;
+    } else if (this.state.currentStep === 2) {
+      currentOptionComponent = <Toppings onToppingChange={this.onToppingChange} />;
+    }
+
     return (
       <div id="pizza">
         <OrderAPI />
 
-        <ProgressBar />
+        <ProgressBar currentStep={this.state.currentStep}
+                     nextOption={this.nextOption}
+                     backOption={this.backOption}
+                     />
 
         <div id="options">
           <h1>Pizza Options</h1>
-          <Sizes onSizeChange={this.onSizeChange} />
-          <Crusts onCrustChange={this.onCrustChange} />
-          <Toppings onToppingChange={this.onToppingChange} />
+          {currentOptionComponent}
         </div>
 
-        <PizzaPicture size={this.state.size.name} crust={this.state.crust.name} toppings={this.state.toppings} />
+        <PizzaPicture size={this.state.size.name}
+                      crust={this.state.crust.name}
+                      toppings={this.state.toppings}
+                      />
 
-        <OrderSummary size={this.state.size.name} crust={this.state.crust.name} toppings={this.state.toppings} subtotal={this.state.subtotal} submitOrder={this.submitOrder} />
+        <OrderSummary size={this.state.size.name}
+                      crust={this.state.crust.name}
+                      toppings={this.state.toppings}
+                      subtotal={this.state.subtotal}
+                      />
 
         <div id="submitButton">
           <button onClick={this.submitOrder}>Submit</button>
