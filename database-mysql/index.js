@@ -1,4 +1,5 @@
 var mysql = require('mysql');
+var bcrypt = require('bcrypt');
 var config = require('../config.js');
 var connection = mysql.createConnection({
   host     : 'localhost',
@@ -104,12 +105,16 @@ var checkUser = function(username,  callback) {
 };
 
 var saveUser = function(username, password, callback) {
-  connection.query(`INSERT INTO users(username, password) VALUES ('${username}', '${password}')`, function(err, results, fields) {
-    if(err) {
-      callback(err, null);
-    } else {
-      callback(null, results);
-    }
+  const saltRounds = 10;
+  bcrypt.hash(password, saltRounds, function(err, hash) {
+    connection.query(`INSERT INTO users(username, password) VALUES ('${username}', '${hash}')`, function(err, results, fields) {
+      console.log(hash);
+      if(err) {
+        callback(err, null);
+      } else {
+        callback(null, results);
+      }
+    });
   });
 };
 
