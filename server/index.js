@@ -19,7 +19,7 @@ var usernames = {};
 var rooms = {};
 
 io.on('connection', function(socket) {
-  console.log('made socket connection ', socket.id);
+  // console.log('made socket connection ', socket.id);
 
   socket.on('addUser', function(username) {
     socket.username = username;
@@ -90,6 +90,12 @@ io.on('connection', function(socket) {
   socket.on('initiateToppingsChange', function(toppings) {
     if (socket.room !== 'lobby') {
       io.sockets.in(socket.room).emit('updateToppings', toppings);
+    }
+  });
+
+  socket.on('setStep', function(step) {
+    if (socket.room !== 'lobby') {
+      io.sockets.in(socket.room).emit('changeStep', step);
     }
   });
 

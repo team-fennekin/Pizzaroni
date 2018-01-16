@@ -31,6 +31,15 @@ class Pizza extends React.Component {
     this.nextOption = this.nextOption.bind(this);
     this.backOption = this.backOption.bind(this);
 
+    this.props.socket.on('changeStep', function(step) {
+      changeStep(step);
+    });
+
+    const changeStep = step => {
+      this.setState({
+        currentStep: step
+      });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -73,11 +82,15 @@ class Pizza extends React.Component {
 
   nextOption() {
     console.log('next called');
-    this.setState((prevState) => (prevState.currentStep < 3) ? {currentStep: prevState.currentStep + 1} : null);
+    this.setState(((prevState) => (prevState.currentStep < 3) ? {currentStep: prevState.currentStep + 1} : null), function() {
+      this.props.socket.emit('setStep', this.state.currentStep);
+    });
   }
 
   backOption() {
-    this.setState((prevState) => (prevState.currentStep >= 1) ? {currentStep: prevState.currentStep - 1} : null);
+    this.setState(((prevState) => (prevState.currentStep >= 1) ? {currentStep: prevState.currentStep - 1} : null), function() {
+      this.props.socket.emit('setStep', this.state.currentStep);
+    });
   }
 
   submitOrder() {
