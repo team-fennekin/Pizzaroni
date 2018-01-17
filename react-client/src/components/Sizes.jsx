@@ -19,7 +19,9 @@ class Sizes extends React.Component {
     const setNewSize = size => {
       // console.log('JUST FUCKING SET IT TO THIS: ', size);
       // this.setState({size: size});
-      this.setState({selectedSize: size});
+      this.setState({selectedSize: size}, function() {
+        this.props.onSizeChange(this.state.selectedSize);
+      });
     };
   }
 
@@ -44,8 +46,6 @@ class Sizes extends React.Component {
   handleSizeChange(event) {
     var selectedSize = this.state.sizes[event.target.value];
     this.setState({selectedSize: selectedSize}, function() {
-      this.props.onSizeChange(selectedSize);
-      // console.log(this.props.socket);
       if (this.props.roomID !== 'lobby') {
         this.props.socket.emit('initiateSizeChange', this.state.selectedSize);
       }
