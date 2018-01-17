@@ -47,14 +47,14 @@ class Sizes extends React.Component {
       this.props.onSizeChange(selectedSize);
       // console.log(this.props.socket);
       if (this.props.roomID !== 'lobby') {
-        this.props.socket.emit('initiateSizeChange', this.state.selectedSize);  
+        this.props.socket.emit('initiateSizeChange', this.state.selectedSize);
       }
     });
   }
 
   render() {
     return (
-      <div id="size">
+      <div id={(this.props.currentStep === 0) ? 'show' : 'hide'}>
        <form>
          <ol>
            {this.state.sizes.map((size, idx) =>

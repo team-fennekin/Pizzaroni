@@ -47,14 +47,14 @@ class Crusts extends React.Component {
     this.setState({selectedCrust: selectedCrust}, function() {
       this.props.onCrustChange(selectedCrust);
       if (this.props.roomID !== 'lobby') {
-        this.props.socket.emit('initializeCrustChange', this.state.selectedCrust);  
+        this.props.socket.emit('initializeCrustChange', this.state.selectedCrust);
       }
     });
   }
 
   render() {
     return (
-      <div id="crust">
+      <div id={(this.props.currentStep === 1) ? 'show' : 'hide'}>
         <form>
           <ol>
             {this.state.crusts.map((crust, idx) =>
