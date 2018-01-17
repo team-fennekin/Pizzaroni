@@ -53,14 +53,14 @@ class Toppings extends React.Component {
     }, function(){
       this.props.onToppingChange(this.state.selectedToppings);
       if (this.props.roomID !== 'lobby') {
-        this.props.socket.emit('initiateToppingsChange', this.state.selectedToppings);  
+        this.props.socket.emit('initiateToppingsChange', this.state.selectedToppings);
       }
     });
   }
 
   render() {
     return (
-      <div id="toppings">
+      <div id={(this.props.currentStep === 2) ? 'show' : 'hide'}>
         <ul>
           {this.state.toppings.map((topping, idx) =>
             <li key={topping.id}>

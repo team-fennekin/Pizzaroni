@@ -121,14 +121,14 @@ class Pizza extends React.Component {
   }
 
   render() {
-    let currentOptionComponent = null;
-    if (this.state.currentStep === 0) {
-      currentOptionComponent = <Sizes onSizeChange={this.onSizeChange} socket={this.props.socket} roomID={this.props.roomID} />;
-    } else if (this.state.currentStep === 1) {
-      currentOptionComponent = <Crusts onCrustChange={this.onCrustChange} socket={this.props.socket} roomID={this.props.roomID} />;
-    } else if (this.state.currentStep === 2) {
-      currentOptionComponent = <Toppings onToppingChange={this.onToppingChange} socket={this.props.socket} roomID={this.props.roomID}/>;
-    }
+    // let currentOptionComponent = null;
+    // if (this.state.currentStep === 0) {
+    //   currentOptionComponent = <Sizes onSizeChange={this.onSizeChange} socket={this.props.socket} roomID={this.props.roomID} />;
+    // } else if (this.state.currentStep === 1) {
+    //   currentOptionComponent = <Crusts onCrustChange={this.onCrustChange} socket={this.props.socket} roomID={this.props.roomID} />;
+    // } else if (this.state.currentStep === 2) {
+    //   currentOptionComponent = <Toppings onToppingChange={this.onToppingChange} socket={this.props.socket} roomID={this.props.roomID}/>;
+    // }
 
     return (
       <div id="pizza">
@@ -141,7 +141,21 @@ class Pizza extends React.Component {
 
         <div id="options">
           <h1>Pizza Options</h1>
-          {currentOptionComponent}
+          <Sizes onSizeChange={this.onSizeChange}
+                 socket={this.props.socket}
+                 roomID={this.props.roomID}
+                 currentStep={this.state.currentStep}
+                 />
+          <Crusts onCrustChange={this.onCrustChange}
+                  socket={this.props.socket}
+                  roomID={this.props.roomID}
+                  currentStep={this.state.currentStep}
+                  />
+          <Toppings onToppingChange={this.onToppingChange}
+                    socket={this.props.socket}
+                    roomID={this.props.roomID}
+                    currentStep={this.state.currentStep}
+                    />
         </div>
 
         <PizzaPicture size={this.state.size.name}
