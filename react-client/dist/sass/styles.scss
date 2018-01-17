@@ -1,12 +1,6 @@
-@import 'base/index.scss';
-
-h1 {
-  color: orange;
-}
-
-h2 {
-  color: blue;
-}
+@import 'base/index';
+@import 'utilities/index';
+@import 'components/index';
 
 #toppings {
   border: 1px solid;
@@ -28,18 +22,6 @@ h2 {
   background-color: transparent;
 }
 
-li {
-  list-style-type: none;
-}
-
-* {
-  box-sizing: border-box;
-}
-
 #hide {
   display: none;
-}
-
-* {
-  cursor: wait;
 }
