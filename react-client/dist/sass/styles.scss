@@ -1,27 +1,3 @@
 @import 'base/index';
 @import 'utilities/index';
 @import 'components/index';
-
-#toppings {
-  border: 1px solid;
-}
-
-#size {
-  border: 1px solid;
-}
-
-#crust {
-  border: 1px solid;
-}
-
-#completed {
-  background-color: red;
-}
-
-#not-completed {
-  background-color: transparent;
-}
-
-#hide {
-  display: none;
-}
