@@ -1,0 +1,46 @@
+#dominoAPI {
+  grid-area: bs;
+}
+
+#progress-bar {
+  grid-area: progress;
+}
+#options {
+  grid-area: options;
+}
+#pizza-picture {
+  grid-area: pizza;
+}
+
+#order-summary {
+  grid-area: summary;
+}
+
+#submitButton {
+  grid-area: button;
+}
+
+#pizza {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "progress progress progrss"
+    "bs pizza pizza"
+    ". pizza pizza"
+    "options options options"
+    "summary summary button";
+}
+
+#pizza > * {
+  border: 1px red solid;
+}
+
+
+#bar {
+  display: flex;
+}
+
+#back-button {
+  order: -1;
+}
