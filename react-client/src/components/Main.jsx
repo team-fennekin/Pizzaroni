@@ -4,7 +4,6 @@ import $ from 'jquery';
 import io from 'socket.io-client';
 import Pizza from './Pizza.jsx';
 import ChatView from './ChatView.jsx';
-import Log from './Log.jsx';
 
 class Main extends React.Component {
   constructor(props) {
@@ -71,7 +70,6 @@ class Main extends React.Component {
       <div>
         <Pizza socket={this.socket} numberOfUsers={this.state.numberOfUsers} roomID={this.state.roomID}/>
         <ChatView roomID={this.state.roomID} username={this.state.username} socket={this.socket} handleRoomSwitch={this.handleRoomSwitch}/>
-        <Log />
       </div>
     );
   }
