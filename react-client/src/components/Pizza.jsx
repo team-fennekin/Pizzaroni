@@ -108,7 +108,7 @@ class Pizza extends React.Component {
 
   saveOrder() {
     var datum = {size: this.state.size, crust: this.state.crust, toppings: this.state.toppings, price: this.state.subtotal};
-    console.log(datum);
+    console.log('The order about to be saved is ', datum);
     $.ajax({
       url: '/save',
       method: 'POST',
@@ -123,7 +123,7 @@ class Pizza extends React.Component {
     });
   }
 
-  submitOrder() {
+  submitToAPIOrder() {
     OrderAPI.submitOrder();
     console.log('Pizza:submitOrder');
   }
