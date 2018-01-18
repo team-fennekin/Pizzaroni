@@ -1,0 +1,47 @@
+#dominoAPI {
+  grid-area: domino;
+}
+
+#progress-bar {
+  grid-area: progress;
+}
+#options {
+  grid-area: options;
+}
+#pizza-picture {
+  grid-area: pizza;
+}
+
+#order-summary {
+  grid-area: summary;
+}
+
+#submitButton {
+  grid-area: button;
+}
+
+#pizza {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: auto;
+  // grid-template-columns: 120px auto 120px;
+  grid-template-areas:
+    "progress  progress  progress"
+    "options pizza pizza"
+    "options  pizza  pizza "
+    "summary  submit  domino";
+  max-width: 600px;
+}
+
+#pizza > * {
+  border: 1px red solid;
+}
+
+//fine
+#bar {
+  display: flex;
+}
+
+#back-button {
+  order: -1;
+}
