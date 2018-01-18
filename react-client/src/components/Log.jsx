@@ -26,6 +26,7 @@ class Log extends React.Component  {
         <button onClick={this.sendRequest}>Submit</button>
         <img id="leftUnicorn" src='pictures/fat_unicorn.png'/>
         <img id="leftUnicorn" src='pictures/sad_unicorn.png'/>
+        <img id="leftUnicorn" src='pictures/justMonica.jpg'/>
       </div>
     );
   }
