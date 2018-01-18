@@ -118,7 +118,6 @@ var saveUser = function(username, password, callback) {
   });
 };
 
-
 module.exports.getAllToppings = getAllToppings;
 module.exports.getAllUsers = getAllUsers;
 module.exports.getAllOrders = getAllOrders;
