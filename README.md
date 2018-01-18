@@ -21,15 +21,12 @@
 
 ## Usage
 
-> Withing the directory, write 'npm install'
+> Run 'npm run tiffOneLove' to view the compiled version of our app
 
 ## Requirements
 
 - Node 6.4.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- MySQL 2.13.x
 
 ## Development
 
@@ -38,9 +35,7 @@
 From within the root directory:
 
 ```sh
-npm install -g bower
 npm install
-bower install
 ```
 
 ### Roadmap

@@ -4,7 +4,6 @@ import $ from 'jquery';
 import io from 'socket.io-client';
 import Pizza from './Pizza.jsx';
 import ChatView from './ChatView.jsx';
-import Log from './Log.jsx';
 
 class Main extends React.Component {
   constructor(props) {
