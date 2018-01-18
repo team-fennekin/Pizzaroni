@@ -70,7 +70,6 @@ class Main extends React.Component {
       <div>
         <Pizza socket={this.socket} numberOfUsers={this.state.numberOfUsers} roomID={this.state.roomID}/>
         <ChatView roomID={this.state.roomID} username={this.state.username} socket={this.socket} handleRoomSwitch={this.handleRoomSwitch}/>
-        <Log />
       </div>
     );
   }
