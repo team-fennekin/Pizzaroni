@@ -8,17 +8,29 @@ class App extends React.Component {
     super(props);
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      loggedIn: false
     };
+
+    this.login = this.login.bind(this);
   }
 
-
+  login(username, password) {
+    this.setState({username: username, password: password, loggedIn: true});
+  }
 
   render () {
+
+    let view = null;
+    if (this.state.loggedIn) {
+      view = <Main username={this.state.username} password={this.state.password}/>;
+    } else {
+      view = <Log onLog={this.login} />
+    }
+
     return (
       <div>
-        <Main />
-        <Log />
+        {view}
       </div>
     );
   }
