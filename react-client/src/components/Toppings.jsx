@@ -56,6 +56,7 @@ class Toppings extends React.Component {
       if (this.props.roomID !== 'lobby') {
         this.props.socket.emit('initiateToppingsChange', this.state.selectedToppings);
       }
+      this.props.onToppingChange(this.state.selectedToppings);
     });
   }
 

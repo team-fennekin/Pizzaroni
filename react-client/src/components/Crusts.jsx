@@ -50,6 +50,7 @@ class Crusts extends React.Component {
       if (this.props.roomID !== 'lobby') {
         this.props.socket.emit('initializeCrustChange', this.state.selectedCrust);
       }
+      this.props.onCrustChange(this.state.selectedCrust);
     });
   }
 
