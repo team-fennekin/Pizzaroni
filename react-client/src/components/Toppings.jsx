@@ -12,17 +12,15 @@ class Toppings extends React.Component {
 
     this.handleToppingChange = this.handleToppingChange.bind(this);
 
-    this.props.socket.on('updateToppings', function(toppings) {
-      setNewToppings(toppings);
-    });
+    // this.props.socket.on('updateToppings', function(toppings) {
+    //   setNewToppings(toppings);
+    // });
 
-    const setNewToppings = toppings => {
-      // console.log('JUST FUCKING SET IT TO THIS: ', size);
-      // this.setState({size: size});
-      this.setState({selectedToppings: toppings}, function() {
-        this.props.onToppingChange(this.state.selectedToppings);
-      });
-    };
+    // const setNewToppings = toppings => {
+    //   this.setState({selectedToppings: toppings}, function() {
+    //     this.props.onToppingChange(this.state.selectedToppings);
+    //   });
+    // };
   }
 
   componentWillMount() {
@@ -42,6 +40,7 @@ class Toppings extends React.Component {
   }
 
   handleToppingChange(event) {
+
     var idx = event.target.value;
     var prevToppingsState = this.state.selectedToppings;
     if (prevToppingsState.hasOwnProperty(idx)) {
@@ -54,7 +53,7 @@ class Toppings extends React.Component {
       selectedToppings: prevToppingsState
     }, function(){
       if (this.props.roomID !== 'lobby') {
-        this.props.socket.emit('initiateToppingsChange', this.state.selectedToppings);
+        this.props.socket.emit('changeToppings', this.state.selectedToppings);
       }
       this.props.onToppingChange(this.state.selectedToppings);
     });

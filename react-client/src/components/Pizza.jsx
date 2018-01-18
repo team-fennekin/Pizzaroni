@@ -40,6 +40,14 @@ class Pizza extends React.Component {
         currentStep: step
       });
     }
+
+    this.props.socket.on('friendChangedToppings', function(toppings) {
+      setNewFriendsToppings(toppings);
+    });
+
+    const setNewFriendsToppings = toppings => {
+      this.setState({friendToppings: Object.values(toppings)});
+    };
   }
 
   componentWillReceiveProps(nextProps) {
