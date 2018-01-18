@@ -49,6 +49,7 @@ class Sizes extends React.Component {
       if (this.props.roomID !== 'lobby') {
         this.props.socket.emit('initiateSizeChange', this.state.selectedSize);
       }
+      this.props.onSizeChange(this.state.selectedSize);
     });
   }
 
