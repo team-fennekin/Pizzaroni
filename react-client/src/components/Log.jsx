@@ -12,6 +12,7 @@ class Log extends React.Component  {
     this.sendRequest = this.sendRequest.bind(this);
     this.onUsernameChange = this.onUsernameChange.bind(this);
     this.onPasswordChange = this.onPasswordChange.bind(this);
+    this.saveUser = this.saveUser.bind(this);
   }
 
   sendRequest() {
@@ -27,6 +28,21 @@ class Log extends React.Component  {
   onPasswordChange(event) {
     this.setState({
       password: event.target.value
+    });
+  }
+
+  saveUser() {
+    $.ajax({
+      url: `/users/${username}`,
+      method: 'POST',
+      data: JSON.stringify(this.state.password),
+      contentType: 'application/json',
+      success: (data) => {
+        console.log(data);
+      },
+      error: (err) => {
+        console.log(err);
+      }
     });
   }
 
