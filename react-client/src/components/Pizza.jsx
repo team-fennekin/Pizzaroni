@@ -40,6 +40,14 @@ class Pizza extends React.Component {
         currentStep: step
       });
     }
+
+    this.props.socket.on('friendChangedToppings', function(toppings) {
+      setNewFriendsToppings(toppings);
+    });
+
+    const setNewFriendsToppings = toppings => {
+      this.setState({friendToppings: Object.values(toppings)});
+    };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -100,7 +108,7 @@ class Pizza extends React.Component {
 
   saveOrder() {
     var datum = {size: this.state.size, crust: this.state.crust, toppings: this.state.toppings, price: this.state.subtotal};
-    console.log(datum);
+    console.log('The order about to be saved is ', datum);
     $.ajax({
       url: '/save',
       method: 'POST',
@@ -115,7 +123,7 @@ class Pizza extends React.Component {
     });
   }
 
-  submitOrder() {
+  submitToAPIOrder() {
     OrderAPI.submitOrder();
     console.log('Pizza:submitOrder');
   }

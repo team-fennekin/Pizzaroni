@@ -87,9 +87,9 @@ io.on('connection', function(socket) {
     }
   });
 
-  socket.on('initiateToppingsChange', function(toppings) {
+  socket.on('changeToppings', function(toppings) {
     if (socket.room !== 'lobby') {
-      io.sockets.in(socket.room).emit('updateToppings', toppings);
+      socket.broadcast.to(socket.room).emit('friendChangedToppings', toppings);
     }
   });
 
