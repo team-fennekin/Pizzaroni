@@ -119,10 +119,10 @@ io.on('connection', function(socket) {
 
     // delete the current user from the active users of a room which
     // this user just left and have them update their userlist
-    if (rooms[socket.room]) {    
+    if (rooms[socket.room]) {
       delete rooms[socket.room].roomUsers[socket.username];
     }
-    
+
     io.sockets.in(socket.room).emit('updateRoomUsers', rooms[socket.room].roomUsers);
 
     socket.join(newRoom);
@@ -237,3 +237,5 @@ app.post('/users/:username', function (req, res) {
     }
   });
 });
+
+module.exports = server;
