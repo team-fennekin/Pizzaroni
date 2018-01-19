@@ -60,8 +60,6 @@ class Log extends React.Component  {
           <button onClick={this.saveUser}>Sign Up</button>
           <button onClick={this.sendRequest}>Sign In</button>
         </div>
-        <img id="leftUnicorn" src='pictures/fat_unicorn.png'/>
-        <img id="rightUnicorn" src='pictures/sad_unicorn.png'/>
       </div>
     );
   }
