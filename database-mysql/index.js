@@ -81,11 +81,15 @@ var savePizza = function(body, callback) {
 var saveToppings = function(pizzaId, body, callback) {
   var arr = [];
   for (var row of body.toppings) {
-    var str = `(${pizzaId}, ${row.id})`;
+    var str = `(${pizzaId}, ${row.id}, 0)`;
+    arr.push(str);
+  }
+  for (var row of body.friendToppings) {
+    var str = `(${pizzaId}, ${row.id}, 1)`;
     arr.push(str);
   }
   arr = arr.join(', ');
-  connection.query(`INSERT INTO pizza_toppings(pizza_id, topping_id) VALUES ${arr}`, function(err, results, fields) {
+  connection.query(`INSERT INTO pizza_toppings(pizza_id, topping_id, side_id) VALUES ${arr}`, function(err, results, fields) {
     if(err) {
       callback(err, null);
     } else {
