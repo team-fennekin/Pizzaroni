@@ -68,8 +68,9 @@ io.on('connection', function(socket) {
   });
 
   socket.on('inviteUser', function(userSendingInvite, socketIDofUserAcceptingInvite, newRoom) {
+    // console.log(userSendingInvite);
     if (io.sockets.connected[socketIDofUserAcceptingInvite]) {
-      io.sockets.connected[socketIDofUserAcceptingInvite].emit('receiveRoomInvite', newRoom);
+      io.sockets.connected[socketIDofUserAcceptingInvite].emit('receiveRoomInvite', newRoom, userSendingInvite);
     }
   });
 

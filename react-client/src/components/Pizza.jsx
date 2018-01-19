@@ -16,9 +16,8 @@ class Pizza extends React.Component {
       size: {},
       crust: {},
       toppings: [],
-      friendUserData: {},
-      friendToppings: [],
       friendUsername: null,
+      friendToppings: [],
       subtotal: 0,
       currentStep: 0,
       numberOfUsers: this.props.numberOfUsers
@@ -44,18 +43,31 @@ class Pizza extends React.Component {
 
     this.props.socket.on('friendChangedToppings', function(toppings, friendUsername) {
       setNewFriendsToppings(toppings);
-      setFriendUsername(friendUsername);
     });
-
-    const setFriendUsername = (friendUsername) => {
-      this.setState({friendUsername: friendUsername});
-    }
 
     const setNewFriendsToppings = toppings => {
       this.setState({friendToppings: Object.values(toppings)}, function () {
         this.countTotal();
       });
     };
+
+    // this.props.socket.on('updateRoomUsers', function(data) {
+    //   // console.log('user data');
+    //   if (this.props.roomID !== 'lobby') {
+    //     // console.log(data);
+    //     updateRoomUsers(data);
+    //   }
+    // });
+
+    this.props.socket.on('updateRoomUsers', data => {
+      if (this.props.roomID !== 'lobby') {
+        let usernamesInRoom = Object.keys(data);
+        let friendUsername = usernamesInRoom.filter((username) => username !== this.props.username);
+        this.setState({
+          friendUsername: friendUsername
+        });
+      }
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -105,7 +117,6 @@ class Pizza extends React.Component {
   }
 
   nextOption() {
-    console.log('next called');
     this.setState(((prevState) => (prevState.currentStep < 3) ? {currentStep: prevState.currentStep + 1} : null), function() {
       this.props.socket.emit('setStep', this.state.currentStep);
     });
@@ -145,6 +156,7 @@ class Pizza extends React.Component {
   }
 
   render() {
+    // console.log('socket should have username somewhere', this.props.socket);
     // let currentOptionComponent = null;
     // if (this.state.currentStep === 0) {
     //   currentOptionComponent = <Sizes onSizeChange={this.onSizeChange} socket={this.props.socket} roomID={this.props.roomID} />;
@@ -193,7 +205,7 @@ class Pizza extends React.Component {
                       friendToppings={this.state.friendToppings}
                       subtotal={this.state.subtotal}
                       numberOfUsers={this.state.numberOfUsers}
-                      socket={this.props.socket}
+                      username={this.props.username}
                       friendUsername={this.state.friendUsername}
                       />
 
