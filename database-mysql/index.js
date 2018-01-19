@@ -79,6 +79,7 @@ var savePizza = function(body, callback) {
 };
 
 var saveToppings = function(pizzaId, body, callback) {
+  console.log(body.toppings, body.friendToppings);
   var arr = [];
   for (var row of body.toppings) {
     var str = `(${pizzaId}, ${row.id}, 0)`;
