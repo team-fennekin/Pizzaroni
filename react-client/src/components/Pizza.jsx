@@ -134,7 +134,7 @@ class Pizza extends React.Component {
   }
 
   saveOrder() {
-    var datum = {size: this.state.size, crust: this.state.crust, toppings: this.state.toppings, price: this.state.subtotal};
+    var datum = {size: this.state.size, crust: this.state.crust, toppings: this.state.toppings, friendToppings: this.state.friendToppings, price: this.state.subtotal};
     console.log('The order about to be saved is ', datum);
     $.ajax({
       url: '/save',
