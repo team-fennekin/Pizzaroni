@@ -220,18 +220,13 @@ app.get('/users/:username', function (req, res) {
   });
 });
 
-//'Username is already taken. You are screwed.'
-
 app.post('/users/:username', function (req, res) {
   var username = req.params.username;
   items.saveUser(username, req.body.password, function(err, data) {
     if(err) {
-      // console.log('error is', err);
       res.sendStatus(500);
     } else {
-      // console.log(data);
-      // console.log('success');
-      // console.log(res);
+      console.log(data);
       res.status(200).end();
     }
   });
