@@ -35,7 +35,7 @@ class Log extends React.Component  {
     $.ajax({
       url: `/users/${username}`,
       method: 'POST',
-      data: JSON.stringify(this.state.password),
+      data: JSON.stringify({password: this.state.password}),
       contentType: 'application/json',
       success: (data) => {
         console.log(data);
@@ -48,17 +48,17 @@ class Log extends React.Component  {
 
   render() {
     return (
-      <div>
-        {this.state.username} {this.state.password}
-        <h1>Try to not get hit by rainbows</h1>
-        <h2>Username</h2>
-        <input onChange={this.onUsernameChange} />
-        <h2>Password</h2>
-        <input onChange={this.onPasswordChange} />
-        <button onClick={this.sendRequest}>Submit</button>
+      <div id="log">
+        <div id="login">
+          <label htmlFor="username" type="text">Username</label>
+          <input id="username" onChange={this.onUsernameChange} />
+          <label htmlFor="password" type="password">Password</label>
+          <input id="password" onChange={this.onPasswordChange} />
+          <button onClick={this.sendRequest}>Sign Up</button>
+          <button onClick={this.sendRequest}>Sign In</button>
+        </div>
         <img id="leftUnicorn" src='pictures/fat_unicorn.png'/>
-        <img id="leftUnicorn" src='pictures/sad_unicorn.png'/>
-        <img id="leftUnicorn" src='pictures/justMonica.jpg'/>
+        <img id="rightUnicorn" src='pictures/sad_unicorn.png'/>
       </div>
     );
   }

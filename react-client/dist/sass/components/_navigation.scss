@@ -37,6 +37,19 @@
   border: 1px red solid;
 }
 
+#log {
+  display: flex;
+}
+
+#login {
+  display: flex;
+  flex-direction: column;
+}
+
+#leftUnicorn {
+  order: -1;
+}
+
 //fine
 #bar {
   display: flex;
