@@ -39,6 +39,7 @@ class Log extends React.Component  {
       data: JSON.stringify({password: this.state.password}),
       contentType: 'application/json',
       success: (data) => {
+        console.log(data);
         alert('User saved!');
       },
       error: (err) => {
@@ -53,9 +54,9 @@ class Log extends React.Component  {
       <div id="log">
         <div id="login">
           <label htmlFor="username" type="text">Username</label>
-          <input id="username" onChange={this.onUsernameChange} />
+          <input id="username" type="text" onChange={this.onUsernameChange} />
           <label htmlFor="password" type="password">Password</label>
-          <input id="password" onChange={this.onPasswordChange} />
+          <input id="password" type="password" onChange={this.onPasswordChange} />
           <button onClick={this.saveUser}>Sign Up</button>
           <button onClick={this.sendRequest}>Sign In</button>
         </div>
