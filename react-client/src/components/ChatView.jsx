@@ -85,7 +85,7 @@ class ChatView extends React.Component {
       switchRoom(newRoom);
     });
 
-    const switchRoom = newRoom => {
+    const switchRoom = (newRoom) => {
       this.setState({
         roomID: newRoom
       }, function() {

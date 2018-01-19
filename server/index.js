@@ -19,8 +19,6 @@ var usernames = {};
 var rooms = {};
 
 io.on('connection', function(socket) {
-  // console.log('made socket connection ', socket.id);
-
   socket.on('addUser', function(username) {
     socket.username = username;
     socket.room = 'lobby';
@@ -70,8 +68,9 @@ io.on('connection', function(socket) {
   });
 
   socket.on('inviteUser', function(userSendingInvite, socketIDofUserAcceptingInvite, newRoom) {
+    // console.log(userSendingInvite);
     if (io.sockets.connected[socketIDofUserAcceptingInvite]) {
-      io.sockets.connected[socketIDofUserAcceptingInvite].emit('receiveRoomInvite', newRoom);
+      io.sockets.connected[socketIDofUserAcceptingInvite].emit('receiveRoomInvite', newRoom, userSendingInvite);
     }
   });
 
@@ -89,7 +88,7 @@ io.on('connection', function(socket) {
 
   socket.on('changeToppings', function(toppings) {
     if (socket.room !== 'lobby') {
-      socket.broadcast.to(socket.room).emit('friendChangedToppings', toppings);
+      socket.broadcast.to(socket.room).emit('friendChangedToppings', toppings, socket.username);
     }
   });
 

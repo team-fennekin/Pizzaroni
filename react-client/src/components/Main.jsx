@@ -24,7 +24,8 @@ class Main extends React.Component {
   }
 
   handleRoomSwitch(newRoomID) {
-    console.log('main app now knows there has been a switch out of the lobby');
+    // console.log('This is the friends username ', usernameOfFriend);
+    // console.log('main app now knows there has been a switch out of the lobby');
     this.setState({
       numberOfUsers: 2,
       roomID: newRoomID
@@ -34,8 +35,8 @@ class Main extends React.Component {
   render () {
     return (
       <div>
-        <Pizza socket={this.socket} numberOfUsers={this.state.numberOfUsers} roomID={this.state.roomID}/>
-        <ChatView roomID={this.state.roomID} username={this.state.username} socket={this.socket} handleRoomSwitch={this.handleRoomSwitch}/>
+        <Pizza username={this.state.username} socket={this.socket} numberOfUsers={this.state.numberOfUsers} roomID={this.state.roomID} />
+        <ChatView roomID={this.state.roomID} username={this.state.username} socket={this.socket} handleRoomSwitch={this.handleRoomSwitch} />
       </div>
     );
   }
