@@ -118,23 +118,15 @@ INSERT INTO toppings(name, price) VALUES ('onions', 0.75);
 INSERT INTO toppings(name, price) VALUES ('sausage', 0.75);
 INSERT INTO toppings(name, price) VALUES ('bacon', 5.75);
 INSERT INTO toppings(name, price) VALUES ('extra cheese', 1.75);
-INSERT INTO toppings(name, price) VALUES ('blue cheese', 8.75);
 INSERT INTO toppings(name, price) VALUES ('black olives', 2.25);
 INSERT INTO toppings(name, price) VALUES ('pineapple', 4.50);
 INSERT INTO toppings(name, price) VALUES ('spinach', 1.15);
-INSERT INTO toppings(name, price) VALUES ('red caviar', 5.65);
-INSERT INTO toppings(name, price) VALUES ('black caviar', 10.00);
-INSERT INTO toppings(name, price) VALUES ('royal golden caviar', 94.31);
-INSERT INTO toppings(name, price) VALUES ('Saffron', 371.49);
-INSERT INTO toppings(name, price) VALUES ('traffels', 371.49);
 
 -- SIZES
-INSERT INTO sizes(name, price) VALUES ('rofl_size', 0.99);
 INSERT INTO sizes(name, price) VALUES ('S', 9.99);
 INSERT INTO sizes(name, price) VALUES ('M', 16.99);
 INSERT INTO sizes(name, price) VALUES ('L', 22.99);
 INSERT INTO sizes(name, price) VALUES ('XL', 31.99);
-INSERT INTO sizes(name, price) VALUES ('Galactical', 750.99);
 
 -- CRUSTS
 INSERT INTO crusts(name, price) VALUES ('Thin Crust', 9.99);
