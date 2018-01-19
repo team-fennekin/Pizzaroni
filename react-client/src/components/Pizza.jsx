@@ -18,6 +18,7 @@ class Pizza extends React.Component {
       toppings: [],
       friendUserData: {},
       friendToppings: [],
+      friendUsername: null,
       subtotal: 0,
       currentStep: 0,
       numberOfUsers: this.props.numberOfUsers
@@ -41,12 +42,19 @@ class Pizza extends React.Component {
       });
     }
 
-    this.props.socket.on('friendChangedToppings', function(toppings) {
+    this.props.socket.on('friendChangedToppings', function(toppings, friendUsername) {
       setNewFriendsToppings(toppings);
+      setFriendUsername(friendUsername);
     });
 
+    const setFriendUsername = (friendUsername) => {
+      this.setState({friendUsername: friendUsername});
+    }
+
     const setNewFriendsToppings = toppings => {
-      this.setState({friendToppings: Object.values(toppings)});
+      this.setState({friendToppings: Object.values(toppings)}, function () {
+        this.countTotal();
+      });
     };
   }
 
@@ -82,9 +90,17 @@ class Pizza extends React.Component {
     var total = 0;
     total += this.state.size.price;
     total += this.state.crust.price;
-    for (var topping of this.state.toppings) {
-      total += topping.price;
+    var toppingPrice = 0;
+    for(var topping of this.state.toppings) {
+      toppingPrice += topping.price;
     }
+    if(this.state.numberOfUsers === 2) {
+      toppingPrice = toppingPrice * 0.5;
+      for (var friendTopping of this.state.friendToppings) {
+        toppingPrice += friendTopping.price * 0.5;
+      }
+    }
+    total += toppingPrice;
     this.setState({subtotal: total});
   }
 
@@ -174,7 +190,11 @@ class Pizza extends React.Component {
         <OrderSummary size={this.state.size.name}
                       crust={this.state.crust.name}
                       toppings={this.state.toppings}
+                      friendToppings={this.state.friendToppings}
                       subtotal={this.state.subtotal}
+                      numberOfUsers={this.state.numberOfUsers}
+                      socket={this.props.socket}
+                      friendUsername={this.state.friendUsername}
                       />
 
         <div id="submitButton">

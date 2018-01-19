@@ -19,8 +19,6 @@ var usernames = {};
 var rooms = {};
 
 io.on('connection', function(socket) {
-  // console.log('made socket connection ', socket.id);
-
   socket.on('addUser', function(username) {
     socket.username = username;
     socket.room = 'lobby';
@@ -89,7 +87,7 @@ io.on('connection', function(socket) {
 
   socket.on('changeToppings', function(toppings) {
     if (socket.room !== 'lobby') {
-      socket.broadcast.to(socket.room).emit('friendChangedToppings', toppings);
+      socket.broadcast.to(socket.room).emit('friendChangedToppings', toppings, socket.username);
     }
   });
 
