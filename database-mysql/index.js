@@ -118,13 +118,27 @@ var saveUser = function(username, password, callback) {
   });
 };
 
-module.exports.getAllToppings = getAllToppings;
-module.exports.getAllUsers = getAllUsers;
-module.exports.getAllOrders = getAllOrders;
-module.exports.getAllPizzas = getAllPizzas;
-module.exports.getAllCrusts = getAllCrusts;
-module.exports.getAllSizes = getAllSizes;
-module.exports.savePizza = savePizza;
-module.exports.saveToppings = saveToppings;
-module.exports.saveUser = saveUser;
-module.exports.checkUser = checkUser;
+var verifyUser = function(username, password, callback) {
+  connection.query(`SELECT * FROM users where username = ${username})`, function(err, results, fields) {
+    if(err) {
+      callback(err, null);
+    } else {
+      console.log(results);
+      callback(null, results);
+    }
+  });
+};
+
+module.exports = {
+  getAllToppings,
+  getAllUsers,
+  getAllOrders,
+  getAllPizzas,
+  getAllCrusts,
+  getAllSizes,
+  savePizza,
+  saveToppings,
+  saveUser,
+  checkUser,
+  verifyUser
+};
