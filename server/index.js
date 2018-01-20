@@ -98,6 +98,17 @@ io.on('connection', function(socket) {
     }
   });
 
+  socket.on('submittedOrder', function() {
+    // console.log('friend submitted order');
+    if (socket.room !== 'lobby') {
+      socket.broadcast.to(socket.room).emit('friendSubmittedOrder');
+      socket.broadcast.to(socket.room).emit('receiveMessage', {
+        username: 'SERVER',
+        message: `${socket.username} has submitted this order`
+      });
+    }
+  });
+
   socket.on('switchRoom', function(newRoom) {
     socket.leave(socket.room);
     //check if new rooms already exists
@@ -195,18 +206,21 @@ app.get('/crusts', function (req, res) {
 app.post('/save', function (req, res) {
   items.savePizza(req.body, function(err, data) {
     if(err) {
+      console.log(err);
       res.sendStatus(500);
     } else {
       var pizzaId = data.insertId;
       items.saveToppings(pizzaId, req.body, function(err, data) {
         if (err) {
+          console.log(err);
           res.sendStatus(500);
         } else {
           items.getPizza(pizzaId, function(err, data) {
             if (err) {
+              console.log(err);
               res.sendStatus(500);
             } else {
-              console.log(data);
+              res.status(200);
               res.json(data);
             }
           })
