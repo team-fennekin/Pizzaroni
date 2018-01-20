@@ -123,10 +123,10 @@ INSERT INTO toppings(name, price) VALUES ('pineapple', 4.50);
 INSERT INTO toppings(name, price) VALUES ('spinach', 1.15);
 
 -- SIZES
-INSERT INTO sizes(name, price) VALUES ('S', 9.99);
-INSERT INTO sizes(name, price) VALUES ('M', 16.99);
-INSERT INTO sizes(name, price) VALUES ('L', 22.99);
-INSERT INTO sizes(name, price) VALUES ('XL', 31.99);
+INSERT INTO sizes(name, price) VALUES ('Small', 9.99);
+INSERT INTO sizes(name, price) VALUES ('Medium', 16.99);
+INSERT INTO sizes(name, price) VALUES ('Large', 22.99);
+INSERT INTO sizes(name, price) VALUES ('eXtra Large', 31.99);
 
 -- CRUSTS
 INSERT INTO crusts(name, price) VALUES ('Thin Crust', 9.99);
