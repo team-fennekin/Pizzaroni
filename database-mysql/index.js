@@ -109,13 +109,12 @@ var getPizza = function(pizzaId, callback) {
                       ON pt.pizza_id = p.id
                     INNER JOIN toppings t
                       ON t.id = pt.topping_id
-                    WHERE p.id = 1`,
+                    WHERE p.id = ${pizzaId}`,
                     function(err, results, fields) {
     if(err) {
       console.log(err, 'err');
       callback(err, null);
     } else {
-      console.log('pPower');
       callback(null, results);
     }
   });
