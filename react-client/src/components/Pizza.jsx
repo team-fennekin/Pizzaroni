@@ -20,7 +20,8 @@ class Pizza extends React.Component {
       friendToppings: [],
       subtotal: 0,
       currentStep: 0,
-      numberOfUsers: this.props.numberOfUsers
+      numberOfUsers: this.props.numberOfUsers,
+      summaryTitle: 'Order Summary'
     };
 
     this.onSizeChange = this.onSizeChange.bind(this);
@@ -51,14 +52,6 @@ class Pizza extends React.Component {
       });
     };
 
-    // this.props.socket.on('updateRoomUsers', function(data) {
-    //   // console.log('user data');
-    //   if (this.props.roomID !== 'lobby') {
-    //     // console.log(data);
-    //     updateRoomUsers(data);
-    //   }
-    // });
-
     this.props.socket.on('updateRoomUsers', data => {
       if (this.props.roomID !== 'lobby') {
         let usernamesInRoom = Object.keys(data);
@@ -67,6 +60,12 @@ class Pizza extends React.Component {
           friendUsername: friendUsername
         });
       }
+    });
+
+    this.props.socket.on('friendSubmittedOrder', () => {
+      this.setState({
+        summaryTitle: 'Submitted Order:'
+      });
     });
   }
 
@@ -134,20 +133,30 @@ class Pizza extends React.Component {
   }
 
   saveOrder() {
-    var datum = {size: this.state.size, crust: this.state.crust, toppings: this.state.toppings, friendToppings: this.state.friendToppings, price: this.state.subtotal};
-    console.log('The order about to be saved is ', datum);
-    $.ajax({
-      url: '/save',
-      method: 'POST',
-      data: JSON.stringify(datum),
-      contentType: 'application/json',
-      sucess: function(data) {
-        console.log('data', data);
-      },
-      error: function(err) {
-        console.log(err);
-      }
-    });
+    if (this.state.summaryTitle !== 'Submitted Order:') {
+      var datum = {size: this.state.size, crust: this.state.crust, toppings: this.state.toppings, friendToppings: this.state.friendToppings, price: this.state.subtotal};
+      // console.log('The order about to be saved is ', datum);
+      $.ajax({
+        url: '/save',
+        method: 'POST',
+        data: JSON.stringify(datum),
+        contentType: 'application/json',
+        success: (data) => {
+          console.log('SUCCESS!');
+          console.log('data', data);
+          this.setState({
+            summaryTitle: 'Submitted Order:'
+          }, function() {
+            this.props.socket.emit('submittedOrder');
+          });
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      });
+    } else {
+      alert(`Sorry, ${this.props.username},but ${this.state.friendUsername} has already submitted this order!`);
+    }
   }
 
   submitToAPIOrder() {
@@ -207,6 +216,7 @@ class Pizza extends React.Component {
                       numberOfUsers={this.state.numberOfUsers}
                       username={this.props.username}
                       friendUsername={this.state.friendUsername}
+                      summaryTitle = {this.state.summaryTitle}
                       />
 
         <div id="submitButton">

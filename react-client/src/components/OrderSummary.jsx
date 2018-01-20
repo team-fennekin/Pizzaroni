@@ -18,7 +18,7 @@ const OrderSummary = (props) => {
 
   return (
     <div id="order-summary">
-      <h2>Order Summary</h2>
+      <h2>{props.summaryTitle}</h2>
 
       <div id="pizza-view-size">
         Size: {props.size}
