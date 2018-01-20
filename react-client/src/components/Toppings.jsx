@@ -67,7 +67,7 @@ class Toppings extends React.Component {
             <li key={topping.id}>
               <label key={topping.id}>
                 <input type="checkbox" value={idx} key={topping.id} checked={this.state.selectedToppings[idx] !== undefined} onChange={this.handleToppingChange}/>
-                {topping.topping_name}
+                {topping.name}
               </label>
             </li>
           )}
