@@ -79,7 +79,6 @@ var savePizza = function(body, callback) {
 };
 
 var saveToppings = function(pizzaId, body, callback) {
-  console.log(body.toppings, body.friendToppings);
   var arr = [];
   for (var row of body.toppings) {
     var str = `(${pizzaId}, ${row.id}, 0)`;
@@ -99,6 +98,29 @@ var saveToppings = function(pizzaId, body, callback) {
   });
 };
 
+var getPizza = function(pizzaId, callback) {
+  connection.query(`SELECT *
+                    FROM pizzas p
+                    INNER JOIN crusts c
+                      ON c.id = p.crust_id
+                    INNER JOIN sizes s
+                      ON s.id = p.size_id
+                    INNER JOIN pizza_toppings pt
+                      ON pt.pizza_id = p.id
+                    INNER JOIN toppings t
+                      ON t.id = pt.topping_id
+                    WHERE p.id = 1`,
+                    function(err, results, fields) {
+    if(err) {
+      console.log(err, 'err');
+      callback(err, null);
+    } else {
+      console.log('pPower');
+      callback(null, results);
+    }
+  });
+};
+
 var checkUser = function(username,  callback) {
   connection.query(`SELECT EXISTS(SELECT * FROM users WHERE username = '${username}'`, function(err, results, fields) {
     if(err) {
@@ -113,7 +135,6 @@ var saveUser = function(username, password, callback) {
   const saltRounds = 10;
   bcrypt.hash(password, saltRounds, function(err, hash) {
     connection.query(`INSERT INTO users(username, password) VALUES ('${username}', '${hash}')`, function(err, results, fields) {
-      console.log(hash);
       if(err) {
         callback(err, null);
       } else {
@@ -128,7 +149,6 @@ var verifyUser = function(username, password, callback) {
     if(err) {
       callback(err, null);
     } else {
-      console.log(results);
       callback(null, results);
     }
   });
@@ -145,5 +165,6 @@ module.exports = {
   saveToppings,
   saveUser,
   checkUser,
-  verifyUser
+  verifyUser,
+  getPizza
 };
