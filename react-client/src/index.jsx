@@ -9,14 +9,15 @@ class App extends React.Component {
     this.state = {
       username: '',
       password: '',
+      userId: '',
       loggedIn: false
     };
 
     this.login = this.login.bind(this);
   }
 
-  login(username, password) {
-    this.setState({username: username, password: password, loggedIn: true});
+  login(username, password, userId) {
+    this.setState({username: username, password: password, loggedIn: true, userId: userId});
   }
 
   render () {

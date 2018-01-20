@@ -8,6 +8,7 @@ class Log extends React.Component  {
     this.state = {
       username: '',
       password: '',
+      userId: '',
       response: 'Please LogIn'
     };
 
@@ -25,7 +26,7 @@ class Log extends React.Component  {
       success: (data) => {
         if (data) {
           console.log('Successful logIn');
-          this.props.onLog(this.state.username, this.state.password);
+          this.props.onLog(this.state.username, this.state.password, data);
         } else {
           this.setState({
             response: 'wrong username/password'
@@ -63,6 +64,8 @@ class Log extends React.Component  {
         this.setState({
           response: 'User Saved!'
         });
+        $('#username').val('');
+        $('#password').val('');
       },
       error: (err) => {
         console.log(err);

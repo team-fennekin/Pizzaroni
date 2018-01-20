@@ -153,7 +153,7 @@ var verifyUser = function(username, password, callback) {
           if (err) {
             callback(err, null);
           } else {
-            callback(null, res);
+            callback(null, res, results[0].id);
           }
         });
       } else {
