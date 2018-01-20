@@ -216,9 +216,10 @@ app.post('/save', function (req, res) {
   });
 });
 
-app.get('/users/:username', function (req, res) {
+app.get('/users/:username/:password', function (req, res) {
   var username = req.params.username;
-  items.checkUser(username, function(err, data) {
+  var password = req.params.password;
+  items.verifyUser(username, password, function(err, data) {
     if(err) {
       res.json(500);
     } else {

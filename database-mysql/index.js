@@ -144,17 +144,21 @@ var saveUser = function(username, password, callback) {
 };
 
 var verifyUser = function(username, password, callback) {
-  connection.query(`SELECT * FROM users where username = ${username})`, function(err, results, fields) {
+  connection.query(`SELECT * FROM users WHERE username = '${username}'`, function(err, results, fields) {
     if (err) {
       callback(err, null);
     } else {
-      bcrypt.compare(password, hash, function(err, res) {
-        if (err) {
-          callback(null, err);
-        } else {
-          callback(null, res);
-        }
-      });
+      if (results.length === 1) {
+        bcrypt.compare(password, results[0].password, function(err, res) {
+          if (err) {
+            callback(err, null);
+          } else {
+            callback(null, res);
+          }
+        });
+      } else {
+        callback(null, false);
+      }
     }
   });
 };

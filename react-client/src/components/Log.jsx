@@ -11,15 +11,34 @@ class Log extends React.Component  {
       response: 'Please LogIn'
     };
 
-    this.sendRequest = this.sendRequest.bind(this);
+    this.verifyUser = this.verifyUser.bind(this);
     this.onUsernameChange = this.onUsernameChange.bind(this);
     this.onPasswordChange = this.onPasswordChange.bind(this);
     this.saveUser = this.saveUser.bind(this);
   }
 
-  sendRequest() {
-    console.log(5555);
-    this.props.onLog(this.state.username, this.state.password);
+  verifyUser() {
+    $.ajax({
+      url: `/users/${this.state.username}/${this.state.password}`,
+      method: 'GET',
+      contentType: 'application/json',
+      success: (data) => {
+        if (data) {
+          console.log('Successful logIn');
+          this.props.onLog(this.state.username, this.state.password);
+        } else {
+          this.setState({
+            response: 'wrong username/password'
+          });
+        }
+      },
+      error: (err) => {
+        console.log(err);
+        this.setState({
+          response: 'We are screwed!!!!! GG'
+        });
+      }
+    });
   }
 
   onUsernameChange(event) {
@@ -61,7 +80,7 @@ class Log extends React.Component  {
           <label htmlFor="password" type="password">Password</label>
           <input id="password" type="password" onChange={this.onPasswordChange} />
           <button onClick={this.saveUser}>Sign Up</button>
-          <button onClick={this.sendRequest}>Sign In</button>
+          <button onClick={this.verifyUser}>Sign In</button>
         </div>
       </div>
     );
