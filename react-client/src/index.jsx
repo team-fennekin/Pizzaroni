@@ -24,7 +24,7 @@ class App extends React.Component {
 
     let view = null;
     if (this.state.loggedIn) {
-      view = <Main username={this.state.username} password={this.state.password}/>;
+      view = <Main username={this.state.username} password={this.state.password} userId={this.state.userId}/>;
     } else {
       view = <Log onLog={this.login} />
     }
