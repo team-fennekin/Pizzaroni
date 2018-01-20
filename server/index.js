@@ -106,6 +106,11 @@ io.on('connection', function(socket) {
         username: 'SERVER',
         message: `${socket.username} has submitted this order`
       });
+    } else {
+      socket.broadcast.to(socket.room).emit('receiveMessage', {
+        username: 'SERVER',
+        message: `${socket.username} has submitted a pizza order alone!`
+      });
     }
   });
 
