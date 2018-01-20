@@ -62,8 +62,8 @@ class Crusts extends React.Component {
             {this.state.crusts.map((crust, idx) =>
               <li key={crust.id}>
                 <label key={crust.id}>
-                  <input type="radio" value={idx} key={crust.id} checked={this.state.selectedCrust.name === crust.name} onChange={this.handleCrustChange}/>
-                  {crust.name}
+                  <input type="radio" value={idx} key={crust.id} checked={this.state.selectedCrust.name === crust.crust_name} onChange={this.handleCrustChange}/>
+                  {crust.crust_name}
                 </label>
               </li>
             )}
