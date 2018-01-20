@@ -62,7 +62,7 @@ class Toppings extends React.Component {
   render() {
     return (
       <div id={(this.props.currentStep === 2) ? 'show' : 'hide'}>
-        <ul>
+        <ul id="navUl">
           {this.state.toppings.map((topping, idx) =>
             <li key={topping.id}>
               <label key={topping.id}>

@@ -3,6 +3,7 @@
 }
 #options {
   grid-area: options;
+  min-width: 700px;
 }
 #pizza-picture {
   grid-area: pizza;
@@ -23,9 +24,9 @@
   // grid-template-columns: 120px auto 120px;
   grid-template-areas:
     "progress  progress  progress"
-    "options pizza pizza"
-    "options  pizza  pizza "
-    "summary  submit  submit";
+    "pizza pizza summary"
+    "pizza  pizza summary"
+    "options options submit";
   max-width: 600px;
 }
 
@@ -40,6 +41,15 @@
 #login {
   display: flex;
   flex-direction: column;
+}
+
+#navUl {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#navUl > * {
+  flex: 1 33%;
 }
 
 //fine
