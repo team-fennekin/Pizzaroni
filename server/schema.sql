@@ -70,7 +70,7 @@ CREATE TABLE favorites (
 CREATE TABLE pizza_toppings (
   id int NOT NULL AUTO_INCREMENT,
   pizza_id int NOT NULL,
-  side_id int,
+  side_id int NOT NULL,
   topping_id int NOT NULL,
   PRIMARY KEY (ID)
 );
