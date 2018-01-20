@@ -99,7 +99,7 @@ var saveToppings = function(pizzaId, body, callback) {
 };
 
 var getPizza = function(pizzaId, callback) {
-  connection.query(`SELECT *
+  connection.query(`SELECT s.name as size_name, c.name as crust_name, p.price, t.name as topping_name, pt.side_id
                     FROM pizzas p
                     INNER JOIN crusts c
                       ON c.id = p.crust_id
@@ -109,13 +109,12 @@ var getPizza = function(pizzaId, callback) {
                       ON pt.pizza_id = p.id
                     INNER JOIN toppings t
                       ON t.id = pt.topping_id
-                    WHERE p.id = 1`,
+                    WHERE p.id = ${pizzaId}`,
                     function(err, results, fields) {
     if(err) {
       console.log(err, 'err');
       callback(err, null);
     } else {
-      console.log('pPower');
       callback(null, results);
     }
   });
@@ -145,11 +144,21 @@ var saveUser = function(username, password, callback) {
 };
 
 var verifyUser = function(username, password, callback) {
-  connection.query(`SELECT * FROM users where username = ${username})`, function(err, results, fields) {
-    if(err) {
+  connection.query(`SELECT * FROM users WHERE username = '${username}'`, function(err, results, fields) {
+    if (err) {
       callback(err, null);
     } else {
-      callback(null, results);
+      if (results.length === 1) {
+        bcrypt.compare(password, results[0].password, function(err, res) {
+          if (err) {
+            callback(err, null);
+          } else {
+            callback(null, res, results[0].id);
+          }
+        });
+      } else {
+        callback(null, false);
+      }
     }
   });
 };

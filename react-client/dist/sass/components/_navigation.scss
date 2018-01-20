@@ -1,7 +1,3 @@
-#dominoAPI {
-  grid-area: domino;
-}
-
 #progress-bar {
   grid-area: progress;
 }
@@ -29,7 +25,7 @@
     "progress  progress  progress"
     "options pizza pizza"
     "options  pizza  pizza "
-    "summary  submit  domino";
+    "summary  submit  submit";
   max-width: 600px;
 }
 
@@ -44,10 +40,6 @@
 #login {
   display: flex;
   flex-direction: column;
-}
-
-#leftUnicorn {
-  order: -1;
 }
 
 //fine

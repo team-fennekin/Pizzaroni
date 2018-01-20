@@ -17,7 +17,7 @@ class Sizes extends React.Component {
     });
 
     const setNewSize = size => {
-      // console.log('JUST FUCKING SET IT TO THIS: ', size);
+      // console.log('JUST SET IT TO THIS: ', size);
       // this.setState({size: size});
       this.setState({selectedSize: size}, function() {
         this.props.onSizeChange(this.state.selectedSize);
