@@ -202,7 +202,14 @@ app.post('/save', function (req, res) {
         if (err) {
           res.sendStatus(500);
         } else {
-          res.json(data);
+          items.getPizza(pizzaId, function(err, data) {
+            if (err) {
+              res.sendStatus(500);
+            } else {
+              console.log('FUCK', data);
+              res.json(data);
+            }
+          })
         }
       })
     }
