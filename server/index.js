@@ -194,7 +194,7 @@ app.get('/crusts', function (req, res) {
 
 app.post('/save', function (req, res) {
   items.savePizza(req.body, function(err, data) {
-    if(err) {
+    if (err) {
       res.sendStatus(500);
     } else {
       var pizzaId = data.insertId;
@@ -233,7 +233,6 @@ app.post('/users/:username', function (req, res) {
     if(err) {
       res.sendStatus(500);
     } else {
-      console.log(data);
       res.status(200).end();
     }
   });

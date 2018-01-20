@@ -145,10 +145,16 @@ var saveUser = function(username, password, callback) {
 
 var verifyUser = function(username, password, callback) {
   connection.query(`SELECT * FROM users where username = ${username})`, function(err, results, fields) {
-    if(err) {
+    if (err) {
       callback(err, null);
     } else {
-      callback(null, results);
+      bcrypt.compare(password, hash, function(err, res) {
+        if (err) {
+          callback(null, err);
+        } else {
+          callback(null, res);
+        }
+      });
     }
   });
 };

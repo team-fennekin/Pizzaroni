@@ -7,7 +7,8 @@ class Log extends React.Component  {
 
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      response: 'Please LogIn'
     };
 
     this.sendRequest = this.sendRequest.bind(this);
@@ -17,6 +18,7 @@ class Log extends React.Component  {
   }
 
   sendRequest() {
+    console.log(5555);
     this.props.onLog(this.state.username, this.state.password);
   }
 
@@ -39,11 +41,11 @@ class Log extends React.Component  {
       data: JSON.stringify({password: this.state.password}),
       contentType: 'application/json',
       success: (data) => {
-        console.log(data);
-        alert('User saved!');
+        this.setState({
+          response: 'User Saved!'
+        });
       },
       error: (err) => {
-        console.log(JSON.stringify({password: this.state.password}));
         console.log(err);
       }
     });
@@ -53,6 +55,7 @@ class Log extends React.Component  {
     return (
       <div id="log">
         <div id="login">
+          <h1>{this.state.response}</h1>
           <label htmlFor="username" type="text">Username</label>
           <input id="username" type="text" onChange={this.onUsernameChange} />
           <label htmlFor="password" type="password">Password</label>
