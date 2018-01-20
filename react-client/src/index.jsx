@@ -9,21 +9,22 @@ class App extends React.Component {
     this.state = {
       username: '',
       password: '',
+      userId: '',
       loggedIn: false
     };
 
     this.login = this.login.bind(this);
   }
 
-  login(username, password) {
-    this.setState({username: username, password: password, loggedIn: true});
+  login(username, password, userId) {
+    this.setState({username: username, password: password, loggedIn: true, userId: userId});
   }
 
   render () {
 
     let view = null;
     if (this.state.loggedIn) {
-      view = <Main username={this.state.username} password={this.state.password}/>;
+      view = <Main username={this.state.username} password={this.state.password} userId={this.state.userId}/>;
     } else {
       view = <Log onLog={this.login} />
     }
