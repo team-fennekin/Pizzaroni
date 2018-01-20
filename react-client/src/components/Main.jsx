@@ -11,10 +11,11 @@ class Main extends React.Component {
     this.state = {
       username: this.props.username,
       password: this.props.password,
+      userId: this.props.userId,
       roomID: 'lobby',
       numberOfUsers: 1
     };
-
+    console.log('CURRENT USER ID', this.props.userId);
     this.handleRoomSwitch = this.handleRoomSwitch.bind(this);
     this.socket = io.connect();
   }

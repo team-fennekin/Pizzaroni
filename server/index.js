@@ -230,13 +230,18 @@ app.post('/save', function (req, res) {
   });
 });
 
-app.get('/users/:username', function (req, res) {
+app.get('/users/:username/:password', function (req, res) {
   var username = req.params.username;
-  items.checkUser(username, function(err, data) {
+  var password = req.params.password;
+  items.verifyUser(username, password, function(err, data, id) {
     if(err) {
       res.json(500);
     } else {
-      res.json(data);
+      if (data) {
+        res.json(id);
+      } else {
+        res.json(data);
+      }
     }
   });
 });
@@ -247,8 +252,7 @@ app.post('/users/:username', function (req, res) {
     if(err) {
       res.sendStatus(500);
     } else {
-      console.log(data);
-      res.status(200).end();
+      res.json(data);
     }
   });
 });

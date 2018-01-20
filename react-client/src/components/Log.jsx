@@ -7,17 +7,39 @@ class Log extends React.Component  {
 
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      userId: '',
+      response: 'Please LogIn'
     };
 
-    this.sendRequest = this.sendRequest.bind(this);
+    this.verifyUser = this.verifyUser.bind(this);
     this.onUsernameChange = this.onUsernameChange.bind(this);
     this.onPasswordChange = this.onPasswordChange.bind(this);
     this.saveUser = this.saveUser.bind(this);
   }
 
-  sendRequest() {
-    this.props.onLog(this.state.username, this.state.password);
+  verifyUser() {
+    $.ajax({
+      url: `/users/${this.state.username}/${this.state.password}`,
+      method: 'GET',
+      contentType: 'application/json',
+      success: (data) => {
+        if (data) {
+          console.log('Successful logIn');
+          this.props.onLog(this.state.username, this.state.password, data);
+        } else {
+          this.setState({
+            response: 'wrong username/password'
+          });
+        }
+      },
+      error: (err) => {
+        console.log(err);
+        this.setState({
+          response: 'We are screwed!!!!! GG'
+        });
+      }
+    });
   }
 
   onUsernameChange(event) {
@@ -39,11 +61,13 @@ class Log extends React.Component  {
       data: JSON.stringify({password: this.state.password}),
       contentType: 'application/json',
       success: (data) => {
-        console.log(data);
-        alert('User saved!');
+        this.setState({
+          response: 'User Saved!'
+        });
+        $('#username').val('');
+        $('#password').val('');
       },
       error: (err) => {
-        console.log(JSON.stringify({password: this.state.password}));
         console.log(err);
       }
     });
@@ -53,12 +77,13 @@ class Log extends React.Component  {
     return (
       <div id="log">
         <div id="login">
+          <h1>{this.state.response}</h1>
           <label htmlFor="username" type="text">Username</label>
           <input id="username" type="text" onChange={this.onUsernameChange} />
           <label htmlFor="password" type="password">Password</label>
           <input id="password" type="password" onChange={this.onPasswordChange} />
           <button onClick={this.saveUser}>Sign Up</button>
-          <button onClick={this.sendRequest}>Sign In</button>
+          <button onClick={this.verifyUser}>Sign In</button>
         </div>
       </div>
     );
