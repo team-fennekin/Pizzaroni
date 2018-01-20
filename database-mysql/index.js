@@ -99,7 +99,7 @@ var saveToppings = function(pizzaId, body, callback) {
 };
 
 var getPizza = function(pizzaId, callback) {
-  connection.query(`SELECT s.name, c.name, p.price, t.name, pt.side_id
+  connection.query(`SELECT s.size_name, c.crust_name, p.price, t.topping_name, pt.side_id
                     FROM pizzas p
                     INNER JOIN crusts c
                       ON c.id = p.crust_id

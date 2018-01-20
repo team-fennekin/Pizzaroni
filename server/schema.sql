@@ -77,21 +77,21 @@ CREATE TABLE pizza_toppings (
 
 CREATE TABLE sizes (
   id int NOT NULL AUTO_INCREMENT,
-  name VARCHAR(20) NOT NULL,
+  size_name VARCHAR(20) NOT NULL,
   price FLOAT NOT NULL,
   PRIMARY KEY (ID)
 );
 
 CREATE TABLE toppings (
   id int NOT NULL AUTO_INCREMENT,
-  name VARCHAR(20) NOT NULL,
+  topping_name VARCHAR(20) NOT NULL,
   price FLOAT NOT NULL,
   PRIMARY KEY (ID)
 );
 
 CREATE TABLE crusts (
   id int NOT NULL AUTO_INCREMENT,
-  name VARCHAR(20) NOT NULL,
+  crust_name VARCHAR(20) NOT NULL,
   price int NOT NULL,
   PRIMARY KEY (ID)
 );
