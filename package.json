@@ -1,17 +1,17 @@
 {
   "name": "Pizzaria",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "private": true,
-  "description": "",
-  "author": "",
-  "license": "",
+  "description": "The online tool to connect people and to make them buy a lot of pizzas so we can profit from them",
+  "author": "Mikhail Stepanov, Ilya Yanchuk, Suhail Ansari, Gil Kwak",
+  "license": "UNLICENSED",
   "main": "index.js",
   "engines": {
-    "node": ">=6.4.0"
+    "node": ">=9.4.0"
   },
   "scripts": {
     "start": "node server/index.js",
-    "tiffOneLove": "npm run react-dev & npm run server-dev & npm run sass-dev",
+    "ez": "npm run react-dev & npm run server-dev & npm run sass-dev",
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js",
     "sass-dev": "sass --watch react-client/dist/sass/styles.scss:react-client/dist/styles.css",

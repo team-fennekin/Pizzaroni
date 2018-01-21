@@ -21,7 +21,7 @@
 
 ## Usage
 
-> Run 'npm run tiffOneLove' to view the compiled version of our app
+> Run 'npm run ez' to view the compiled version of our app
 
 ## Requirements
 
