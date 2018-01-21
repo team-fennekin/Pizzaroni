@@ -1,12 +1,14 @@
 var mysql = require('mysql');
 var bcrypt = require('bcrypt');
 // var config = require('../config.js');
-var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : '',
-  database : 'pizzeria'
+var connection = mysql.createPool({
+  connectionLimit: 10,
+  host     : 'us-cdbr-iron-east-05.cleardb.net',
+  user     : 'b829ed52f550ec',
+  password : 'd3936913',
+  database : 'heroku_50638d672586065'
 });
+
 
 var getAllUsers = function(callback) {
   connection.query('SELECT * FROM users', function(err, results, fields) {

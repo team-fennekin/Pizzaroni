@@ -26,23 +26,23 @@ class Crusts extends React.Component {
 
   }
 
-  // componentWillMount() {
-  //   $.ajax({
-  //     url: '/crusts',
-  //     method: 'GET',
-  //     success: (data) => {
-  //       this.setState({
-  //         crusts: data,
-  //         selectedCrust: data[0]
-  //       }, function(){
-  //         this.props.onCrustChange(this.state.selectedCrust);
-  //       });
-  //     },
-  //     error: (error) => {
-  //       console.log(error);
-  //     }
-  //   });
-  // }
+  componentWillMount() {
+    $.ajax({
+      url: '/crusts',
+      method: 'GET',
+      success: (data) => {
+        this.setState({
+          crusts: data,
+          selectedCrust: data[0]
+        }, function(){
+          this.props.onCrustChange(this.state.selectedCrust);
+        });
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
 
   handleCrustChange(event) {
     var selectedCrust = this.state.crusts[event.target.value];

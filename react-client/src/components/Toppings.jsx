@@ -23,21 +23,21 @@ class Toppings extends React.Component {
     // };
   }
 
-  // componentWillMount() {
-  //   $.ajax({
-  //     url: '/toppings',
-  //     method: 'GET',
-  //     success: (data) => {
-  //       // console.log('made it');
-  //       this.setState({
-  //         toppings: data
-  //       });
-  //     },
-  //     error: (error) => {
-  //       console.log(error);
-  //     }
-  //   });
-  // }
+  componentWillMount() {
+    $.ajax({
+      url: '/toppings',
+      method: 'GET',
+      success: (data) => {
+        // console.log('made it');
+        this.setState({
+          toppings: data
+        });
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
 
   handleToppingChange(event) {
 
