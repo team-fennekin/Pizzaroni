@@ -16,9 +16,9 @@ function Chatbanner(props) {
   if (!props.username) {
     return null;
   } else if (props.username[props.username.length - 1] === 's') {
-    return <h1>{props.username}' chat</h1>
+    return <h3 id="banner">{props.username}' chat</h3>
   } else {
-    return <h1>{props.username}'s chat</h1>
+    return <h3 id="banner">{props.username}'s chat</h3>
   }
 }
 
@@ -130,7 +130,7 @@ class ChatView extends React.Component {
 
     this.setState({
       messageToSend: ''
-    });    
+    });
   }
 
   handleUserNameClick(e) {
@@ -174,13 +174,15 @@ class ChatView extends React.Component {
     return (
       <div id="chat">
         <Chatbanner username={this.state.username} />
-        <h3>Active users for this room:</h3>
+        <div className='ez'>
+          <h3>Active users for this room:</h3>
 
-        <ul className="roomUsers">
-          {Object.keys(this.state.roomUsers).map((username, index) => {
-            return <li key={index} value={username} onClick={this.handleUserNameClick}>{username}</li>
-          })}
-        </ul>
+          <ul className="roomUsers">
+            {Object.keys(this.state.roomUsers).map((username, index) => {
+              return <li key={index} value={username} onClick={this.handleUserNameClick}>{username}</li>
+            })}
+          </ul>
+        </div>
 
         <div className="messageArea">
           <div className="messages">
@@ -193,14 +195,14 @@ class ChatView extends React.Component {
               } else {
                 return (
                   <p className="message" key={i}>{message.username}: {message.message}</p>
-                ) 
+                )
               }
             })}
            <NotificationArea userTyping={this.state.userTyping} />
           </div>
         </div>
         <input type="text" placeholder="Message" className="message-form" value={this.state.messageToSend} onChange={this.handleMessageTyping}/>
-        <button onClick={this.handleSendMessageClick}>Send Message</button>
+        <button id='BAD' onClick={this.handleSendMessageClick}>Send Message</button>
       </div>
     );
   }

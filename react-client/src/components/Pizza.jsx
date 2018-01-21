@@ -184,8 +184,13 @@ class Pizza extends React.Component {
                      backOption={this.backOption}
                      />
 
+
+   <PizzaPicture size={this.state.size.name}
+                 crust={this.state.crust.name}
+                 toppings={this.state.toppings}
+                 />
         <div id="options">
-          <h1>Pizza Options</h1>
+          <h3 id="sizes">Options</h3>
           <Sizes onSizeChange={this.onSizeChange}
                  socket={this.props.socket}
                  roomID={this.props.roomID}
@@ -202,11 +207,6 @@ class Pizza extends React.Component {
                     currentStep={this.state.currentStep}
                     />
         </div>
-
-        <PizzaPicture size={this.state.size.name}
-                      crust={this.state.crust.name}
-                      toppings={this.state.toppings}
-                      />
 
         <OrderSummary size={this.state.size.name}
                       crust={this.state.crust.name}

@@ -11,8 +11,18 @@
 }
 
 .progress-button:hover {
-    background-color: red;
+    background-color: $CornflowerBlue;
     color: white;
+}
+
+#bar {
+  // border: 1px solid $CornflowerBlue;
+  margin: 0.1em;
+}
+
+#bar > * {
+  padding-left: 0.15em;
+  padding-right: 0.15em;
 }
 
 .size-step {
@@ -23,7 +33,8 @@
 }
 
 .crust-step {
-  border: 1px solid;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
 }
 
 .toppings-step {
@@ -34,7 +45,7 @@
 }
 
 #completed {
-  background-color: red;
+  background-color: $CornflowerBlue;
 }
 
 #not-completed {
