@@ -38,6 +38,7 @@ class ChatView extends React.Component {
     this.handleMessageTyping = this.handleMessageTyping.bind(this);
     this.handleSendMessageClick = this.handleSendMessageClick.bind(this);
     this.handleUserNameClick = this.handleUserNameClick.bind(this);
+    this.handleMessageSubmit = this.handleMessageSubmit.bind(this);
     // this.handleSwitchRoomClick = this.handleSwitchRoomClick.bind(this);
 
     this.props.socket.on('receiveMessage', function(data) {
@@ -133,6 +134,12 @@ class ChatView extends React.Component {
     });
   }
 
+  handleMessageSubmit(e){
+    if (e.key === 'Enter') {
+      this.handleSendMessageClick(e);
+    }
+  }
+
   handleUserNameClick(e) {
     if (e.target.getAttribute("value") !== this.state.username && this.state.roomID === 'lobby') {
       let usernameToInvite = e.target.getAttribute("value");
@@ -201,7 +208,7 @@ class ChatView extends React.Component {
            <NotificationArea userTyping={this.state.userTyping} />
           </div>
         </div>
-        <input type="text" placeholder="Message" className="message-form" value={this.state.messageToSend} onChange={this.handleMessageTyping}/>
+        <input type="text" placeholder="Message" className="message-form" value={this.state.messageToSend} onChange={this.handleMessageTyping} onKeyDown={this.handleMessageSubmit} />
         <button id='BAD' onClick={this.handleSendMessageClick}>Send Message</button>
       </div>
     );
