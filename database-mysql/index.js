@@ -4,7 +4,7 @@ var bcrypt = require('bcrypt');
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
-  password : config.password,
+  password : '',
   database : 'pizzeria'
 });
 

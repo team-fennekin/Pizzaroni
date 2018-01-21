@@ -25,23 +25,23 @@ class Sizes extends React.Component {
     };
   }
 
-  componentWillMount() {
-    $.ajax({
-      url: '/sizes',
-      method: 'GET',
-      success: (data) => {
-        this.setState({
-          sizes: data,
-          selectedSize: data[2]
-        }, function(){
-          this.props.onSizeChange(this.state.selectedSize);
-        });
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    });
-  }
+  // componentWillMount() {
+  //   $.ajax({
+  //     url: '/sizes',
+  //     method: 'GET',
+  //     success: (data) => {
+  //       this.setState({
+  //         sizes: data,
+  //         selectedSize: data[2]
+  //       }, function(){
+  //         this.props.onSizeChange(this.state.selectedSize);
+  //       });
+  //     },
+  //     error: (error) => {
+  //       console.log(error);
+  //     }
+  //   });
+  // }
 
   handleSizeChange(event) {
     var selectedSize = this.state.sizes[event.target.value];
