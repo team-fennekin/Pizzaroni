@@ -64,6 +64,10 @@ class Log extends React.Component  {
       if (event.key === 'Enter') {
         this.saveUser();
       }
+    } else if (this.state.response === 'User Saved!') {
+      if (event.key === 'Enter') {
+        this.verifyUser();
+      }
     }
   }
 
