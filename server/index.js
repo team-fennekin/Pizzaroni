@@ -1,18 +1,18 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var axios = require('axios');
-var items = require('../database-mysql');
+var items = require('../mysql');
 var app = express();
 var path = require('path');
 // var server = require('http').createServer(app);
-var port = process.env.PORT;
+var port = process.env.PORT || 3000;
 
 var server = app.listen(port, function() {
   console.log('listening on port ', this.address().port, app.settings.env);
 });
 
 var io = require('socket.io').listen(server);
-app.use(express.static(__dirname + '/../react-client/dist'));
+app.use(express.static(__dirname + '/../react/dist'));
 app.use(bodyParser.json());
 
 

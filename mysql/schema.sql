@@ -1,3 +1,6 @@
+-- To Update Schema:
+-- mysql -u root < mysql/schema.sql
+
 DROP DATABASE IF EXISTS pizzeria;
 
 CREATE DATABASE pizzeria;
@@ -104,40 +107,15 @@ CREATE TABLE orders (
   price int NOT NULL,
   PRIMARY KEY (ID)
 );
-/*  Execute this file from the command line by typing:
- *    mysql -u root < server/schema.sql
- *  to create the database and the tables.*/
 
 -- TOPPINGS
-INSERT INTO toppings(name, price) VALUES ('pepperoni', 2);
-INSERT INTO toppings(name, price) VALUES ('mushrooms', 1.5);
-INSERT INTO toppings(name, price) VALUES ('jalapenos', 1);
-INSERT INTO toppings(name, price) VALUES ('bell peppers', 1.25);
-INSERT INTO toppings(name, price) VALUES ('green peppers', 1.25);
-INSERT INTO toppings(name, price) VALUES ('onions', 0.75);
-INSERT INTO toppings(name, price) VALUES ('sausage', 0.75);
-INSERT INTO toppings(name, price) VALUES ('bacon', 5.75);
-INSERT INTO toppings(name, price) VALUES ('extra cheese', 1.75);
-INSERT INTO toppings(name, price) VALUES ('black olives', 2.25);
-INSERT INTO toppings(name, price) VALUES ('pineapple', 4.50);
-INSERT INTO toppings(name, price) VALUES ('spinach', 1.15);
+INSERT INTO toppings(name, price) VALUES ('pepperoni', 2), ('mushrooms', 1.5), ('jalapenos', 1), ('bell peppers', 1.25), ('green peppers', 1.25), ('onions', 0.75), ('sausage', 0.75), ('bacon', 5.75), ('extra cheese', 1.75), ('black olives', 2.25), ('pineapple', 4.50), ('spinach', 1.15);
 
 -- SIZES
-INSERT INTO sizes(name, price) VALUES ('Small', 9.99);
-INSERT INTO sizes(name, price) VALUES ('Medium', 16.99);
-INSERT INTO sizes(name, price) VALUES ('Large', 22.99);
-INSERT INTO sizes(name, price) VALUES ('eXtra Large', 31.99);
+INSERT INTO sizes(name, price) VALUES ('Small', 9.99), ('Medium', 16.99), ('Large', 22.99), ('eXtra Large', 31.99);
 
 -- CRUSTS
-INSERT INTO crusts(name, price) VALUES ('Thin Crust', 9.99);
-INSERT INTO crusts(name, price) VALUES ('Thick Crust', 9.99);
-INSERT INTO crusts(name, price) VALUES ('Pan Crust', 9.99);
-INSERT INTO crusts(name, price) VALUES ('Deep Crust', 9.99);
-INSERT INTO crusts(name, price) VALUES ('Cheese Filled Crust', 9.99);
-INSERT INTO crusts(name, price) VALUES ('Stuffed Filled Crust', 9.99);
+INSERT INTO crusts(name, price) VALUES ('Thin Crust', 1.99), ('Thick Crust', 2.99), ('Pan Crust', 3.99), ('Deep Crust', 4.99), ('Cheese Filled Crust', 5.99), ('Stuffed Filled Crust', 6.99);
 
 -- USERS
-INSERT INTO users(first_name, last_name, email, phone_number) VALUES ('Misulechka', 'Grand ArchMage of Flames', 'rofl@gmail.com', '123 (456) 7890');
-INSERT INTO users(first_name, last_name, email, phone_number) VALUES ('Gil', 'Kwak', 'rofl@gmail.com', '123 (456) 7890');
-INSERT INTO users(first_name, last_name, email, phone_number) VALUES ('Ilya', 'Yanchuk', 'rofl@gmail.com', '123 (456) 7890');
-INSERT INTO users(first_name, last_name, email, phone_number) VALUES ('Suhail', 'Ansari', 'rofl@gmail.com', '123 (456) 7890');
+INSERT INTO users(first_name, last_name, email, phone_number) VALUES ('Misulechka', 'Grand ArchMage of Flames', 'rofl@gmail.com', '123 (456) 7890'), ('Gil', 'Kwak', 'rofl@gmail.com', '123 (456) 7890'), ('Ilya', 'Yanchuk', 'rofl@gmail.com', '123 (456) 7890'), ('Suhail', 'Ansari', 'rofl@gmail.com', '123 (456) 7890');
