@@ -24,7 +24,7 @@ class Toppings extends React.Component {
   }
 
   componentWillMount() {
-    console.log('trying to get toppings');
+    // console.log('trying to get toppings');
     $.ajax({
       url: '/toppings',
       method: 'GET',

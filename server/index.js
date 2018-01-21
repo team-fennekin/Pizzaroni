@@ -190,7 +190,7 @@ app.get('/sizes', function (req, res) {
 });
 
 app.get('/toppings', function (req, res) {
-  console.log('SERVER SIDE: asking for toppings');
+  // console.log('SERVER SIDE: asking for toppings');
   items.getAllToppings(function(err, data) {
     if(err) {
       res.sendStatus(500);
