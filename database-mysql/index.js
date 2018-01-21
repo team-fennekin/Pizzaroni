@@ -1,6 +1,6 @@
 var mysql = require('mysql');
 var bcrypt = require('bcrypt');
-var config = require('../config.js');
+// var config = require('../config.js');
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
