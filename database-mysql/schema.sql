@@ -104,9 +104,6 @@ CREATE TABLE orders (
   price int NOT NULL,
   PRIMARY KEY (ID)
 );
-/*  Execute this file from the command line by typing:
- *    mysql -u root < server/schema.sql
- *  to create the database and the tables.*/
 
 -- TOPPINGS
 INSERT INTO toppings(name, price) VALUES ('pepperoni', 2);
@@ -129,12 +126,12 @@ INSERT INTO sizes(name, price) VALUES ('Large', 22.99);
 INSERT INTO sizes(name, price) VALUES ('eXtra Large', 31.99);
 
 -- CRUSTS
-INSERT INTO crusts(name, price) VALUES ('Thin Crust', 9.99);
-INSERT INTO crusts(name, price) VALUES ('Thick Crust', 9.99);
-INSERT INTO crusts(name, price) VALUES ('Pan Crust', 9.99);
-INSERT INTO crusts(name, price) VALUES ('Deep Crust', 9.99);
-INSERT INTO crusts(name, price) VALUES ('Cheese Filled Crust', 9.99);
-INSERT INTO crusts(name, price) VALUES ('Stuffed Filled Crust', 9.99);
+INSERT INTO crusts(name, price) VALUES ('Thin Crust', 1.99);
+INSERT INTO crusts(name, price) VALUES ('Thick Crust', 2.99);
+INSERT INTO crusts(name, price) VALUES ('Pan Crust', 3.99);
+INSERT INTO crusts(name, price) VALUES ('Deep Crust', 4.99);
+INSERT INTO crusts(name, price) VALUES ('Cheese Filled Crust', 5.99);
+INSERT INTO crusts(name, price) VALUES ('Stuffed Filled Crust', 6.99);
 
 -- USERS
 INSERT INTO users(first_name, last_name, email, phone_number) VALUES ('Misulechka', 'Grand ArchMage of Flames', 'rofl@gmail.com', '123 (456) 7890');
