@@ -2,7 +2,7 @@ import React from 'react';
 
 const PizzaPicture = (props) => (
   <div id="pizza-picture">
-    <img src="../pictures/Pizza.png" />
+    <img src="../images/Pizza.png" />
   </div>
 )
 
