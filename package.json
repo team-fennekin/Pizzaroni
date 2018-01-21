@@ -1,6 +1,6 @@
 {
   "name": "Pizzaria",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "private": true,
   "description": "",
   "author": "",
@@ -11,7 +11,7 @@
   },
   "scripts": {
     "start": "node server/index.js",
-    "tiffOneLove": "npm run react-dev & npm run server-dev & npm run sass-dev",
+    "ez": "npm run react-dev & npm run server-dev & npm run sass-dev",
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js",
     "sass-dev": "sass --watch react-client/dist/sass/styles.scss:react-client/dist/styles.css",
