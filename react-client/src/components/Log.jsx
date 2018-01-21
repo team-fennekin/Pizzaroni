@@ -16,6 +16,7 @@ class Log extends React.Component  {
     this.onUsernameChange = this.onUsernameChange.bind(this);
     this.onPasswordChange = this.onPasswordChange.bind(this);
     this.saveUser = this.saveUser.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
   verifyUser() {
@@ -54,6 +55,18 @@ class Log extends React.Component  {
     });
   }
 
+  handleFormSubmit(event) {
+    if (this.state.response === 'Please LogIn') {
+      if (event.key === 'Enter') {
+        this.verifyUser();
+      }
+    } else if (this.state.response === 'wrong username/password') {
+      if (event.key === 'Enter') {
+        this.saveUser();
+      }
+    }
+  }
+
   saveUser() {
     $.ajax({
       url: `/users/${this.state.username}`,
@@ -79,9 +92,9 @@ class Log extends React.Component  {
         <div id="login">
           <h1>{this.state.response}</h1>
           <label htmlFor="username" type="text">Username</label>
-          <input id="username" type="text" onChange={this.onUsernameChange} />
+          <input id="username" type="text" onChange={this.onUsernameChange} onKeyDown={this.handleFormSubmit}/>
           <label htmlFor="password" type="password">Password</label>
-          <input id="password" type="password" onChange={this.onPasswordChange} />
+          <input id="password" type="password" onChange={this.onPasswordChange} onKeyDown={this.handleFormSubmit}/>
           <button onClick={this.saveUser}>Sign Up</button>
           <button onClick={this.verifyUser}>Sign In</button>
         </div>
