@@ -142,8 +142,8 @@ class Pizza extends React.Component {
         data: JSON.stringify(datum),
         contentType: 'application/json',
         success: (data) => {
-          console.log('SUCCESS!');
-          console.log('data', data);
+          // console.log('SUCCESS!');
+          // console.log('data', data);
           this.setState({
             summaryTitle: 'Submitted Order:'
           }, function() {

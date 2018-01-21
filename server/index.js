@@ -5,11 +5,10 @@ var items = require('../database-mysql');
 var app = express();
 var path = require('path');
 // var server = require('http').createServer(app);
-var port = process.env.PORT || '80';
+var port = process.env.PORT;
 
 var server = app.listen(port, function() {
   console.log('listening on port ', this.address().port, app.settings.env);
-  console.log('hello');
 });
 
 var io = require('socket.io').listen(server);
@@ -191,6 +190,7 @@ app.get('/sizes', function (req, res) {
 });
 
 app.get('/toppings', function (req, res) {
+  console.log('SERVER SIDE: asking for toppings');
   items.getAllToppings(function(err, data) {
     if(err) {
       res.sendStatus(500);
