@@ -26,7 +26,6 @@ class Log extends React.Component  {
       contentType: 'application/json',
       success: (data) => {
         if (data) {
-          console.log('Successful logIn');
           this.props.onLog(this.state.username, this.state.password, data);
         } else {
           this.setState({
