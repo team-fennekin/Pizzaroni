@@ -227,7 +227,6 @@ app.post('/save', function (req, res) {
               console.log(err);
               res.sendStatus(500);
             } else {
-              console.log('in here bithcez');
               res.status(200);
               res.json(data);
             }
