@@ -60,8 +60,21 @@ h1#sizes {
   border-bottom-right-radius: 0.35em;
 }
 
+.messageArea {
+  border-bottom-right-radius: 0.35em;
+}
+
+.ez {
+  border-bottom-left-radius: 0.35em;
+}
+
+#banner {
+  border-top-left-radius: 0.35em;
+  border-top-right-radius: 0.35em;
+}
+
+
 #chat > * {
-  border-radius: 0.35em;
   max-width: 100%;
 }
 

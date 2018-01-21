@@ -174,7 +174,7 @@ class ChatView extends React.Component {
     return (
       <div id="chat">
         <Chatbanner username={this.state.username} />
-        <div className='ez'>
+        <div className="ez">
           <h3>Active users for this room:</h3>
 
           <ul className="roomUsers">
