@@ -11,11 +11,10 @@
   },
   "scripts": {
     "start": "node server/index.js",
-    "update-schema": "mysql -u root < mysql/schema.sql",
-    "ez": "npm run react-dev & npm run server-dev & npm run sass-dev",
+    "magic": "npm run react-dev & npm run server-dev & npm run sass-dev",
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js",
-    "sass-dev": "sass --watch react-client/dist/sass/styles.scss:react-client/dist/styles.css",
+    "sass-dev": "sass --watch react/dist/sass/styles.scss:react/dist/styles.css --style compressed",
     "test": "mocha"
   },
   "dependencies": {

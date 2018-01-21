@@ -1,3 +1,6 @@
+-- To Update Schema: 
+-- mysql -u root < mysql/schema.sql
+
 DROP DATABASE IF EXISTS pizzeria;
 
 CREATE DATABASE pizzeria;
