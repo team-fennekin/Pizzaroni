@@ -81,19 +81,63 @@ class ChatView extends React.Component {
       });
     };
 
-    this.props.socket.on('receiveRoomInvite', function(newRoom) {
-      // console.log('got the message', newRoom);
-      switchRoom(newRoom);
-    });
+    // this.props.socket.on('receiveRoomInvite', function(newRoom) {
+    //   // console.log('got the message', newRoom);
+    //   switchRoom(newRoom);
+    // });
 
-    const switchRoom = (newRoom) => {
+    this.props.socket.on('inviteAccepted', (userAccepting, newRoom) => {
+      // console.log('the new room ID is ', newRoom);
       this.setState({
         roomID: newRoom
       }, function() {
-        this.props.handleRoomSwitch(this.state.roomID);
         this.props.socket.emit('switchRoom', this.state.roomID);
+        this.props.handleRoomSwitch(this.state.roomID);
+        alert(`${userAccepting} has accepted your invite. Let's make a pizza together!`);
       });
-    }
+    });
+
+    this.props.socket.on('receiveRoomInvite', (userSendingInvite, sockedIDofUserSendingInvite) => {
+      // console.log('got the message', newRoom);
+      var acceptedOrDeclined = confirm(`${userSendingInvite} has invited you to share a pizza with them! Do you accept?`);
+      if (acceptedOrDeclined === true) {
+        let generateNewRoomID = () => {
+          let m = 9;
+          let s = '';
+          let r = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+          for (var i=0; i < m; i++) {
+            s += r.charAt(Math.floor(Math.random()*r.length));
+          }
+          return s;
+        };
+
+        this.setState({
+          roomID: generateNewRoomID()
+        }, function() {
+          this.props.socket.emit('switchRoom', this.state.roomID);
+          this.props.handleRoomSwitch(this.state.roomID);
+          this.props.socket.emit('acceptInvite', this.props.username, sockedIDofUserSendingInvite, this.state.roomID);
+        });
+      } else {
+        this.props.socket.emit('declineInvite', this.props.username, sockedIDofUserSendingInvite);
+      }
+
+    });
+
+    this.props.socket.on('inviteDeclined', (userDeclining) => {
+      alert(`Sorry, ${this.props.username}, but ${userDeclining} has declined.`)
+    });
+
+
+
+    // const switchRoom = (newRoom) => {
+    //   this.setState({
+    //     roomID: newRoom
+    //   }, function() {
+    //     this.props.handleRoomSwitch(this.state.roomID);
+    //     this.props.socket.emit('switchRoom', this.state.roomID);
+    //   });
+    // }
 
     this.props.socket.on('clearMessages', () => {
       // console.log('Getting the clear messages event');
@@ -142,27 +186,31 @@ class ChatView extends React.Component {
 
   handleUserNameClick(e) {
     if (e.target.getAttribute("value") !== this.state.username && this.state.roomID === 'lobby') {
+
       let usernameToInvite = e.target.getAttribute("value");
       let userInfoToInvite = this.state.roomUsers[usernameToInvite];
       let socketIDtoInvite = this.state.roomUsers[usernameToInvite][1];
+      var sendInvite = confirm(`Would you like to invite ${usernameToInvite} to share a pizza with you?`);
+      if (sendInvite === true) {
+        this.props.socket.emit('inviteUser', this.state.username, socketIDtoInvite);
+      }
 
-      let generateNewRoomID = function() {
-        let m = 9;
-        let s = '';
-        let r = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        for (var i=0; i < m; i++) {
-          s += r.charAt(Math.floor(Math.random()*r.length));
-        }
-        return s;
-      };
+      // let generateNewRoomID = function() {
+      //   let m = 9;
+      //   let s = '';
+      //   let r = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      //   for (var i=0; i < m; i++) {
+      //     s += r.charAt(Math.floor(Math.random()*r.length));
+      //   }
+      //   return s;
+      // };
 
-      this.setState({
-        roomID: generateNewRoomID()
-      }, function() {
-        this.props.socket.emit('inviteUser', this.state.username, socketIDtoInvite, this.state.roomID);
-        this.props.socket.emit('switchRoom', this.state.roomID);
-        this.props.handleRoomSwitch(this.state.roomID);
-      });
+      // this.setState({
+      //   roomID: generateNewRoomID()
+      // }, function() {
+      //   this.props.socket.emit('switchRoom', this.state.roomID);
+      //   this.props.handleRoomSwitch(this.state.roomID);
+      // });
     }
   }
 

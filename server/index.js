@@ -68,14 +68,29 @@ io.on('connection', function(socket) {
     socket.broadcast.to(socket.room).emit('clearTyping');
   });
 
-  socket.on('inviteUser', function(userSendingInvite, socketIDofUserAcceptingInvite, newRoom) {
+  socket.on('inviteUser', function(userSendingInvite, socketIDofUserAcceptingInvite) {
     // console.log(userSendingInvite);
     if (io.sockets.connected[socketIDofUserAcceptingInvite]) {
-      io.sockets.connected[socketIDofUserAcceptingInvite].emit('receiveRoomInvite', newRoom, userSendingInvite);
+      io.sockets.connected[socketIDofUserAcceptingInvite].emit('receiveRoomInvite', userSendingInvite, socket.id);
+    }
+  });
+
+  socket.on('acceptInvite', function(userAccepting, sockedIDofUserSendingInvite, newRoom) {
+    // console.log('GETTING DECLINED: ', userDeclining, sockedIDofUserSendingInvite);
+    if (io.sockets.connected[sockedIDofUserSendingInvite]) {
+      io.sockets.connected[sockedIDofUserSendingInvite].emit('inviteAccepted', userAccepting, newRoom);
+    }
+  });
+
+  socket.on('declineInvite', function(userDeclining, sockedIDofUserSendingInvite) {
+    // console.log('GETTING DECLINED: ', userDeclining, sockedIDofUserSendingInvite);
+    if (io.sockets.connected[sockedIDofUserSendingInvite]) {
+      io.sockets.connected[sockedIDofUserSendingInvite].emit('inviteDeclined', userDeclining);
     }
   });
 
   socket.on('initiateSizeChange', function(size) {
+    // console.log('new size is ', size, 'chosen by ', socket.username);
     if (socket.room !== 'lobby') {
       io.sockets.in(socket.room).emit('updateSize', size);
     }
@@ -116,6 +131,7 @@ io.on('connection', function(socket) {
   });
 
   socket.on('switchRoom', function(newRoom) {
+    // console.log('User switching in', socket.username);
     socket.leave(socket.room);
     //check if new rooms already exists
     //if not, create it and add the creating user to its
