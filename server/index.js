@@ -99,10 +99,10 @@ io.on('connection', function(socket) {
     }
   });
 
-  socket.on('submittedOrder', function() {
+  socket.on('submittedOrder', function(userSubmitting) {
     // console.log('friend submitted order');
     if (socket.room !== 'lobby') {
-      socket.broadcast.to(socket.room).emit('friendSubmittedOrder');
+      io.sockets.in(socket.room).emit('friendSubmittedOrder', userSubmitting);
       socket.broadcast.to(socket.room).emit('receiveMessage', {
         username: 'SERVER',
         message: `${socket.username} has submitted this order`
