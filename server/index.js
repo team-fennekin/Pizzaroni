@@ -1,18 +1,17 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var axios = require('axios');
-var items = require('../database-mysql');
+var db = require('../mysql');
 var app = express();
 var path = require('path');
-// var server = require('http').createServer(app);
-var port = process.env.PORT;
+var port = process.env.PORT || 3000;
 
 var server = app.listen(port, function() {
   console.log('listening on port ', this.address().port, app.settings.env);
 });
 
 var io = require('socket.io').listen(server);
-app.use(express.static(__dirname + '/../react-client/dist'));
+app.use(express.static(__dirname + '/../react/dist'));
 app.use(bodyParser.json());
 
 
@@ -68,29 +67,14 @@ io.on('connection', function(socket) {
     socket.broadcast.to(socket.room).emit('clearTyping');
   });
 
-  socket.on('inviteUser', function(userSendingInvite, socketIDofUserAcceptingInvite) {
+  socket.on('inviteUser', function(userSendingInvite, socketIDofUserAcceptingInvite, newRoom) {
     // console.log(userSendingInvite);
     if (io.sockets.connected[socketIDofUserAcceptingInvite]) {
-      io.sockets.connected[socketIDofUserAcceptingInvite].emit('receiveRoomInvite', userSendingInvite, socket.id);
-    }
-  });
-
-  socket.on('acceptInvite', function(userAccepting, sockedIDofUserSendingInvite, newRoom) {
-    // console.log('GETTING DECLINED: ', userDeclining, sockedIDofUserSendingInvite);
-    if (io.sockets.connected[sockedIDofUserSendingInvite]) {
-      io.sockets.connected[sockedIDofUserSendingInvite].emit('inviteAccepted', userAccepting, newRoom);
-    }
-  });
-
-  socket.on('declineInvite', function(userDeclining, sockedIDofUserSendingInvite) {
-    // console.log('GETTING DECLINED: ', userDeclining, sockedIDofUserSendingInvite);
-    if (io.sockets.connected[sockedIDofUserSendingInvite]) {
-      io.sockets.connected[sockedIDofUserSendingInvite].emit('inviteDeclined', userDeclining);
+      io.sockets.connected[socketIDofUserAcceptingInvite].emit('receiveRoomInvite', newRoom, userSendingInvite);
     }
   });
 
   socket.on('initiateSizeChange', function(size) {
-    // console.log('new size is ', size, 'chosen by ', socket.username);
     if (socket.room !== 'lobby') {
       io.sockets.in(socket.room).emit('updateSize', size);
     }
@@ -114,10 +98,10 @@ io.on('connection', function(socket) {
     }
   });
 
-  socket.on('submittedOrder', function(userSubmitting) {
+  socket.on('submittedOrder', function() {
     // console.log('friend submitted order');
     if (socket.room !== 'lobby') {
-      io.sockets.in(socket.room).emit('friendSubmittedOrder', userSubmitting);
+      socket.broadcast.to(socket.room).emit('friendSubmittedOrder');
       socket.broadcast.to(socket.room).emit('receiveMessage', {
         username: 'SERVER',
         message: `${socket.username} has submitted this order`
@@ -131,7 +115,6 @@ io.on('connection', function(socket) {
   });
 
   socket.on('switchRoom', function(newRoom) {
-    // console.log('User switching in', socket.username);
     socket.leave(socket.room);
     //check if new rooms already exists
     //if not, create it and add the creating user to its
@@ -196,7 +179,7 @@ io.on('connection', function(socket) {
 
 
 app.get('/sizes', function (req, res) {
-  items.getAllSizes(function(err, data) {
+  db.getAllSizes(function(err, data) {
     if(err) {
       res.sendStatus(500);
     } else {
@@ -207,7 +190,7 @@ app.get('/sizes', function (req, res) {
 
 app.get('/toppings', function (req, res) {
   // console.log('SERVER SIDE: asking for toppings');
-  items.getAllToppings(function(err, data) {
+  db.getAllToppings(function(err, data) {
     if(err) {
       res.sendStatus(500);
     } else {
@@ -217,7 +200,7 @@ app.get('/toppings', function (req, res) {
 });
 
 app.get('/crusts', function (req, res) {
-  items.getAllCrusts(function(err, data) {
+  db.getAllCrusts(function(err, data) {
     if(err) {
       res.sendStatus(500);
     } else {
@@ -227,18 +210,18 @@ app.get('/crusts', function (req, res) {
 });
 
 app.post('/save', function (req, res) {
-  items.savePizza(req.body, function(err, data) {
+  db.savePizza(req.body, function(err, data) {
     if(err) {
       console.log(err);
       res.sendStatus(500);
     } else {
       var pizzaId = data.insertId;
-      items.saveToppings(pizzaId, req.body, function(err, data) {
+      db.saveToppings(pizzaId, req.body, function(err, data) {
         if (err) {
           console.log(err);
           res.sendStatus(500);
         } else {
-          items.getPizza(pizzaId, function(err, data) {
+          db.getPizza(pizzaId, function(err, data) {
             if (err) {
               console.log(err);
               res.sendStatus(500);
@@ -256,7 +239,7 @@ app.post('/save', function (req, res) {
 app.get('/users/:username/:password', function (req, res) {
   var username = req.params.username;
   var password = req.params.password;
-  items.verifyUser(username, password, function(err, data, id) {
+  db.verifyUser(username, password, function(err, data, id) {
     if(err) {
       res.json(500);
     } else {
@@ -271,7 +254,7 @@ app.get('/users/:username/:password', function (req, res) {
 
 app.post('/users/:username', function (req, res) {
   var username = req.params.username;
-  items.saveUser(username, req.body.password, function(err, data) {
+  db.saveUser(username, req.body.password, function(err, data) {
     if(err) {
       res.sendStatus(500);
     } else {

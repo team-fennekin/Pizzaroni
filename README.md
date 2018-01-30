@@ -21,12 +21,14 @@
 
 ## Usage
 
-> Run 'npm run tiffOneLove' to view the compiled version of our app
+> Run 'npm run magic' to view the compiled version of our app
 
 ## Requirements
 
-- Node 6.4.x
+- Node 9.4.x
 - MySQL 2.13.x
+- React 16.2.x
+- ReactDOM 16.2.x
 
 ## Development
 
