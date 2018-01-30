@@ -1,10 +1,9 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var axios = require('axios');
-var items = require('../mysql');
+var db = require('../mysql');
 var app = express();
 var path = require('path');
-// var server = require('http').createServer(app);
 var port = process.env.PORT || 3000;
 
 var server = app.listen(port, function() {
@@ -180,7 +179,7 @@ io.on('connection', function(socket) {
 
 
 app.get('/sizes', function (req, res) {
-  items.getAllSizes(function(err, data) {
+  db.getAllSizes(function(err, data) {
     if(err) {
       res.sendStatus(500);
     } else {
@@ -191,7 +190,7 @@ app.get('/sizes', function (req, res) {
 
 app.get('/toppings', function (req, res) {
   // console.log('SERVER SIDE: asking for toppings');
-  items.getAllToppings(function(err, data) {
+  db.getAllToppings(function(err, data) {
     if(err) {
       res.sendStatus(500);
     } else {
@@ -201,7 +200,7 @@ app.get('/toppings', function (req, res) {
 });
 
 app.get('/crusts', function (req, res) {
-  items.getAllCrusts(function(err, data) {
+  db.getAllCrusts(function(err, data) {
     if(err) {
       res.sendStatus(500);
     } else {
@@ -211,18 +210,18 @@ app.get('/crusts', function (req, res) {
 });
 
 app.post('/save', function (req, res) {
-  items.savePizza(req.body, function(err, data) {
+  db.savePizza(req.body, function(err, data) {
     if(err) {
       console.log(err);
       res.sendStatus(500);
     } else {
       var pizzaId = data.insertId;
-      items.saveToppings(pizzaId, req.body, function(err, data) {
+      db.saveToppings(pizzaId, req.body, function(err, data) {
         if (err) {
           console.log(err);
           res.sendStatus(500);
         } else {
-          items.getPizza(pizzaId, function(err, data) {
+          db.getPizza(pizzaId, function(err, data) {
             if (err) {
               console.log(err);
               res.sendStatus(500);
@@ -240,7 +239,7 @@ app.post('/save', function (req, res) {
 app.get('/users/:username/:password', function (req, res) {
   var username = req.params.username;
   var password = req.params.password;
-  items.verifyUser(username, password, function(err, data, id) {
+  db.verifyUser(username, password, function(err, data, id) {
     if(err) {
       res.json(500);
     } else {
@@ -255,7 +254,7 @@ app.get('/users/:username/:password', function (req, res) {
 
 app.post('/users/:username', function (req, res) {
   var username = req.params.username;
-  items.saveUser(username, req.body.password, function(err, data) {
+  db.saveUser(username, req.body.password, function(err, data) {
     if(err) {
       res.sendStatus(500);
     } else {
