@@ -21,7 +21,8 @@ class Pizza extends React.Component {
       subtotal: 0,
       currentStep: 0,
       numberOfUsers: this.props.numberOfUsers,
-      summaryTitle: 'Order Summary'
+      summaryTitle: 'Order Summary',
+      whoSubmitted: null,
     };
 
     this.onSizeChange = this.onSizeChange.bind(this);
@@ -62,9 +63,10 @@ class Pizza extends React.Component {
       }
     });
 
-    this.props.socket.on('friendSubmittedOrder', () => {
+    this.props.socket.on('friendSubmittedOrder', (whoSubmitted) => {
       this.setState({
-        summaryTitle: 'Submitted Order:'
+        summaryTitle: 'Submitted Order:',
+        whoSubmitted: whoSubmitted
       });
     });
   }
@@ -147,7 +149,7 @@ class Pizza extends React.Component {
           this.setState({
             summaryTitle: 'Submitted Order:'
           }, function() {
-            this.props.socket.emit('submittedOrder');
+            this.props.socket.emit('submittedOrder', this.props.username);
           });
         },
         error: (err) => {
@@ -155,7 +157,13 @@ class Pizza extends React.Component {
         }
       });
     } else {
-      alert(`Sorry, ${this.props.username},but ${this.state.friendUsername} has already submitted this order!`);
+      if (this.props.roomID === 'lobby') {
+        alert(`Dear ${this.props.username}, you have already submitted this order. Your pizza is on its way!`);
+      } else if (this.props.username !== this.state.whoSubmitted) {
+        alert(`Sorry, ${this.props.username}, but ${this.state.whoSubmitted} has already submitted this order. Your pizza is on its way!`);
+      } else {
+        alert(`Dear ${this.props.username}, you have already submitted this order. Your pizza is on its way!`);
+      }
     }
   }
 
