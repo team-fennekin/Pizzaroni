@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const io = require('socket.io');
+const socket = require('socket.io');
 const app = express();
 const db = require('../db');
 const port = process.env.PORT || 3000;
@@ -10,7 +10,7 @@ const server = app.listen(port, function() {
   console.log('listening on port ', this.address().port, app.settings.env);
 });
 
-const io = io.listen(server);
+const io = socket.listen(server);
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(bodyParser.json());
 
