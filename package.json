@@ -10,7 +10,7 @@
     "node": ">=9.4.0"
   },
   "scripts": {
-    "start": "mysql -u root < mysql/schema.sql && node server/index.js",
+    "start": "mysql -u root < db/schema.sql && node server/index.js",
     "dev": "npm run react-dev & npm run server-dev & npm run sass-dev",
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js",
