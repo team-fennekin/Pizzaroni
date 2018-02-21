@@ -1,7 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var axios = require('axios');
-var db = require('../mysql');
+var db = require('../db');
 var app = express();
 var path = require('path');
 var port = process.env.PORT || 3000;
@@ -11,7 +11,7 @@ var server = app.listen(port, function() {
 });
 
 var io = require('socket.io').listen(server);
-app.use(express.static(__dirname + '/../react/dist'));
+app.use(express.static(__dirname + '/../client/dist'));
 app.use(bodyParser.json());
 
 
