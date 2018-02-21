@@ -1,16 +1,16 @@
 var express = require('express');
-var bodyParser = require('body-parser');
-var axios = require('axios');
-var db = require('../db');
-var app = express();
 var path = require('path');
+var bodyParser = require('body-parser');
+var io = require('socket.io');
+var app = express();
+var db = require('../db');
 var port = process.env.PORT || 3000;
 
 var server = app.listen(port, function() {
   console.log('listening on port ', this.address().port, app.settings.env);
 });
 
-var io = require('socket.io').listen(server);
+var io = io.listen(server);
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(bodyParser.json());
 

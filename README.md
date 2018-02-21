@@ -1,6 +1,6 @@
 # Pizzaria
 
-> The online tool to connect people and to make them buy a lot of pizzas so we can profit from them
+> A full-stack web application that allows ordering pizza with another person at the same time
 
 ## Team
 
@@ -38,7 +38,6 @@ From within the root directory:
 
 ```sh
 npm install
-mysql -u root < mysql/schema.sql
 ```
 
 ### Roadmap
