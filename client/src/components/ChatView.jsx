@@ -99,13 +99,13 @@ class ChatView extends React.Component {
 
     this.props.socket.on('receiveRoomInvite', (userSendingInvite, sockedIDofUserSendingInvite) => {
       // console.log('got the message', newRoom);
-      var acceptedOrDeclined = confirm(`${userSendingInvite} has invited you to share a pizza with them! Do you accept?`);
+      let acceptedOrDeclined = confirm(`${userSendingInvite} has invited you to share a pizza with them! Do you accept?`);
       if (acceptedOrDeclined === true) {
         let generateNewRoomID = () => {
           let m = 9;
           let s = '';
           let r = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-          for (var i=0; i < m; i++) {
+          for (let i=0; i < m; i++) {
             s += r.charAt(Math.floor(Math.random()*r.length));
           }
           return s;
@@ -190,7 +190,7 @@ class ChatView extends React.Component {
       let usernameToInvite = e.target.getAttribute("value");
       let userInfoToInvite = this.state.roomUsers[usernameToInvite];
       let socketIDtoInvite = this.state.roomUsers[usernameToInvite][1];
-      var sendInvite = confirm(`Would you like to invite ${usernameToInvite} to share a pizza with you?`);
+      let sendInvite = confirm(`Would you like to invite ${usernameToInvite} to share a pizza with you?`);
       if (sendInvite === true) {
         this.props.socket.emit('inviteUser', this.state.username, socketIDtoInvite);
       }
@@ -199,7 +199,7 @@ class ChatView extends React.Component {
       //   let m = 9;
       //   let s = '';
       //   let r = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      //   for (var i=0; i < m; i++) {
+      //   for (let i=0; i < m; i++) {
       //     s += r.charAt(Math.floor(Math.random()*r.length));
       //   }
       //   return s;
@@ -218,7 +218,7 @@ class ChatView extends React.Component {
 
   // handleSwitchRoomClick(e) {
   //   // console.log(e.target);
-  //   var newRoomName = prompt('Please enter the name of your new room: ');
+  //   let newRoomName = prompt('Please enter the name of your new room: ');
   //   this.setState({
   //     roomID: newRoomName
   //   });

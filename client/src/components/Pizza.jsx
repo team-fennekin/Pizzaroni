@@ -100,16 +100,16 @@ class Pizza extends React.Component {
   }
 
   countTotal() {
-    var total = 0;
+    let total = 0;
     total += this.state.size.price;
     total += this.state.crust.price;
-    var toppingPrice = 0;
-    for(var topping of this.state.toppings) {
+    let toppingPrice = 0;
+    for(let topping of this.state.toppings) {
       toppingPrice += topping.price;
     }
     if(this.state.numberOfUsers === 2) {
       toppingPrice = toppingPrice * 0.5;
-      for (var friendTopping of this.state.friendToppings) {
+      for (let friendTopping of this.state.friendToppings) {
         toppingPrice += friendTopping.price * 0.5;
       }
     }
@@ -136,7 +136,7 @@ class Pizza extends React.Component {
 
   saveOrder() {
     if (this.state.summaryTitle !== 'Submitted Order:') {
-      var datum = {size: this.state.size, crust: this.state.crust, toppings: this.state.toppings, friendToppings: this.state.friendToppings, price: this.state.subtotal};
+      let datum = {size: this.state.size, crust: this.state.crust, toppings: this.state.toppings, friendToppings: this.state.friendToppings, price: this.state.subtotal};
       // console.log('The order about to be saved is ', datum);
       $.ajax({
         url: '/save',

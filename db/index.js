@@ -1,8 +1,8 @@
-var mysql = require('mysql');
-var bcrypt = require('bcrypt');
-var config = require('../config');
-console.log(config.host, config.user, config.password, config.datebase);
-var connection = mysql.createPool({
+const mysql = require('mysql');
+const bcrypt = require('bcrypt');
+const config = require('../config');
+
+const connection = mysql.createPool({
   connectionLimit: 10,
   host     : config.host,
   user     : config.user,
@@ -11,7 +11,7 @@ var connection = mysql.createPool({
 });
 
 
-var getAllUsers = function(callback) {
+const getAllUsers = function(callback) {
   connection.query('SELECT * FROM users', function(err, results, fields) {
     if(err) {
       callback(err, null);
@@ -21,7 +21,7 @@ var getAllUsers = function(callback) {
   });
 };
 
-var getAllOrders = function(callback) {
+const getAllOrders = function(callback) {
   connection.query('SELECT * FROM orders', function(err, results, fields) {
     if(err) {
       callback(err, null);
@@ -30,8 +30,7 @@ var getAllOrders = function(callback) {
     }
   });
 };
-
-var getAllPizzas = function(callback) {
+const getAllPizzas = function(callback) {
   connection.query('SELECT * FROM pizza', function(err, results, fields) {
     if(err) {
       callback(err, null);
@@ -40,8 +39,7 @@ var getAllPizzas = function(callback) {
     }
   });
 };
-
-var getAllCrusts = function(callback) {
+const getAllCrusts = function(callback) {
   connection.query('SELECT * FROM crusts', function(err, results, fields) {
     if(err) {
       callback(err, null);
@@ -50,8 +48,7 @@ var getAllCrusts = function(callback) {
     }
   });
 };
-
-var getAllSizes = function(callback) {
+const getAllSizes = function(callback) {
   connection.query('SELECT * FROM sizes', function(err, results, fields) {
     if(err) {
       callback(err, null);
@@ -60,8 +57,7 @@ var getAllSizes = function(callback) {
     }
   });
 };
-
-var getAllToppings = function(callback) {
+const getAllToppings = function(callback) {
   connection.query('SELECT * FROM toppings', function(err, results, fields) {
     if(err) {
       callback(err, null);
@@ -70,8 +66,7 @@ var getAllToppings = function(callback) {
     }
   });
 };
-
-var savePizza = function(body, callback) {
+const savePizza = function(body, callback) {
   connection.query(`INSERT INTO pizzas(size_id, crust_id, price) VALUES (${body.size.id}, ${body.crust.id}, ${body.price})`, function(err, results, fields) {
     if(err) {
       callback(err, null);
@@ -80,15 +75,14 @@ var savePizza = function(body, callback) {
     }
   });
 };
-
-var saveToppings = function(pizzaId, body, callback) {
-  var arr = [];
-  for (var row of body.toppings) {
-    var str = `(${pizzaId}, ${row.id}, 0)`;
+const saveToppings = function(pizzaId, body, callback) {
+  let arr = [];
+  for (let row of body.toppings) {
+    let str = `(${pizzaId}, ${row.id}, 0)`;
     arr.push(str);
   }
-  for (var row of body.friendToppings) {
-    var str = `(${pizzaId}, ${row.id}, 1)`;
+  for (let row of body.friendToppings) {
+    let str = `(${pizzaId}, ${row.id}, 1)`;
     arr.push(str);
   }
   arr = arr.join(', ');
@@ -101,7 +95,7 @@ var saveToppings = function(pizzaId, body, callback) {
   });
 };
 
-var getPizza = function(pizzaId, callback) {
+const getPizza = function(pizzaId, callback) {
   connection.query(`SELECT s.name as size_name, c.name as crust_name, p.price, t.name as topping_name, pt.side_id
                     FROM pizzas p
                     INNER JOIN crusts c
@@ -123,7 +117,7 @@ var getPizza = function(pizzaId, callback) {
   });
 };
 
-var checkUser = function(username,  callback) {
+const checkUser = function(username,  callback) {
   connection.query(`SELECT EXISTS(SELECT * FROM users WHERE username = '${username}'`, function(err, results, fields) {
     if(err) {
       callback(err, null);
@@ -133,7 +127,7 @@ var checkUser = function(username,  callback) {
   });
 };
 
-var saveUser = function(username, password, callback) {
+const saveUser = function(username, password, callback) {
   const saltRounds = 10;
   bcrypt.hash(password, saltRounds, function(err, hash) {
     connection.query(`INSERT INTO users(username, password) VALUES ('${username}', '${hash}')`, function(err, results, fields) {
@@ -146,7 +140,7 @@ var saveUser = function(username, password, callback) {
   });
 };
 
-var verifyUser = function(username, password, callback) {
+const verifyUser = function(username, password, callback) {
   connection.query(`SELECT * FROM users WHERE username = '${username}'`, function(err, results, fields) {
     if (err) {
       callback(err, null);

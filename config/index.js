@@ -6,6 +6,6 @@ if (process.env.Host) {
     database: process.env.Database
   };
 } else {
-  var config = require('./config.example.js');
+  let config = require('./config.example.js');
   module.exports = config;
 }

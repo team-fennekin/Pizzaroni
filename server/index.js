@@ -1,22 +1,22 @@
-var express = require('express');
-var path = require('path');
-var bodyParser = require('body-parser');
-var io = require('socket.io');
-var app = express();
-var db = require('../db');
-var port = process.env.PORT || 3000;
+const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser');
+const io = require('socket.io');
+const app = express();
+const db = require('../db');
+const port = process.env.PORT || 3000;
 
-var server = app.listen(port, function() {
+const server = app.listen(port, function() {
   console.log('listening on port ', this.address().port, app.settings.env);
 });
 
-var io = io.listen(server);
+const io = io.listen(server);
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(bodyParser.json());
 
 
-var usernames = {};
-var rooms = {};
+let usernames = {};
+let rooms = {};
 
 io.on('connection', function(socket) {
   socket.on('addUser', function(username) {
@@ -231,7 +231,7 @@ app.post('/save', function (req, res) {
       console.log(err);
       res.sendStatus(500);
     } else {
-      var pizzaId = data.insertId;
+      let pizzaId = data.insertId;
       db.saveToppings(pizzaId, req.body, function(err, data) {
         if (err) {
           console.log(err);
@@ -253,8 +253,8 @@ app.post('/save', function (req, res) {
 });
 
 app.get('/users/:username/:password', function (req, res) {
-  var username = req.params.username;
-  var password = req.params.password;
+  let username = req.params.username;
+  let password = req.params.password;
   db.verifyUser(username, password, function(err, data, id) {
     if(err) {
       res.json(500);
@@ -269,7 +269,7 @@ app.get('/users/:username/:password', function (req, res) {
 });
 
 app.post('/users/:username', function (req, res) {
-  var username = req.params.username;
+  let username = req.params.username;
   db.saveUser(username, req.body.password, function(err, data) {
     if(err) {
       res.sendStatus(500);

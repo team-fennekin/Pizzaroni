@@ -41,8 +41,8 @@ class Toppings extends React.Component {
 
   handleToppingChange(event) {
 
-    var idx = event.target.value;
-    var prevToppingsState = this.state.selectedToppings;
+    let idx = event.target.value;
+    let prevToppingsState = this.state.selectedToppings;
     if (prevToppingsState.hasOwnProperty(idx)) {
       delete prevToppingsState[idx];
     } else {

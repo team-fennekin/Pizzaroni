@@ -1,6 +1,6 @@
 # Pizzaria
 
-> A full-stack web application that allows ordering pizza with another person at the same time
+> A full-stack web application that allows ordering pizza with another person at the same time.
 
 ## Team
 
@@ -21,7 +21,8 @@
 
 ## Usage
 
-> Run 'npm run magic' to view the compiled version of our app
+> Run 'npm start' to view the compiled version of our app
+> Run 'npm run dev' to run app in the dev mode
 
 ## Requirements
 

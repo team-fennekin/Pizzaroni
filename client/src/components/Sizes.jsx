@@ -44,7 +44,7 @@ class Sizes extends React.Component {
   }
 
   handleSizeChange(event) {
-    var selectedSize = this.state.sizes[event.target.value];
+    let selectedSize = this.state.sizes[event.target.value];
     this.setState({selectedSize: selectedSize}, function() {
       if (this.props.roomID !== 'lobby') {
         this.props.socket.emit('initiateSizeChange', this.state.selectedSize);

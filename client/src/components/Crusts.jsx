@@ -45,7 +45,7 @@ class Crusts extends React.Component {
   }
 
   handleCrustChange(event) {
-    var selectedCrust = this.state.crusts[event.target.value];
+    let selectedCrust = this.state.crusts[event.target.value];
     this.setState({selectedCrust: selectedCrust}, function() {
       if (this.props.roomID !== 'lobby') {
         this.props.socket.emit('initializeCrustChange', this.state.selectedCrust);
