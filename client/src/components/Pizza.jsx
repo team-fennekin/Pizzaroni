@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import $ from 'jquery';
 
 import Sizes from './Sizes.jsx';
@@ -9,7 +9,7 @@ import PizzaPicture from './PizzaPicture.jsx';
 import ProgressBar from './ProgressBar.jsx';
 import OrderAPI from './OrderAPI.jsx';
 
-class Pizza extends React.Component {
+class Pizza extends Component {
   constructor(props) {
     super(props);
     this.state = {

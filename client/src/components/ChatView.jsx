@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import io from 'socket.io-client';
 
@@ -22,7 +22,7 @@ function Chatbanner(props) {
   }
 }
 
-class ChatView extends React.Component {
+class ChatView extends Component {
   constructor(props) {
     super(props);
     this.state = {

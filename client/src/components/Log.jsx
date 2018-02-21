@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import $ from 'jquery';
 
-class Log extends React.Component  {
+class Log extends Component  {
   constructor(props) {
     super(props);
 

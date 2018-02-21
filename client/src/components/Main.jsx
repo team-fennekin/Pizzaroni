@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import io from 'socket.io-client';
 import Pizza from './Pizza.jsx';
 import ChatView from './ChatView.jsx';
 
-class Main extends React.Component {
+class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {

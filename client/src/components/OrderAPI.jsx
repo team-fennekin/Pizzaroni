@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-class OrderAPI extends React.Component {
+class OrderAPI extends Component {
   constructor(props) {
     super(props);
     this.state = {

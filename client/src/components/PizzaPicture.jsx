@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 const PizzaPicture = (props) => (
   <div id="pizza-picture">

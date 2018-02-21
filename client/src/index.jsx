@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Main from './components/Main.jsx';
 import Log from './components/Log.jsx';
 
-class App extends React.Component {
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,7 +22,7 @@ class App extends React.Component {
 
   render () {
 
-    let view = null;
+    let view;
     if (this.state.loggedIn) {
       view = <Main username={this.state.username} password={this.state.password} userId={this.state.userId}/>;
     } else {
