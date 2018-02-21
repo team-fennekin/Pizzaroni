@@ -10,11 +10,12 @@
     "node": ">=9.4.0"
   },
   "scripts": {
-    "start": "mysql -u root < db/schema.sql && node server/index.js",
+    "start": "npm run reloadSchema && node server/index.js",
+    "reloadSchema": "mysql -u root < db/schema.sql",
     "dev": "npm run react-dev & npm run server-dev & npm run sass-dev",
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js",
-    "sass-dev": "node-sass --watch react/dist/sass/styles.scss -o react/dist --output-style compressed",
+    "sass-dev": "node-sass --watch client/dist/sass/styles.scss -o client/dist --output-style compressed",
     "test": "mocha"
   },
   "dependencies": {

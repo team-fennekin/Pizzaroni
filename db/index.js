@@ -1,6 +1,7 @@
 var mysql = require('mysql');
 var bcrypt = require('bcrypt');
 var config = require('../config');
+console.log(config.host, config.user, config.password, config.datebase);
 var connection = mysql.createPool({
   connectionLimit: 10,
   host     : config.host,
