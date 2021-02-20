@@ -21,7 +21,7 @@ describe('route /sizes', () => {
             done();
           });
     });
-    it('it should return all current sizes', (done) => {
+    it('it should return all of the current sizes', (done) => {
       chai.request(server)
           .get('/sizes')
           .end((err, res) => {
